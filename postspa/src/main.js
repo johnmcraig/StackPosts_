@@ -1,8 +1,20 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
+import axios from 'axios'
+import BootstrapVue from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import '@fortawesome/fontawesome-free/css/all.css'
 
 Vue.config.productionTip = false
+
+// Setup axios
+axios.defaults.baseURL = 'https://localhost:5000'
+Vue.prototype.$http = axios
+
+// Install Vue extensions
+Vue.use(BootstrapVue)
 
 new Vue({
   router,
