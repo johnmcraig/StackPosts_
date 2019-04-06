@@ -5,7 +5,6 @@
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#main-navbar" aria-controls="main-navbar" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
- 
       <div class="collapse navbar-collapse" id="main-navbar">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item active">
@@ -18,7 +17,6 @@
         </form>
       </div>
     </nav>
- 
     <main role="main" class="container mt-4">
       <router-view/>
     </main>

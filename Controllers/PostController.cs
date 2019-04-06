@@ -18,7 +18,7 @@ namespace StackPosts_.Controllers
         {
             new Post
             {
-                Id = Guid.Parse(""),
+                Id = Guid.Parse("b00c58c0-df00-49ac-ae85-0a135f75e01b"),
                 Title = "Welcome to the example Post",
                 Body = "Welcome to this demostration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
                 Replies = new List<Reply>{ new Reply { Body = "Awsome! Thanks."}}
@@ -29,13 +29,12 @@ namespace StackPosts_.Controllers
         [HttpGet()]
         public IEnumerable GetPosts()
         {
-           return posts.Select(p => new {
+           return posts. Select(p => new {
                Id = p.Id,
                Title = p.Title,
                Body = p.Body,
                Score = p.Score,
                ReplyCount = p.Replies.Count
-
            });
         }
 
