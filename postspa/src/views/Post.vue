@@ -7,7 +7,7 @@
     <p class="row">
       <vue-markdown class="offset-1 col-11">{{ post.body }}</vue-markdown>
     </p>
-    <ul class="list-unstyled row" v-if="hasReply">
+    <ul class="list-unstyled row" v-if="hasReplies">
       <li v-for="reply in post.replies" :key="reply.id" class="offset-1 col-11 border-top py-2">
         <vue-markdown>{{ reply.body }}</vue-markdown>
       </li>
@@ -26,7 +26,7 @@ import PostScore from '@/components/post-score'
 import AddReplyModal from '@/components/add-reply-modal'
 
 export default {
-components: {
+  components: {
     VueMarkdown,
     PostScore,
     AddReplyModal
@@ -39,7 +39,7 @@ components: {
     }
   },
   computed: {
-    hasAnswers () {
+    hasReplies () {
       return this.post.replies.length > 0
     }
   },
@@ -50,8 +50,8 @@ components: {
   },
   methods: {
     onReturnHome () {
-      this.$router.push({name: 'Home'})
-    }, 
+      this.$router.push({ name: 'Home' })
+    },
     onReplyAdded (reply) {
       if (!this.post.replies.find(a => a.id === reply.id)) {
         this.post.replies.push(reply)
