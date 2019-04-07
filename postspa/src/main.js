@@ -10,7 +10,7 @@ import '@fortawesome/fontawesome-free/css/all.css'
 Vue.config.productionTip = false
 
 // Setup axios
-axios.defaults.baseURL = 'https://localhost:5000'
+axios.defaults.baseURL = 'https://localhost:5001'
 Vue.prototype.$http = axios
 
 // Install Vue extensions

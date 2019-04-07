@@ -18,8 +18,8 @@
 </template>
 
 <script>
-// import PostPreview from '@/components/post-preview'
-// import AddPostModal from '@/components/add-post-modal'
+import PostPreview from '@/components/post-preview'
+import AddPostModal from '@/components/add-post-modal'
 
 export default {
   components: {
@@ -37,7 +37,7 @@ export default {
     })
   },
   methods: {
-    onpostAdded (post) {
+    onPostAdded (post) {
       this.posts = [post, ...this.posts]
     }
   }
