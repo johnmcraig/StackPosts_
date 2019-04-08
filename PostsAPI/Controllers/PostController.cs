@@ -5,9 +5,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StackPosts_.Models;
+using PostsAPI.Models;
 
-namespace StackPosts_.Controllers
+namespace PostsAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
@@ -20,7 +20,7 @@ namespace StackPosts_.Controllers
             {
                 Id = Guid.Parse("b00c58c0-df00-49ac-ae85-0a135f75e01b"),
                 Title = "Welcome to the example Post",
-                Body = "Welcome to this demostration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
+                Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
                 Replies = new List<Reply>{ new Reply { Body = "Awesome! Thanks."}}
             }
         };
