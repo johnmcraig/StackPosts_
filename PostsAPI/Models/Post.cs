@@ -17,6 +17,5 @@ namespace PostsAPI.Models
         public int Score { get; set; } // upvote/downvote tracking 
         public DateTime DatePosted { get; set; }
         public List<Reply> Replies;
-        
     }
 }
