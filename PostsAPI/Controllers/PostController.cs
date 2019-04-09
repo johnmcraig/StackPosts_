@@ -13,22 +13,22 @@ namespace PostsAPI.Controllers {
     [ApiController]
     public class PostController : Controller {
         private readonly PostsDbContext _dbContex;
-        private readonly List<Post> posts;
+        // private readonly List<Post> posts = new List<Post>();
 
         public PostController(PostsDbContext dbContex)
         {
             _dbContex = dbContex; 
         }
-        // public static ConcurrentBag<Post> posts = new ConcurrentBag<Post>
-        // {
-        //     new Post
-        //     {
-        //         Id = Guid.Parse("b00c58c0-df00-49ac-ae85-0a135f75e01b"),
-        //         Title = "Welcome to the example Post",
-        //         Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
-        //         Replies = new List<Reply>{ new Reply { Body = "Awesome! Thanks."}}
-        //     }
-        // };
+        public static ConcurrentBag<Post> posts = new ConcurrentBag<Post>
+        {
+            new Post
+            {
+                Id = Guid.Parse("b00c58c0-df00-49ac-ae85-0a135f75e01b"),
+                Title = "Welcome to the example Post",
+                Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
+                Replies = new List<Reply>{ new Reply { Body = "Awesome! Thanks."}}
+            }
+        };
 
         // GET api/post
         [HttpGet ()]

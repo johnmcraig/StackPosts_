@@ -19,7 +19,7 @@ namespace PostsAPI.Data
             if (_dbContext.Posts.Any())
                 return;
                 
-            var postData = System.IO.File.ReadAllText("Data/PostSeed");
+            var postData = System.IO.File.ReadAllText("Data/PostsSeed.json");
 
             var posts = JsonConvert.DeserializeObject<List<Post>>(postData);
             

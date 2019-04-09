@@ -30,7 +30,11 @@ namespace PostsAPI
             services.AddDbContext<PostsDbContext>(options => {
                 options.UseSqlServer(Configuration.GetConnectionString("sqlConString"));
             });
+
             services.AddCors();
+
+            // services.AddTransient<DataSeed>();
+
             services.AddMvc().
                 SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -54,7 +58,7 @@ namespace PostsAPI
                 .AllowAnyHeader()
                 .AllowCredentials();
             });
-            seedPost.Seed();
+            // seedPost.Seed();
             app.UseHttpsRedirection();
             app.UseMvc();
         }

@@ -9,12 +9,12 @@ namespace PostsAPI.Models
         [Required]
         [Key]
         public Guid Id { get; set; }
-        [MaxLength(175)]
+        [MaxLength(50)]
         public string Title { get; set; }
         [MaxLength(255)]
         public string Description { get; set; }
         public string Body { get; set; }
-        public int Score { get; set; } // upvote/downvote tracking 
+        public int Score { get; set; } // upvote & downvote tracking 
         public DateTime DatePosted { get; set; }
         public List<Reply> Replies;
     }
