@@ -31,7 +31,7 @@ namespace PostsAPI.Controllers {
         };
 
         // GET api/post
-        [HttpGet ()]
+        [HttpGet("")]
         public IEnumerable GetPosts()
         {
             return posts.Select(p => new {
@@ -47,31 +47,34 @@ namespace PostsAPI.Controllers {
         [HttpGet ("{id}")]
         public ActionResult GetPost(Guid id)
         {
-            var post = posts.SingleOrDefault (p => p.Id == id);
-            if (post == null) return NotFound ();
-            return new JsonResult (post);
+            var post = posts.SingleOrDefault(p => p.Id == id);
+            if (post == null) return NotFound();
+
+            return new JsonResult(post);
         }
 
         // POST api/post
         [HttpPost ()]
         public Post AddPost([FromBody] Post post)
         {
-            post.Id = Guid.NewGuid ();
-            post.Replies = new List<Reply> ();
+            post.Id = Guid.NewGuid();
+            post.Replies = new List<Reply>();
             posts.Add(post);
+
             return post;
         }
 
         [HttpPost ("{id}/reply")]
         public ActionResult AddReplyAsync(Guid id, [FromBody] Reply reply)
         {
-            var post = posts.SingleOrDefault (t => t.Id == id);
-            if (post == null) return NotFound ();
+            var post = posts.SingleOrDefault(t => t.Id == id);
+            if (post == null) return NotFound();
 
-            reply.Id = Guid.NewGuid ();
+            reply.Id = Guid.NewGuid();
             reply.PostId = id;
-            post.Replies.Add (reply);
-            return new JsonResult (reply);
+            post.Replies.Add(reply);
+
+            return new JsonResult(reply);
         }
 
         // PUT api/post/5

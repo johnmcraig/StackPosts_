@@ -6,13 +6,16 @@ namespace PostsAPI.Models
 {
     public class Post
     {
-        [Required]
+        
         [Key]
         public Guid Id { get; set; }
-        [MaxLength(50)]
+        [Required]
+        [MaxLength(150)]
         public string Title { get; set; }
-        [MaxLength(255)]
+        [Required]
+        [MaxLength(75)]
         public string Description { get; set; }
+        [Required]
         public string Body { get; set; }
         public int Score { get; set; } // upvote & downvote tracking 
         public DateTime DatePosted { get; set; }
