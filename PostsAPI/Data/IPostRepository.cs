@@ -7,10 +7,11 @@ namespace PostsAPI.Data
 {
     public interface IPostRepository
     {
-        void AddPost(Post addPost);
-        void UpdatePost(Post updatePost);
-        void DeletePost(Post deletePost);
+        void AddPost(Post post);
+        void UpdatePost(Post post);
+        void DeletePost(Post post);
         Task<IEnumerable<Post>> GetPosts();
         Task<Post> GetPost(Guid id);
+        Task<bool> SaveAll();
     }
 }

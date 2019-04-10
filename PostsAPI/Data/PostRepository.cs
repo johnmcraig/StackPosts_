@@ -1,33 +1,47 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 using PostsAPI.Models;
 
 namespace PostsAPI.Data
 {
     public class PostRepository : IPostRepository
     {
-        public void AddPost(Post addPost)
+        private readonly PostsDbContext _dbContext;
+
+        public PostRepository(PostsDbContext dbContext)
         {
-            throw new NotImplementedException();
+            _dbContext = dbContext;
+        }
+        public void AddPost(Post post)
+        {
+            _dbContext.Add(post);
         }
 
-        public void DeletePost(Post deletePost)
+        public void DeletePost(Post post)
         {
-            throw new NotImplementedException();
+            _dbContext.Remove(post);
         }
 
-        public Task<Post> GetPost(Guid id)
+        public async Task<Post> GetPost(Guid id)
         {
-            throw new NotImplementedException();
+            var post = await _dbContext.Posts.Include(r => r.Replies).FirstOrDefaultAsync();
+            return post;
         }
 
-        public Task<IEnumerable<Post>> GetPosts()
+        public async Task<IEnumerable<Post>> GetPosts()
         {
-            throw new NotImplementedException();
+            var posts = await _dbContext.Posts.Include(r => r.Replies).ToListAsync();
+            return posts;
         }
 
-        public void UpdatePost(Post updatePost)
+        public async Task<bool> SaveAll()
+        {
+            return await _dbContext.SaveChangesAsync() > 0;
+        }
+
+        public void UpdatePost(Post post)
         {
             throw new NotImplementedException();
         }
