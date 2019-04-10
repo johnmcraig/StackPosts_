@@ -25,6 +25,7 @@ namespace PostsAPI.Data
             
             foreach (var post in posts)
             {
+                var reply = post.Replies;
                 _dbContext.AddRange(post);
             }
             

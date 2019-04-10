@@ -11,7 +11,7 @@ namespace PostsAPI.Models
         public Guid PostId { get; set; } // call post id to assocaite reply to same post
         public string Title { get; set; }
         public string Body { get; set; } //aka Body text of reply to post
-        public DateTime DatePosted { get; set; }
+        public DateTime DateReplied { get; set; }
         
     }
 }
