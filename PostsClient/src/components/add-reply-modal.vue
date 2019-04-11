@@ -34,13 +34,13 @@ export default {
         }
     },
     methods: {
-        onSubmit (){
+        onSubmit (event) {
 
         },
-        onCancel (){
+        onCancel (event) {
 
         },
-        onHidden (){
+        onHidden () {
             Object.assign(this.form, {
                 title: '',
                 body: ''
