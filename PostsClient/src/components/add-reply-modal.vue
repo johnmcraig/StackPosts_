@@ -1,5 +1,5 @@
 <template>
-  <b-modal id="addReplyModal" ref="addReplyModal">
+  <b-modal id="addReplyModal" ref="addReplyModal" hide-footer title="Add a reply" @hidden="onHidden">
     <b-form @submit.prevent="onSubmit" @reset.prevent="onCancel">
       <b-form-group label="Your Reply" label-for="replyInput">
         <b-form-textarea
@@ -19,7 +19,34 @@
 
 <script>
 export default {
+    props: {
+        postId: {
+            type: string,
+            required: true
+        }
+    },
+    data () {
+        return {
+            form: {
+                title: '',
+                body: ''
+            }
+        }
+    },
+    methods: {
+        onSubmit (){
 
+        },
+        onCancel (){
+
+        },
+        onHidden (){
+            Object.assign(this.form, {
+                title: '',
+                body: ''
+            })
+        }
+    }
 }
 </script>
 
