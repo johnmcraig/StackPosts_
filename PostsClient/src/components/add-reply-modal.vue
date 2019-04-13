@@ -40,8 +40,16 @@ export default {
     }
   },
   methods: {
-    onSubmit (evt) {},
-    onCancel (evt) {},
+    onSubmit (evt) { 
+      this.$http.post(`api/post/${this.postId}/reply`, this.form)
+      .then(res => {
+      this.$emit('reply-added', res.data)
+      this.$refs.addReplyModal.hide()
+      })
+    },
+    onCancel (evt) {
+        this.$refs.addReplyModal.hide()
+    },
     onHidden () {
       Object.assign(this.form, {
         title: '',
