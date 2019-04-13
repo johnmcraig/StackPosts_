@@ -12,13 +12,13 @@ namespace PostsAPI.Controllers {
     [Route ("api/[controller]")]
     [ApiController]
     public class PostController : Controller {
-        private readonly PostsDbContext _dbContex;
+        // private readonly PostsDbContext _dbContex;
         // private readonly List<Post> posts = new List<Post>();
 
-        public PostController(PostsDbContext dbContex)
-        {
-            _dbContex = dbContex; 
-        }
+        // public PostController(PostsDbContext dbContex)
+        // {
+        //     _dbContex = dbContex; 
+        // }
         public static ConcurrentBag<Post> posts = new ConcurrentBag<Post>
         {
             new Post
@@ -31,7 +31,7 @@ namespace PostsAPI.Controllers {
         };
 
         // GET api/post
-        [HttpGet("")]
+        [HttpGet()]
         public IEnumerable GetPosts()
         {
             return posts.Select(p => new {
@@ -54,8 +54,8 @@ namespace PostsAPI.Controllers {
         }
 
         // POST api/post
-        [HttpPost ()]
-        public Post AddPost([FromBody] Post post)
+        [HttpPost()]
+        public Post AddPost([FromBody]Post post)
         {
             post.Id = Guid.NewGuid();
             post.Replies = new List<Reply>();

@@ -1,6 +1,6 @@
 <template>
   <b-modal id="addPostModal" ref="addPostModal" hide-footer title="Add new Post" @hidden="onHidden">
-    <b-form @submit.prevent="OnSubmit" @reset.prevent="onCancel">
+    <b-form @submit.prevent="onSubmit" @reset.prevent="onCancel">
       <b-form-group label="Title:" label-for="titleInput">
         <b-form-input
           id="titleInput"
@@ -37,13 +37,13 @@ export default {
     }
   },
   methods: {
-    onSubmit (event) {
-      this.$http.post('api.post', this.form).then(res => {
+    onSubmit (evt) {
+      this.$http.post('api/post', this.form).then(res => {
         this.$emit('post-added', res.data)
         this.$refs.addPostModal.hide()
       })
     },
-    onCancel (event) {
+    onCancel (evt) {
       this.$refs.addPostModal.hide()
     },
     onHidden () {

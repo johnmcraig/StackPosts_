@@ -1,5 +1,11 @@
 <template>
-  <b-modal id="addReplyModal" ref="addReplyModal" hide-footer title="Add a reply" @hidden="onHidden">
+  <b-modal
+    id="addReplyModal"
+    ref="addReplyModal"
+    hide-footer
+    title="Add a reply"
+    @hidden="onHidden"
+  >
     <b-form @submit.prevent="onSubmit" @reset.prevent="onCancel">
       <b-form-group label="Your Reply" label-for="replyInput">
         <b-form-textarea
@@ -7,8 +13,8 @@
           v-model="form.body"
           placeholder="Enter your reply here..."
           :rows="6"
-          :max-rows="10">
-        </b-form-textarea>
+          :max-rows="10"
+        ></b-form-textarea>
       </b-form-group>
     </b-form>
 
@@ -19,34 +25,30 @@
 
 <script>
 export default {
-    props: {
-        postId: {
-            type: string,
-            required: true
-        }
-    },
-    data () {
-        return {
-            form: {
-                title: '',
-                body: ''
-            }
-        }
-    },
-    methods: {
-        onSubmit (event) {
-
-        },
-        onCancel (event) {
-
-        },
-        onHidden () {
-            Object.assign(this.form, {
-                title: '',
-                body: ''
-            })
-        }
+  props: {
+    postId: {
+      type: String,
+      required: true
     }
+  },
+  data () {
+    return {
+      form: {
+        title: '',
+        body: ''
+      }
+    }
+  },
+  methods: {
+    onSubmit (evt) {},
+    onCancel (evt) {},
+    onHidden () {
+      Object.assign(this.form, {
+        title: '',
+        body: ''
+      })
+    }
+  }
 }
 </script>
 
