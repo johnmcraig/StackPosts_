@@ -52,12 +52,12 @@ namespace PostsAPI
                 app.UseHsts();
             }
 
-            app.UseCors(builder => {
-                builder.WithOrigins("http://localhost:8080")
+            app.UseCors(x => x.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials();
-            });
+                .AllowCredentials()
+            );
+            
             // seedPost.Seed();
             app.UseHttpsRedirection();
             app.UseMvc();

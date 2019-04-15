@@ -3,11 +3,11 @@
     id="addReplyModal"
     ref="addReplyModal"
     hide-footer
-    title="Add a reply"
+    title="Add a Reply"
     @hidden="onHidden"
   >
     <b-form @submit.prevent="onSubmit" @reset.prevent="onCancel">
-      <b-form-group label="Your Reply" label-for="replyInput">
+      <b-form-group label="Your Reply:" label-for="replyInput">
         <b-form-textarea
           id="replyInput"
           v-model="form.body"
@@ -40,11 +40,10 @@ export default {
     }
   },
   methods: {
-    onSubmit (evt) { 
-      this.$http.post(`api/post/${this.postId}/reply`, this.form)
-      .then(res => {
-      this.$emit('reply-added', res.data)
-      this.$refs.addReplyModal.hide()
+    onSubmit (evt) {
+      this.$http.post(`api/post/${this.postId}/reply`, this.form).then(res => {
+        this.$emit('reply-added', res.data)
+        this.$refs.addReplyModal.hide()
       })
     },
     onCancel (evt) {
@@ -61,4 +60,5 @@ export default {
 </script>
 
 <style>
+
 </style>

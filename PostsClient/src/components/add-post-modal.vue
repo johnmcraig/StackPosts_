@@ -38,7 +38,7 @@ export default {
   },
   methods: {
     onSubmit (evt) {
-      this.$http.post('api/post', this.form).then(res => {
+      this.$http.post(`api/post`, this.form).then(res => {
         this.$emit('post-added', res.data)
         this.$refs.addPostModal.hide()
       })

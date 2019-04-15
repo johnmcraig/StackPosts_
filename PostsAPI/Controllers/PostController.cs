@@ -34,7 +34,7 @@ namespace PostsAPI.Controllers {
         [HttpGet()]
         public IEnumerable GetPosts()
         {
-            return posts.Select(p => new {
+            return posts.Where(t => !t.Deleted).Select(p => new {
                 Id = p.Id,
                     Title = p.Title,
                     Body = p.Body,
@@ -58,37 +58,25 @@ namespace PostsAPI.Controllers {
         public Post AddPost([FromBody]Post post)
         {
             post.Id = Guid.NewGuid();
+            post.Deleted = false;
             post.Replies = new List<Reply>();
             posts.Add(post);
 
             return post;
         }
 
-        [HttpPost ("{id}/reply")]
+        [HttpPost("{id}/reply")]
         public ActionResult AddReplyAsync(Guid id, [FromBody] Reply reply)
         {
-            var post = posts.SingleOrDefault(t => t.Id == id);
+            var post = posts.SingleOrDefault(t => t.Id == id && !t.Deleted);
             if (post == null) return NotFound();
 
             reply.Id = Guid.NewGuid();
             reply.PostId = id;
+            reply.Deleted = false;
             post.Replies.Add(reply);
 
             return new JsonResult(reply);
-        }
-
-        // PUT api/post/5
-        [HttpPut ("{id}")]
-        public void Put(int id, [FromBody] string value)
-        {
-
-        }
-
-        // DELETE api/post/5
-        [HttpDelete ("{id}")]
-        public void DeleteById(int id)
-        {
-
         }
 
         [HttpPatch ("{id}/upvote")]
