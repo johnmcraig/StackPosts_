@@ -47,7 +47,7 @@ export default {
       })
     },
     onCancel (evt) {
-        this.$refs.addReplyModal.hide()
+      this.$refs.addReplyModal.hide()
     },
     onHidden () {
       Object.assign(this.form, {

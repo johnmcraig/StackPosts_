@@ -5,7 +5,6 @@ namespace PostsAPI.Models
 {
     public class Reply
     {
-        [Required]
         [Key]
         public Guid Id { get; set; }
         public Guid PostId { get; set; } // call post id to assocaite reply to same post
