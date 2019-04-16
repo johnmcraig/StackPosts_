@@ -66,7 +66,7 @@ namespace PostsAPI.Controllers {
         }
 
         [HttpPost("{id}/reply")]
-        public ActionResult AddReplyAsync(Guid id, [FromBody] Reply reply)
+        public ActionResult AddReply(Guid id, [FromBody]Reply reply)
         {
             var post = posts.SingleOrDefault(t => t.Id == id && !t.Deleted);
             if (post == null) return NotFound();

@@ -53,7 +53,8 @@ export default {
       this.$router.push({ name: 'Home' })
     },
     onReplyAdded (reply) {
-      if (!this.post.replies.find(a => a.id === reply.id)) {
+      if (this.post.is !== reply.postId) return
+      if (!this.post.replies.find(r => r.id === reply.id)) {
         this.post.replies.push(reply)
       }
     }

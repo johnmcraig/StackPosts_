@@ -52,10 +52,10 @@ namespace PostsAPI
                 app.UseHsts();
             }
 
-            app.UseCors(x => x.AllowAnyOrigin()
+            app.UseCors(x => 
+                x.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader()
-                .AllowCredentials()
             );
             
             // seedPost.Seed();

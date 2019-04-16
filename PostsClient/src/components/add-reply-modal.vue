@@ -16,10 +16,10 @@
           :max-rows="10"
         ></b-form-textarea>
       </b-form-group>
-    </b-form>
 
-    <button class="btn btn-primary float-right ml-2" type="submit">Submit</button>
-    <button class="btn btn-secondary float-right" type="reset">Cancel</button>
+      <button class="btn btn-primary float-right ml-2" type="submit">Submit</button>
+      <button class="btn btn-secondary float-right" type="reset">Cancel</button>
+    </b-form>
   </b-modal>
 </template>
 
@@ -60,5 +60,4 @@ export default {
 </script>
 
 <style>
-
 </style>
