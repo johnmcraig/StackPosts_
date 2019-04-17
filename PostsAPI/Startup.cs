@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PostsAPI.Data;
+using StackPosts_.Hubs;
 
 namespace PostsAPI
 {
@@ -32,6 +33,7 @@ namespace PostsAPI
             // });
 
             services.AddCors();
+            services.AddSignalR();
 
             // services.AddTransient<DataSeed>();
 
@@ -57,6 +59,11 @@ namespace PostsAPI
                 .AllowAnyMethod()
                 .AllowAnyHeader()
             );
+
+            app.UseSignalR(route =>
+            {
+                route.MapHub<PostHub>("/post-hub");
+            });
             
             // seedPost.Seed();
             app.UseHttpsRedirection();
