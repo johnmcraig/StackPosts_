@@ -5,20 +5,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using PostsAPI.Data;
+using PostsAPI.Hubs;
 using PostsAPI.Models;
 
 namespace PostsAPI.Controllers {
     [Route ("api/[controller]")]
     [ApiController]
-    public class PostController : Controller {
-        // private readonly PostsDbContext _dbContex;
-        // private readonly List<Post> posts = new List<Post>();
+    public class PostController : Controller 
+    {
+        private readonly IHubContext<PostHub, IPostHub> _hubContext;
+        public PostController(IHubContext<PostHub, IPostHub> postHub)
+        {
+            _hubContext = postHub;
+        }
 
-        // public PostController(PostsDbContext dbContex)
-        // {
-        //     _dbContex = dbContex; 
-        // }
         public static ConcurrentBag<Post> posts = new ConcurrentBag<Post>
         {
             new Post
