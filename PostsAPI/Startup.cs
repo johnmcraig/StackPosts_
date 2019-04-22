@@ -12,7 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PostsAPI.Data;
-using StackPosts_.Hubs;
+using PostsAPI.Hubs;
 
 namespace PostsAPI
 {
