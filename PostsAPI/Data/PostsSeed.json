@@ -1,7 +1,6 @@
 [
     {
         "Title": "Welcome to the example Post",
-        "Body": "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
-        "DatePosted": "2019-04-11"
+        "Body": "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6"
     }
 ]

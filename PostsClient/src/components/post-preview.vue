@@ -34,6 +34,10 @@ export default {
   methods: {
     onOpenPost () {
       this.$router.push({ name: 'Post', params: { id: this.post.id } })
+    },
+    onReplyCountChanged ({ postId, replyCount }) {
+      if (this.post.id !== postId) return
+      Object.assign(this.post, { replyCount })
     }
   }
 }

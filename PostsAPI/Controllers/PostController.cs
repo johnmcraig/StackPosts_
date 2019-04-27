@@ -68,7 +68,7 @@ namespace PostsAPI.Controllers {
         }
 
         [HttpPost("{id}/reply")]
-        public ActionResult AddReply(Guid id, [FromBody]Reply reply)
+        public async Task<ActionResult> AddReplyAsync(Guid id, [FromBody]Reply reply)
         {
             var post = posts.SingleOrDefault(t => t.Id == id && !t.Deleted);
             if (post == null) return NotFound();
@@ -78,27 +78,36 @@ namespace PostsAPI.Controllers {
             reply.Deleted = false;
             post.Replies.Add(reply);
 
+            await _hubContext.Clients.Group(id.ToString()).ReplyAdded(reply);
+            await _hubContext.Clients.All.ReplyCountChange(post.Id, post.Replies.Count);
+
             return new JsonResult(reply);
         }
 
         [HttpPatch ("{id}/upvote")]
-        public ActionResult UpvotePostAsync(Guid id)
+        public async Task<ActionResult> UpvotePostAsync(Guid id)
         {
             var post = posts.SingleOrDefault(t => t.Id == id);
             if (post == null) return NotFound();
 
             // Warning, this is not thread-safe. Use interlocked methods.
             post.Score++;
+
+            await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
+
             return new JsonResult(post);
         }
 
         [HttpPatch ("{id}/downvote")]
-        public ActionResult DownvotePostAsync(Guid id)
+        public async Task<ActionResult> DownvotePostAsync(Guid id)
         {
             var post = posts.SingleOrDefault(t => t.Id == id);
             if (post == null) return NotFound();
 
             post.Score--;
+
+            await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
+
             return new JsonResult(post);
         }
     }

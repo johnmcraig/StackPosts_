@@ -44,19 +44,30 @@ export default {
     }
   },
   created () {
+    this.$postHub.$on('score-changed', this.onScoreChanged)
     this.$http.get(`/api/post/${this.postId}`).then(res => {
       this.post = res.data
+      return this.$postHub.postOpened(this.postId)
     })
+    this.$postHub.$on('reply-added', this.onReplyAdded)
+  },
+  beforeDestroy () {
+    this.$postHub.postClosed(this.postId)
+    this.$postHub.$off('reply-added', this.onReplyAdded)
   },
   methods: {
     onReturnHome () {
       this.$router.push({ name: 'Home' })
     },
     onReplyAdded (reply) {
-      if (this.post.is !== reply.postId) return
+      if (this.post.id !== reply.postId) return
       if (!this.post.replies.find(r => r.id === reply.id)) {
         this.post.replies.push(reply)
       }
+    },
+    onScoreChanged ({ postId, score }) {
+      if (this.post.id !== postId) return
+      Object.assign(this.post, { score })
     }
   }
 }
