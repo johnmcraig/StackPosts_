@@ -6,7 +6,7 @@ import BootstrapVue from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import '@fortawesome/fontawesome-free/css/all.css'
-// import PostHub from './PostHub'
+import PostHub from './post-hub'
 
 Vue.config.productionTip = false
 
@@ -16,7 +16,7 @@ Vue.prototype.$http = axios
 
 // Install Vue extensions
 Vue.use(BootstrapVue)
-// Vue.use(PostHub)
+Vue.use(PostHub)
 
 new Vue({
   router,
