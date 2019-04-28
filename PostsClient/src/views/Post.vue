@@ -44,12 +44,12 @@ export default {
     }
   },
   created () {
-    this.$postHub.$on('score-changed', this.onScoreChanged)
     this.$http.get(`/api/post/${this.postId}`).then(res => {
       this.post = res.data
       return this.$postHub.postOpened(this.postId)
     })
     this.$postHub.$on('reply-added', this.onReplyAdded)
+    this.$postHub.$on('score-changed', this.onScoreChanged)
   },
   beforeDestroy () {
     this.$postHub.postClosed(this.postId)
@@ -65,10 +65,6 @@ export default {
         this.post.replies.push(reply)
       }
     },
-    onScoreChanged ({ postId, score }) {
-      if (this.post.id !== postId) return
-      Object.assign(this.post, { score })
-    }
   }
 }
 </script>

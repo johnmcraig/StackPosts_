@@ -18,6 +18,13 @@ export default {
       required: true
     }
   },
+  created () {
+    // Listen to score changes coming from SignalR events
+    this.$postHub.$on('score-changed', this.onScoreChanged)
+  },
+  beoreDestroy () {
+    this.$postHub.$off('score-changed', this.onScoreChanged)
+  },
   methods: {
     onUpvote () {
       this.$http.patch(`api/post/${this.post.id}/upvote`).then(res => {
@@ -28,6 +35,10 @@ export default {
       this.$http.patch(`api/post/${this.post.id}/downvote`).then(res => {
         Object.assign(this.post, res.data)
       })
+    },
+    onScoreChanged ({ postId, score }) {
+      if (this.post.id !== postId) return
+      Object.assign(this.post, { score })
     }
   }
 }

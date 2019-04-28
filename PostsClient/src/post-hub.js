@@ -14,10 +14,10 @@ export default {
       postHub.$emit('score-changed', { postId, score })
     })
     connection.on('ReplyCountChange', (postId, replyCount) => {
-      postHub.$emit('relpy-count-changed', { postId, replyCount })
+      postHub.$emit('reply-count-changed', { postId, replyCount })
     })
     connection.on('ReplyAdded', relpy => {
-      postHub.$emit('relpy-added', relpy)
+      postHub.$emit('reply-added', relpy)
     })
 
     // Provide methods for components to send messages back to server

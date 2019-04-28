@@ -31,6 +31,12 @@ export default {
       required: true
     }
   },
+  created () {
+    this.$postHub.$on('reply-count-changed', this.onReplyCountChanged)
+  },
+  beoreDestroy () {
+    this.$postHub.$off('reply-count-changed', this.onReplyCountChanged)
+  },
   methods: {
     onOpenPost () {
       this.$router.push({ name: 'Post', params: { id: this.post.id } })
