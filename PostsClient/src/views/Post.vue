@@ -64,7 +64,7 @@ export default {
       if (!this.post.replies.find(r => r.id === reply.id)) {
         this.post.replies.push(reply)
       }
-    },
+    }
   }
 }
 </script>
