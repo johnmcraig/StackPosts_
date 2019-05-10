@@ -7,7 +7,7 @@ namespace PostsAPI.Data
     {
         public PostsDbContext(DbContextOptions<PostsDbContext> options) : base(options)
         {
-            // Database.EnsureCreated();
+            Database.EnsureCreated();
         }
 
         public DbSet<Post> Posts { get; set; }

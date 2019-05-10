@@ -26,24 +26,19 @@ namespace PostsAPI.Data
 
         public async Task<Post> GetPost(Guid id)
         {
-            var post = await _dbContext.Posts.Include(r => r.Replies).FirstOrDefaultAsync();
+            var post = await _dbContext.Posts.FirstOrDefaultAsync();
             return post;
         }
 
         public async Task<IEnumerable<Post>> GetPosts()
         {
-            var posts = await _dbContext.Posts.Include(r => r.Replies).ToListAsync();
+            var posts = await _dbContext.Posts.ToListAsync();
             return posts;
         }
 
         public async Task<bool> SaveAll()
         {
             return await _dbContext.SaveChangesAsync() > 0;
-        }
-
-        public void UpdatePost(Post post)
-        {
-            throw new NotImplementedException();
         }
     }
 }

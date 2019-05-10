@@ -36,7 +36,7 @@ namespace PostsAPI.Controllers {
         [HttpGet()]
         public IEnumerable GetPosts()
         {
-            return posts.Where(t => !t.Deleted).Select(p => new {
+            return posts.Where(t => !t.Deleted).Select(p => new { 
                 Id = p.Id,
                     Title = p.Title,
                     Body = p.Body,
