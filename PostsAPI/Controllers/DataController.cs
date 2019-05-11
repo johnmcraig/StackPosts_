@@ -22,26 +22,44 @@ namespace PostsAPI.Controllers
         }
 
         // GET api/data
-        [HttpGet("")]
+        [HttpGet()]
         public async Task<IActionResult> GetPosts()
         {
-            var posts = await _repo.GetPosts();
-
-            return Ok(posts);
+            try 
+            {
+                var posts = await _repo.GetPosts();
+                return Ok(posts);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
+            
         }
 
         // GET api/data/5
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPost(Guid id)
         {
-            var posts = await _repo.GetPost(id);
-
-            return new JsonResult(posts);
+            try 
+            {
+                var post = await _repo.GetPost(id);
+                return new JsonResult(post);
+            }
+            catch
+            {
+                return StatusCode(500);
+            }
         }
 
         // POST api/data
         [HttpPost("")]
-        public void Post([FromBody] string value) { }
+        public Post AddPost([FromBody] Post post)
+        {
+            _repo.AddPost(post);
+
+            return post;
+        }
 
         // PUT api/data/5
         [HttpPut("{id}")]

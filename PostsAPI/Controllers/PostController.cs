@@ -16,9 +16,12 @@ namespace PostsAPI.Controllers {
     public class PostController : Controller 
     {
         private readonly IHubContext<PostHub, IPostHub> _hubContext;
-        public PostController(IHubContext<PostHub, IPostHub> postHub)
+        private readonly IPostRepository _repo;
+
+        public PostController(IHubContext<PostHub, IPostHub> postHub, IPostRepository repo)
         {
             _hubContext = postHub;
+            _repo = repo;
         }
 
         public static ConcurrentBag<Post> posts = new ConcurrentBag<Post>

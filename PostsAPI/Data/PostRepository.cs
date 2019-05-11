@@ -26,7 +26,7 @@ namespace PostsAPI.Data
 
         public async Task<Post> GetPost(Guid id)
         {
-            var post = await _dbContext.Posts.FirstOrDefaultAsync();
+            var post = await _dbContext.Posts.SingleOrDefaultAsync(x => x.Id == id);
             return post;
         }
 
