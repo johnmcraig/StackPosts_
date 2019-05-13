@@ -37,7 +37,7 @@ namespace PostsAPI.Controllers {
 
         // GET api/post
         [HttpGet()]
-        public IEnumerable GetPosts()
+        public IEnumerable GetPosts() // was  GetPosts()
         {
             return posts.Where(t => !t.Deleted).Select(p => new { 
                 Id = p.Id,
@@ -46,6 +46,16 @@ namespace PostsAPI.Controllers {
                     Score = p.Score,
                     ReplyCount = p.Replies.Count
             });
+
+            // try 
+            // {
+            //     var posts = await _repo.GetPosts();
+            //     return Ok(posts);
+            // }
+            // catch
+            // {
+            //     return StatusCode(500);
+            // }
         }
 
         // GET api/post/5
@@ -56,6 +66,16 @@ namespace PostsAPI.Controllers {
             if (post == null) return NotFound();
 
             return new JsonResult(post);
+
+            //  try 
+            // {
+            //     var post = await _repo.GetPost(id);
+            //     return new JsonResult(post);
+            // }
+            // catch
+            // {
+            //     return StatusCode(500);
+            // }
         }
 
         // POST api/post

@@ -22,10 +22,11 @@ namespace PostsAPI.Data
             var postData = System.IO.File.ReadAllText("Data/PostsSeed.json");
 
             var posts = JsonConvert.DeserializeObject<List<Post>>(postData);
+            var replies = JsonConvert.DeserializeObject<List<Reply>>(postData);
             
             foreach (var post in posts)
             {
-                var reply = post.Replies;
+                post.Replies = replies;
                 _dbContext.AddRange(post);
             }
             

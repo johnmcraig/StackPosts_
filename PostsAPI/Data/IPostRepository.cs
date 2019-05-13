@@ -9,6 +9,7 @@ namespace PostsAPI.Data
     {
         void AddPost(Post post);
         void DeletePost(Post post);
+        void AddReply(Reply reply);
         Task<IEnumerable<Post>> GetPosts();
         Task<Post> GetPost(Guid id);
         Task<bool> SaveAll();

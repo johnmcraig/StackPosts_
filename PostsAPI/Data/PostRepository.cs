@@ -14,9 +14,15 @@ namespace PostsAPI.Data
         {
             _dbContext = dbContext;
         }
+
         public void AddPost(Post post)
         {
             _dbContext.Add(post);
+        }
+
+        public void AddReply(Reply reply)
+        {
+            _dbContext.Add(reply);
         }
 
         public void DeletePost(Post post)
