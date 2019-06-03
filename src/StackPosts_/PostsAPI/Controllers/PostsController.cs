@@ -10,8 +10,10 @@ using PostsAPI.Data;
 using PostsAPI.Hubs;
 using PostsAPI.Models;
 
-namespace PostsAPI.Controllers {
-    [Route ("api/[controller]")]
+namespace PostsAPI.Controllers
+{
+    [ApiVersion("1.0")]
+    [Route ("api/v{version:apiVersion}/[controller]")]
     [ApiController]
     public class PostsController : Controller 
     {
