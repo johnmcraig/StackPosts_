@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ApiExplorer;
+using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -13,6 +15,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using PostsAPI.Data;
 using PostsAPI.Hubs;
+using Swashbuckle.AspNetCore.Swagger;
 
 namespace PostsAPI
 {
@@ -36,6 +39,30 @@ namespace PostsAPI
 
             services.AddCors();
             services.AddSignalR();
+
+            services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV" );
+
+            services.AddApiVersioning(config => {
+                    config.ReportApiVersions = true;
+                    config.AssumeDefaultVersionWhenUnspecified = true;
+                    config.DefaultApiVersion = new ApiVersion(1, 0);
+                    config.ApiVersionReader = new HeaderApiVersionReader("api-version");
+            });
+
+            services.AddSwaggerGen(options => {
+                
+                var provider = services.BuildServiceProvider()
+                    .GetRequiredService<IApiVersionDescriptionProvider>();
+
+                    foreach (var description in provider.ApiVersionDescriptions)
+                    {
+                        options.SwaggerDoc(description.GroupName, new Info
+                        { 
+                            Title = $"Posts API {description.ApiVersion}", 
+                            Version = description.ApiVersion.ToString() 
+                        });
+                    }
+            });
 
             services.AddTransient<DataSeed>();
 
@@ -69,6 +96,7 @@ namespace PostsAPI
             });
             
             seedPost.Seed();
+            
             app.UseHttpsRedirection();
             app.UseMvc();
         }
