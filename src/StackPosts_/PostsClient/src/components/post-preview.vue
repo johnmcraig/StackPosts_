@@ -34,7 +34,7 @@ export default {
   created () {
     this.$postHub.$on('reply-count-changed', this.onReplyCountChanged)
   },
-  beoreDestroy () {
+  beforeDestroy () {
     this.$postHub.$off('reply-count-changed', this.onReplyCountChanged)
   },
   methods: {

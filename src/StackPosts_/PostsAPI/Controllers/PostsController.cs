@@ -13,12 +13,12 @@ using PostsAPI.Models;
 namespace PostsAPI.Controllers {
     [Route ("api/[controller]")]
     [ApiController]
-    public class PostController : Controller 
+    public class PostsController : Controller 
     {
         private readonly IHubContext<PostHub, IPostHub> _hubContext;
         private readonly IPostRepository _repo;
 
-        public PostController(IHubContext<PostHub, IPostHub> postHub, IPostRepository repo)
+        public PostsController(IHubContext<PostHub, IPostHub> postHub, IPostRepository repo)
         {
             _hubContext = postHub;
             _repo = repo;
@@ -35,9 +35,8 @@ namespace PostsAPI.Controllers {
             }
         };
 
-        // GET api/post
         [HttpGet()]
-        public IEnumerable GetPosts() // was  GetPosts()
+        public IEnumerable GetPosts()
         {
             return posts.Where(t => !t.Deleted).Select(p => new { 
                 Id = p.Id,
@@ -46,19 +45,8 @@ namespace PostsAPI.Controllers {
                     Score = p.Score,
                     ReplyCount = p.Replies.Count
             });
-
-            // try 
-            // {
-            //     var posts = await _repo.GetPosts();
-            //     return Ok(posts);
-            // }
-            // catch
-            // {
-            //     return StatusCode(500);
-            // }
         }
 
-        // GET api/post/5
         [HttpGet ("{id}")]
         public ActionResult GetPost(Guid id)
         {
@@ -66,20 +54,9 @@ namespace PostsAPI.Controllers {
             if (post == null) return NotFound();
 
             return new JsonResult(post);
-
-            //  try 
-            // {
-            //     var post = await _repo.GetPost(id);
-            //     return new JsonResult(post);
-            // }
-            // catch
-            // {
-            //     return StatusCode(500);
-            // }
         }
 
-        // POST api/post
-        [HttpPost()]
+        [HttpPost]
         public Post AddPost([FromBody]Post post)
         {
             post.Id = Guid.NewGuid();
@@ -107,7 +84,7 @@ namespace PostsAPI.Controllers {
             return new JsonResult(reply);
         }
 
-        [HttpPatch ("{id}/upvote")]
+        [HttpPatch("{id}/upvote")]
         public async Task<ActionResult> UpvotePostAsync(Guid id)
         {
             var post = posts.SingleOrDefault(t => t.Id == id);
@@ -121,7 +98,7 @@ namespace PostsAPI.Controllers {
             return new JsonResult(post);
         }
 
-        [HttpPatch ("{id}/downvote")]
+        [HttpPatch("{id}/downvote")]
         public async Task<ActionResult> DownvotePostAsync(Guid id)
         {
             var post = posts.SingleOrDefault(t => t.Id == id);
