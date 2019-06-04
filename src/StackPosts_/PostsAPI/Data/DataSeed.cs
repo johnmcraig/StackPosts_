@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using PostsAPI.Models;
+using PostsAPI.Data.Entities;
 
 namespace PostsAPI.Data
 {
@@ -17,21 +17,7 @@ namespace PostsAPI.Data
         }
 
         public async Task SeedData()
-        {
-            
-                
-            // var postData = System.IO.File.ReadAllText("Data/PostsSeed.json");
-
-            // var posts = JsonConvert.DeserializeObject<List<Post>>(postData);
-            // var replies = JsonConvert.DeserializeObject<List<Reply>>(postData);
-            
-            // foreach (var post in posts)
-            // {
-            //     post.Replies = replies;
-            //     _dbContext.AddRange(post);
-            // }
-            
-            // _dbContext.SaveChanges();  
+        { 
             await _dbContext.Database.EnsureCreatedAsync();
 
             if (_dbContext.Posts.Any())
