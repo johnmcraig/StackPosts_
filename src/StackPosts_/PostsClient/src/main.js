@@ -11,8 +11,8 @@ import PostHub from './post-hub'
 Vue.config.productionTip = false
 
 // Setup axios
-axios.defaults.baseURL = 'https://localhost:5001'
-Vue.prototype.$http = axios
+axios.defaults.baseURL = 'https://localhost:5001/api/v1'
+Vue.prototype.$http = 'https://localhost:5001/'
 
 // Install Vue extensions
 Vue.use(BootstrapVue)

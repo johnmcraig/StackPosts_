@@ -3,7 +3,7 @@ import { HubConnectionBuilder, LogLevel } from '@aspnet/signalr'
 export default {
   install (Vue) {
     const connection = new HubConnectionBuilder()
-      .withUrl(`${Vue.prototype.$http.defaults.baseURL}/post-hub`)
+      .withUrl(`https://localhost:5001/post-hub`) // ${Vue.prototype.$http.defaults.baseURL}
       .configureLogging(LogLevel.Information)
       .build()
 
