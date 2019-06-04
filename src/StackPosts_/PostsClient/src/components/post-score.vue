@@ -11,6 +11,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: {
     post: {
@@ -22,18 +24,18 @@ export default {
     // Listen to score changes coming from SignalR events
     this.$postHub.$on('score-changed', this.onScoreChanged)
   },
-  beoreDestroy () {
+  beforeDestroy () {
     this.$postHub.$off('score-changed', this.onScoreChanged)
   },
   methods: {
     onUpvote () {
-      this.$http.patch(`api/post/${this.post.id}/upvote`).then(res => {
-        Object.assign(this.post, res.data)
+      axios.patch(`/posts/${this.post.id}/upvote`).then(res => {
+        Object.assign(this.post, res.data) // this.$http
       })
     },
     onDownvote () {
-      this.$http.patch(`api/post/${this.post.id}/downvote`).then(res => {
-        Object.assign(this.post, res.data)
+      axios.patch(`/posts/${this.post.id}/downvote`).then(res => {
+        Object.assign(this.post, res.data) // this.$http
       })
     },
     onScoreChanged ({ postId, score }) {
