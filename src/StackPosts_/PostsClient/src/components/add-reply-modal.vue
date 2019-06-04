@@ -24,6 +24,8 @@
 </template>
 
 <script>
+import axios from 'axios'
+
 export default {
   props: {
     postId: {
@@ -41,7 +43,7 @@ export default {
   },
   methods: {
     onSubmit (evt) {
-      this.$http.post(`api/post/${this.postId}/reply`, this.form).then(res => {
+      axios.post(`/posts/${this.postId}/reply`, this.form).then(res => {
         this.$emit('reply-added', res.data)
         this.$refs.addReplyModal.hide()
       })
