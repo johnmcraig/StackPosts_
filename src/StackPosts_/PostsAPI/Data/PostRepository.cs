@@ -15,9 +15,9 @@ namespace PostsAPI.Data
             _dbContext = dbContext;
         }
 
-        public void AddPost(Post post)
+        public void Add<T>(T entity) where T: class
         {
-            _dbContext.Add(post);
+            _dbContext.Add(entity);
         }
 
         public void AddReply(Reply reply)
@@ -25,9 +25,9 @@ namespace PostsAPI.Data
             _dbContext.Add(reply);
         }
 
-        public void DeletePost(Post post)
+        public void Delete<T>(T entity) where T: class
         {
-            _dbContext.Remove(post);
+            _dbContext.Remove(entity);
         }
 
         public async Task<Post> GetPost(Guid id)
@@ -42,9 +42,9 @@ namespace PostsAPI.Data
             return posts;
         }
 
-        public async Task<bool> SaveAll()
+        public async Task<bool> SaveChangesAsync()
         {
-            return await _dbContext.SaveChangesAsync() > 0;
+            return (await _dbContext.SaveChangesAsync()) > 0;
         }
     }
 }
