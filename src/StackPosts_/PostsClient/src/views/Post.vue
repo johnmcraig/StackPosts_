@@ -24,6 +24,7 @@
 import VueMarkdown from 'vue-markdown'
 import PostScore from '@/components/post-score'
 import AddReplyModal from '@/components/add-reply-modal'
+import axios from 'axios'
 
 export default {
   components: {
@@ -44,9 +45,9 @@ export default {
     }
   },
   created () {
-    this.$http.get(`/api/post/${this.postId}`).then(res => {
+    axios.get(`/posts/${this.postId}`).then(res => {
       this.post = res.data
-      return this.$postHub.postOpened(this.postId)
+      return this.$postHub.postOpened(this.postId) // this.$http
     })
     this.$postHub.$on('reply-added', this.onReplyAdded)
     this.$postHub.$on('score-changed', this.onScoreChanged)
