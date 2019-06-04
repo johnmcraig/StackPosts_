@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using PostsAPI.Models;
+using PostsAPI.Data.Entities;
 
 namespace PostsAPI.Data
 {
