@@ -71,7 +71,7 @@ namespace PostsAPI
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataSeed seedPost) //
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataSeed seedPosts) //
         {
             if (env.IsDevelopment())
             {
@@ -95,7 +95,7 @@ namespace PostsAPI
                 route.MapHub<PostHub>("/post-hub");
             });
             
-            seedPost.Seed();
+            seedPosts.SeedData().Wait();
             
             app.UseHttpsRedirection();
             app.UseMvc();
