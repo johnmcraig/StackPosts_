@@ -10,4 +10,31 @@ Currently, there isn't any limit to how many times a posts can be upvoted/downvo
 In order to test/use this application, you will need the following:
 - Asp.Net Core 2.0 SDK, prefereably 2.2.1
 - Node.js version 8 or higher
-- The Vue/Cli
+- The Vue cli
+
+## Installation
+Grab the repository either by zip file downlaod or clone the project:
+```sh
+~$ git clone https://github.com/johnmcraig/StackPosts_
+```
+After cloning or unzipping the files, navigate to the directory containing the solution file:
+```sh
+~$ cd src/StackPosts_/
+```
+In either order, navigate to either the client or api/server side files and install their dependecies. Once again, you will need Node.js and `npm` installed along with the .Net Core 2.2 SDK.
+
+For client side dependecies:
+```sh
+~$ cd PostsClient/
+~$ npm install
+```
+Make sure the `@vue/cli` is installed as well:
+```sh
+~$ npm install -g @vue/cli
+```
+
+For server side code, build and restore dependecies and NuGet packages:
+```sh
+~$ cd PostsAPI/
+~$ dotnet restore
+```
