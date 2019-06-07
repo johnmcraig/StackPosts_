@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
+using Microsoft.AspNetCore.Mvc.Versioning.Conventions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -31,9 +32,10 @@ namespace PostsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PostsDbContext>(options => {
-                options.UseSqlServer(Configuration.GetConnectionString("sqlConString"));
-            });
+            services.AddDbContext<PostsDbContext>(
+                // options => {
+                // options.UseSqlServer(Configuration.GetConnectionString("sqlConString"));}
+                );
 
             services.AddScoped<IPostRepository, PostRepository>();
 
@@ -42,12 +44,14 @@ namespace PostsAPI
 
             services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV" );
 
-            services.AddApiVersioning(config => {
-                    config.ReportApiVersions = true;
-                    config.AssumeDefaultVersionWhenUnspecified = true;
-                    config.DefaultApiVersion = new ApiVersion(1, 0);
-                    config.ApiVersionReader = new HeaderApiVersionReader("api-version");
-            });
+            services.AddApiVersioning(
+                    options => {
+                    options.ReportApiVersions = true;
+                    options.AssumeDefaultVersionWhenUnspecified = true;
+                    options.Conventions.Add( new VersionByNamespaceConvention());
+                    options.DefaultApiVersion = new ApiVersion(1, 0);
+                    options.ApiVersionReader = new HeaderApiVersionReader("api-version");
+                });
 
             services.AddSwaggerGen(options => {
                 
@@ -66,7 +70,7 @@ namespace PostsAPI
 
             services.AddTransient<DataSeed>();
 
-            services.AddMvc().
+            services.AddMvc( options => options.EnableEndpointRouting = false).
                 SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -96,6 +100,13 @@ namespace PostsAPI
             });
             
             seedPosts.SeedData().Wait();
+
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "StackPosts API V1");
+                c.SwaggerEndpoint("/swagger/v2/swagger.json", "StackPosts API V2");
+            });
             
             app.UseHttpsRedirection();
             app.UseMvc();
