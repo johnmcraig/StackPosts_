@@ -37,7 +37,7 @@ namespace PostsAPI.Controllers.v1
             }
         };
 
-        [HttpGet()]
+        [HttpGet]
         public IEnumerable GetPosts()
         {
             return posts.Where(t => !t.Deleted).Select(p => new { 
@@ -49,7 +49,7 @@ namespace PostsAPI.Controllers.v1
             });
         }
 
-        [HttpGet ("{id}")]
+        [HttpGet("{id}")]
         public ActionResult GetPost(Guid id)
         {
             var post = posts.SingleOrDefault(p => p.Id == id);
