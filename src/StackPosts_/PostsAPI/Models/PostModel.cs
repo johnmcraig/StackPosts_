@@ -4,14 +4,12 @@ using System.ComponentModel.DataAnnotations;
 
 namespace PostsAPI.Models
 {
-    public class Post
+    public class PostModel
     {
-        public Guid Id { get; set; }
         public string Title { get; set; }
         public string Body { get; set; }
         public int Score { get; set; } // upvote & downvote tracking 
         public bool Deleted { get; set; }
         public DateTime DatePosted { get; set; }
-        public List<Reply> Replies;
     }
 }
