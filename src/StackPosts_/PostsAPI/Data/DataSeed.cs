@@ -41,7 +41,7 @@ namespace PostsAPI.Data
                     Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
                     Score = 0,
                     Deleted = false,
-                    Replies = new List<Reply>{ new Reply { Body = "Awesome! Thanks."} } 
+                    Replies = new List<Reply>{ new Reply { Body = "Awesome! Thanks."} }
                 },
                 new Post
                 {
