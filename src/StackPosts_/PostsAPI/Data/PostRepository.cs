@@ -72,7 +72,7 @@ namespace PostsAPI.Data
 
             IQueryable<Post> query = _dbContext.Posts.Include(p => p.Replies);
 
-            query = query.Where(p => p.DatePosted == date).OrderByDescending(p => p.DatePosted);
+            query = query.OrderByDescending(p => p.DatePosted);
 
             return await query.ToArrayAsync();
         }
