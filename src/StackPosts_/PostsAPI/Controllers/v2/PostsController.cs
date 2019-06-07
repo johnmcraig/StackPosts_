@@ -6,21 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using PostsAPI.Data;
 using PostsAPI.Models;
 
-namespace PostsAPI.Controllers
+namespace PostsAPI.Controllers.v2
 {
+    [ApiController]
     [ApiVersion("2.0")]
     [Route("api/v{version:apiVersion}/[controller]")]
-    [ApiController]
-    public class DataController : ControllerBase
+    public class PostsController : ControllerBase
     {
         private readonly IPostRepository _repo;
 
-        public DataController(PostsDbContext dbContext, IPostRepository repo)
+        public PostsController(PostsDbContext dbContext, IPostRepository repo)
         {
             _repo = repo;
         }
 
-        [HttpGet()]
+        [HttpGet]
         public async Task<ActionResult> GetPosts()
         {
             try 
@@ -28,9 +28,9 @@ namespace PostsAPI.Controllers
                 var posts = await _repo.GetPosts();
                 return Ok(posts);
             }
-            catch
+            catch(Exception ex)
             {
-                return StatusCode(500);
+                return StatusCode(500, $"There was a server error: {ex}");
             }
             
         }
