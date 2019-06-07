@@ -13,7 +13,7 @@ namespace PostsAPI.Data
 
         void AddReply(Reply reply);
         
-        Task<IEnumerable<Post>> GetPosts();
+        Task<Post[]> GetPosts();
         Task<Post> GetPost(Guid id);
         Task<Post[]> GetPostByTitle(string title, bool includeReplies = false);
         Task<Post[]> GetByDatePosted(DateTime date);

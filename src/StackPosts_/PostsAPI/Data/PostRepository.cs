@@ -43,10 +43,10 @@ namespace PostsAPI.Data
             return post;
         }
 
-        public async Task<IEnumerable<Post>> GetPosts()
+        public async Task<Post[]> GetPosts()
         {
             _logger.LogInformation($"Getting all posts");
-            var posts = await _dbContext.Posts.Where(t => !t.Deleted).ToListAsync();
+            var posts = await _dbContext.Posts.Where(t => !t.Deleted).ToArrayAsync();
             return posts;
         }
 
