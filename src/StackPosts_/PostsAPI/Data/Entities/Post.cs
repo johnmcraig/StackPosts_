@@ -14,6 +14,7 @@ namespace PostsAPI.Data.Entities
         public string Body { get; set; }
         public int Score { get; set; } // upvote & downvote tracking 
         public bool Deleted { get; set; }
+        public DateTime DatePosted { get; set; }
         public List<Reply> Replies;
     }
 }
