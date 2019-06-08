@@ -38,3 +38,12 @@ For server side code, build and restore dependecies and NuGet packages:
 ~$ cd PostsAPI/
 ~$ dotnet restore
 ```
+
+# TODO
+- Add Authorization and Login.
+- Enable searching by Post title.
+- Add the ability to delete or update a Post or Reply adter Authorization.
+
+# Known Issues and Bugs
+- The seed class in the data layer does not properly add a list of Replies to each Post entity.
+- SignalR type errors in the post-hub occur with `Type Error: "cb is undefined"` needs to be fixed.
