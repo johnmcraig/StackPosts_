@@ -42,7 +42,7 @@ For server side code, build and restore dependecies and NuGet packages:
 # TODO
 - Add Authorization and Login.
 - Enable searching by Post title.
-- Add the ability to delete or update a Post or Reply adter Authorization.
+- Add the ability to delete or update a Post after Authorization. Then the same with Replies.
 
 # Known Issues and Bugs
 - The seed class in the data layer does not properly add a list of Replies to each Post entity.
