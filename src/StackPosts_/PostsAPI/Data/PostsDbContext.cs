@@ -18,7 +18,7 @@ namespace PostsAPI.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase("Employees");
+            optionsBuilder.UseInMemoryDatabase("Posts");
         }
     }
 }
