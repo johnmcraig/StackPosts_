@@ -16,9 +16,14 @@ namespace PostsAPI.Data
         public DbSet<Post> Posts { get; set; }
         public DbSet<Reply> Replies { get; set; }
 
+        protected override void OnModelCreating(ModelBuilder builder)
+        {
+            base.OnModelCreating(builder);
+        }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseInMemoryDatabase("Posts");
+            optionsBuilder.UseSqlServer(_config.GetConnectionString("sqlConString"));
         }
     }
 }
