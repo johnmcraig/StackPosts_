@@ -20,7 +20,6 @@
 <script>
 import PostPreview from '@/components/post-preview'
 import AddPostModal from '@/components/add-post-modal'
-import axios from 'axios'
 
 export default {
   components: {
@@ -33,7 +32,7 @@ export default {
     }
   },
   created () {
-    axios.get('/posts').then(res => {
+    this.$http.get('/posts').then(res => {
       this.posts = res.data
     })
   },
