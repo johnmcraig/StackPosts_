@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using PostsAPI.Data;
-using PostsAPI.Models;
+using PostsAPI.Data.Entities;
 
 namespace PostsAPI.Controllers.v2
 {
@@ -15,7 +15,7 @@ namespace PostsAPI.Controllers.v2
     {
         private readonly IPostRepository _repo;
 
-        public PostsController(PostsDbContext dbContext, IPostRepository repo)
+        public PostsController( IPostRepository repo)
         {
             _repo = repo;
         }
@@ -23,27 +23,27 @@ namespace PostsAPI.Controllers.v2
         [HttpGet]
         public async Task<ActionResult> GetPosts()
         {
-            try 
+            try
             {
                 var posts = await _repo.GetPosts();
                 return Ok(posts);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, $"There was a server error: {ex}");
             }
-            
+
         }
 
         [HttpGet("{id}")]
         public async Task<ActionResult> GetPost(Guid id)
         {
-            try 
+            try
             {
                 var post = await _repo.GetPost(id);
                 return new JsonResult(post);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 return StatusCode(500, $"Eternal server error: {ex}");
             }
@@ -58,9 +58,11 @@ namespace PostsAPI.Controllers.v2
         }
 
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody] string value) { }
+        public void Put(int id, [FromBody] string value)
+        { }
 
         [HttpDelete("{id}")]
-        public void DeleteById(int id) { }
+        public void DeleteById(int id)
+        { }
     }
 }
