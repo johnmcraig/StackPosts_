@@ -3,7 +3,7 @@ import { HubConnectionBuilder, LogLevel } from '@aspnet/signalr'
 export default {
   install (Vue) {
     const connection = new HubConnectionBuilder()
-      .withUrl(`https://localhost:5001/post-hub`) // ${Vue.prototype.$http.defaults.baseURL}
+      .withUrl(`${Vue.prototype.$http.defaults.baseURL}`) // ${Vue.prototype.$http.defaults.baseURL} `https://localhost:5001/post-hub`
       .configureLogging(LogLevel.Information)
       .build()
 
@@ -16,8 +16,8 @@ export default {
     connection.on('ReplyCountChange', (postId, replyCount) => {
       postHub.$emit('reply-count-changed', { postId, replyCount })
     })
-    connection.on('ReplyAdded', relpy => {
-      postHub.$emit('reply-added', relpy)
+    connection.on('ReplyAdded', reply => {
+      postHub.$emit('reply-added', reply)
     })
 
     // Provide methods for components to send messages back to server
