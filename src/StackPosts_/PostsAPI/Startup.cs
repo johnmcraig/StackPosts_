@@ -32,11 +32,8 @@ namespace PostsAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PostsDbContext>(
-                // options => {
-                // options.UseSqlServer(Configuration.GetConnectionString("sqlConString"));}
-                );
-
+            services.AddDbContext<PostsDbContext>();
+            
             services.AddScoped<IPostRepository, PostRepository>();
 
             services.AddCors();
@@ -68,14 +65,12 @@ namespace PostsAPI
                     }
             });
 
-            services.AddTransient<DataSeed>();
-
             services.AddMvc( options => options.EnableEndpointRouting = false).
                 SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, DataSeed seedPosts) //
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env) //
         {
             if (env.IsDevelopment())
             {
@@ -88,18 +83,16 @@ namespace PostsAPI
             }
 
             app.UseCors(x => 
-                x.WithOrigins("http://localhost:8080")
-                .AllowAnyMethod()
+                x.AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
+                .WithOrigins("http://localhost:8080")
             );
 
             app.UseSignalR(route =>
             {
                 route.MapHub<PostHub>("/post-hub");
             });
-            
-            seedPosts.SeedData().Wait();
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
