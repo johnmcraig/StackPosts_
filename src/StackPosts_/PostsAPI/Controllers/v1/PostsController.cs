@@ -6,24 +6,22 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using PostsAPI.Data;
+using PostsAPI.Data.Entities;
 using PostsAPI.Hubs;
-using PostsAPI.Models;
+
 
 namespace PostsAPI.Controllers.v1
 {
     [ApiVersion("1.0")]
     [Route ("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class PostsController : Controller 
+    public class PostsController : ControllerBase 
     {
         private readonly IHubContext<PostHub, IPostHub> _hubContext;
-        private readonly IPostRepository _repo;
 
-        public PostsController(IHubContext<PostHub, IPostHub> postHub, IPostRepository repo)
+        public PostsController(IHubContext<PostHub, IPostHub> postHub)
         {
             _hubContext = postHub;
-            _repo = repo;
         }
 
         public static ConcurrentBag<Post> posts = new ConcurrentBag<Post>
@@ -33,7 +31,10 @@ namespace PostsAPI.Controllers.v1
                 Id = Guid.Parse("b00c58c0-df00-49ac-ae85-0a135f75e01b"),
                 Title = "Welcome to the example Post",
                 Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
-                Replies = new List<Reply>{ new Reply { Body = "Awesome! Thanks."}}
+                Score = 4,
+                Deleted = false,
+                DatePosted = DateTime.Now.AddMonths(-2),
+                Replies = new List<Reply>{new Reply { Body =  "Super exciting reply example here!", Score = 1 }}
             }
         };
 
@@ -45,6 +46,7 @@ namespace PostsAPI.Controllers.v1
                     Title = p.Title,
                     Body = p.Body,
                     Score = p.Score,
+                    DatePosted = p.DatePosted,
                     ReplyCount = p.Replies.Count
             });
         }
