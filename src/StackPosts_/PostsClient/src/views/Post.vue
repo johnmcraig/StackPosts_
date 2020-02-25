@@ -7,7 +7,7 @@
     <p class="row">
       <vue-markdown class="offset-1 col-11">{{ post.body }}</vue-markdown>
     </p>
-    <ul class="list-unstyled row" v-if="hasReplies">
+    <ul class="list-unstyled row" > <!-- v-if="hasReplies" -->
       <li v-for="reply in post.replies" :key="reply.id" class="offset-1 col-11 border-top py-2">
         <vue-markdown>{{ reply.body }}</vue-markdown>
       </li>
@@ -40,9 +40,9 @@ export default {
     }
   },
   computed: {
-    hasReplies () {
-      return this.post.replies.length >= 0
-    }
+    // hasReplies () {
+    //   return this.post.replies.length >= 0
+    // }
   },
   created () {
     axios.get(`/posts/${this.postId}`).then(res => {
