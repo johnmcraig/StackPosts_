@@ -39,13 +39,13 @@ export default {
     }
   },
   methods: {
-    onSubmit (evt) {
+    onSubmit () {
       axios.post(`/posts`, this.form).then(res => {
         this.$emit('post-added', res.data)
         this.$refs.addPostModal.hide()
       })
     },
-    onCancel (evt) {
+    onCancel () {
       this.$refs.addPostModal.hide()
     },
     onHidden () {

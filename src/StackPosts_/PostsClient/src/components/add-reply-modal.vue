@@ -42,13 +42,13 @@ export default {
     }
   },
   methods: {
-    onSubmit (evt) {
+    onSubmit () {
       axios.post(`/posts/${this.postId}/reply`, this.form).then(res => {
         this.$emit('reply-added', res.data)
         this.$refs.addReplyModal.hide()
       })
     },
-    onCancel (evt) {
+    onCancel () {
       this.$refs.addReplyModal.hide()
     },
     onHidden () {
