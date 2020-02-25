@@ -16,7 +16,7 @@ This application was build with:
 
 - ASP.Net Core 2.2
 - Vue.js 2.6
-- SignleR (NuGet package)
+- SignalR (NuGet package)
 
 ## Setup
 
