@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>
-      This is StackPosts_ an imitation of Stack Overflow
+      Welcome to StackPosts_
       <button v-b-modal.addPostModal class="btn btn-primary mt-2 float-right">
         <i class="fas fa-plus"/> Start a post
       </button>
