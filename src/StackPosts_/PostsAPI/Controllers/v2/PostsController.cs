@@ -49,7 +49,7 @@ namespace PostsAPI.Controllers.v2
             }
         }
 
-        [HttpPost("")]
+        [HttpPost]
         public Post AddPost([FromBody] Post post)
         {
             _repo.Add(post);
