@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using PostsAPI.Data;
-using PostsAPI.Data.Entities;
+using StackPosts_.Api.Data;
+using StackPosts_.Api.Data.Entities;
 
-namespace PostsAPI.Controllers.v2
+namespace StackPosts_.Api.Controllers.v2
 {
     [ApiController]
     [ApiVersion("2.0")]

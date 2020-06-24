@@ -6,11 +6,11 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using PostsAPI.Data;
-using PostsAPI.Data.Entities;
-using PostsAPI.Hubs;
+using StackPosts_.Infrastructure;
+using StackPosts_.Core.Entities;
+using StackPosts_.Api.Hubs;
 
-namespace PostsAPI.Controllers
+namespace StackPosts_.Api.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
