@@ -7,7 +7,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using StackPosts_.Infrastructure;
-using StackPosts_.Core.Entities;
+// using StackPosts_.Core.Entities;
+using StackPosts_.Api.Data;
+using StackPosts_.Api.Data.Entities;
 using StackPosts_.Api.Hubs;
 
 namespace StackPosts_.Api.Controllers

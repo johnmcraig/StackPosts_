@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StackPosts_.Api.Data;
 using StackPosts_.Api.Data.Entities;
+using StackPosts_.Core.Interfaces;
 
 namespace StackPosts_.Api.Controllers.v2
 {
