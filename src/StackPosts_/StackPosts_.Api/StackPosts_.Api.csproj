@@ -13,4 +13,9 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Versioning.ApiExplorer" Version="3.2.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\StackPosts_.Infrastructure\StackPosts_.Infrastructure.csproj" />
+    <ProjectReference Include="..\StackPosts_.Core\StackPosts_.Core.csproj" />
+  </ItemGroup>
+
 </Project>
