@@ -14,11 +14,11 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using PostsAPI.Data;
-using PostsAPI.Hubs;
+using StackPosts_.Api.Data;
+using StackPosts_.Api.Hubs;
 using Swashbuckle.AspNetCore.Swagger;
 
-namespace PostsAPI
+namespace StackPosts_.API
 {
     public class Startup
     {
@@ -33,9 +33,9 @@ namespace PostsAPI
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PostsDbContext>();
-            
-            services.AddScoped<IPostRepository, PostRepository>();
 
+            services.AddScoped<IPostRepository, PostRepository>();
+            
             services.AddCors();
 
             services.AddSignalR();
