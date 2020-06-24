@@ -14,16 +14,16 @@ Currently, there isn't any limit to how many times a posts can be up-voted/down-
 
 This application was build with:
 
-- ASP.Net Core 2.2
-- Vue.js 2.6
+- ASP.Net Core 3.1
+- Vue.js 2.6.11
 - SignalR (NuGet package)
 
 ## Setup
 
 In order to test/use this application, you will need the following:
 
-- Asp.Net Core 2.0 SDK, preferably 2.2.1
-- Node.js version 8 or higher
+- Asp.Net Core 3.0 SDK, preferably 3.1
+- Node.js version 10 or higher
 - The Vue cli
 
 ## Installation
