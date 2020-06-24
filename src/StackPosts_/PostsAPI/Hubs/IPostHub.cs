@@ -6,8 +6,8 @@ namespace PostsAPI.Hubs
 {
     public interface IPostHub
     {
-        Task PostScoreChange(Guid postId, int score);
-        Task ReplyCountChange(Guid postId, int replyCount);
+        Task PostScoreChange(int postId, int score);
+        Task ReplyCountChange(int postId, int replyCount);
         Task ReplyAdded(Reply reply);
     }
 }

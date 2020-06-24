@@ -14,14 +14,14 @@ namespace PostsAPI.Hubs
             _logger = logger;
         }
 
-        public async Task JoinPostGroup(Guid postId)
+        public async Task JoinPostGroup(int postId)
         {
             _logger.LogInformation($"Client {Context.ConnectionId} is viewing {postId}");
 
             await Groups.AddToGroupAsync(Context.ConnectionId, postId.ToString());
         }
 
-        public async Task LeavePostGroup(Guid postId)
+        public async Task LeavePostGroup(int postId)
         {
             _logger.LogInformation($"Client {Context.ConnectionId} is no longer viewing {postId}");
 
