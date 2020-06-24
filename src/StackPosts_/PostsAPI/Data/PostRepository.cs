@@ -36,7 +36,7 @@ namespace PostsAPI.Data
             _dbContext.Remove(entity);
         }
 
-        public async Task<Post> GetPost(Guid id)
+        public async Task<Post> GetPost(int id)
         {
             _logger.LogInformation($"Getting a single post");
             var post = await _dbContext.Posts.SingleOrDefaultAsync(x => x.Id == id);

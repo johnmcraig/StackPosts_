@@ -7,7 +7,7 @@ namespace PostsAPI.Data.Entities
     public class Post
     {   
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]
