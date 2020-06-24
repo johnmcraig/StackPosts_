@@ -1,3 +1,5 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace StackPosts_.Core.Entities
 {
     public class BaseEntity
