@@ -74,12 +74,12 @@ namespace PostsAPI.Controllers.v1
         }
 
         [HttpPost("{id}/reply")]
-        public async Task<ActionResult> AddReplyAsync(Guid id, [FromBody]Reply reply)
+        public async Task<ActionResult> AddReplyAsync(int id, [FromBody]Reply reply)
         {
             var post = await _dbContext.Posts.SingleOrDefaultAsync(t => t.Id == id && !t.Deleted);
             if (post == null) return NotFound();
 
-            reply.Id = Guid.NewGuid();
+            // reply.Id = Guid.NewGuid();
             reply.PostId = id;
             reply.Deleted = false;
             post.Replies.Add(reply);
@@ -91,7 +91,7 @@ namespace PostsAPI.Controllers.v1
         }
 
         [HttpPatch("{id}/upvote")]
-        public async Task<ActionResult> UpvotePostAsync(Guid id)
+        public async Task<ActionResult> UpvotePostAsync(int id)
         {
             var post = await _dbContext.Posts.SingleOrDefaultAsync(t => t.Id == id);
             if (post == null) return NotFound();
@@ -105,7 +105,7 @@ namespace PostsAPI.Controllers.v1
         }
 
         [HttpPatch("{id}/downvote")]
-        public async Task<ActionResult> DownvotePostAsync(Guid id)
+        public async Task<ActionResult> DownvotePostAsync(int id)
         {
             var post = await _dbContext.Posts.SingleOrDefaultAsync(t => t.Id == id);
             if (post == null) return NotFound();

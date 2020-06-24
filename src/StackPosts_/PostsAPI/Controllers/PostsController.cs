@@ -27,7 +27,6 @@ namespace PostsAPI.Controllers
         {
             new Post
             {
-                Id = Guid.Parse("b00c58c0-df00-49ac-ae85-0a135f75e01b"),
                 Title = "Welcome to the example Post",
                 Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
                 Score = 4,
@@ -51,7 +50,7 @@ namespace PostsAPI.Controllers
         }
 
         [HttpGet("{id}")]
-        public ActionResult GetPost(Guid id)
+        public ActionResult GetPost(int id)
         {
             var post = posts.SingleOrDefault(p => p.Id == id);
             if (post == null) return NotFound();
@@ -62,7 +61,6 @@ namespace PostsAPI.Controllers
         [HttpPost]
         public Post AddPost([FromBody]Post post)
         {
-            post.Id = Guid.NewGuid();
             post.Deleted = false;
             post.Replies = new List<Reply>();
             posts.Add(post);
@@ -71,12 +69,12 @@ namespace PostsAPI.Controllers
         }
 
         [HttpPost("{id}/reply")]
-        public async Task<ActionResult> AddReplyAsync(Guid id, [FromBody]Reply reply)
+        public async Task<ActionResult> AddReplyAsync(int id, [FromBody]Reply reply)
         {
             var post = posts.SingleOrDefault(t => t.Id == id && !t.Deleted);
+            
             if (post == null) return NotFound();
 
-            reply.Id = Guid.NewGuid();
             reply.PostId = id;
             reply.Deleted = false;
             post.Replies.Add(reply);
@@ -88,7 +86,7 @@ namespace PostsAPI.Controllers
         }
 
         [HttpPatch("{id}/upvote")]
-        public async Task<ActionResult> UpvotePostAsync(Guid id)
+        public async Task<ActionResult> UpvotePostAsync(int id)
         {
             var post = posts.SingleOrDefault(t => t.Id == id);
             if (post == null) return NotFound();
@@ -102,7 +100,7 @@ namespace PostsAPI.Controllers
         }
 
         [HttpPatch("{id}/downvote")]
-        public async Task<ActionResult> DownvotePostAsync(Guid id)
+        public async Task<ActionResult> DownvotePostAsync(int id)
         {
             var post = posts.SingleOrDefault(t => t.Id == id);
             if (post == null) return NotFound();

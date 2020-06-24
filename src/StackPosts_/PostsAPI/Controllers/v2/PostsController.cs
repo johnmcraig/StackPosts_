@@ -36,7 +36,7 @@ namespace PostsAPI.Controllers.v2
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult> GetPost(Guid id)
+        public async Task<ActionResult> GetPost(int id)
         {
             try
             {
