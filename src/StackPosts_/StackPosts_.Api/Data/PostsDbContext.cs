@@ -23,7 +23,7 @@ namespace StackPosts_.Api.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(_config.GetConnectionString("sqlConString"));
+            //optionsBuilder.UseSqlServer(_config.GetConnectionString("sqlConString"));
         }
     }
 }
