@@ -1,16 +1,12 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using PostsAPI.Data.Entities;
+using StackPosts_.Core.Entities;
 
-namespace PostsAPI.Data
+namespace StackPosts_.Core.Interfaces
 {
-    public interface IPostRepository
+    public interface IPostRepository : IGenericRepository
     {
-        void Add<T>(T entity) where T: class;
-        void Delete<T>(T entity) where T: class;
-        Task<bool> SaveChangesAsync();
-
         void AddReply(Reply reply);
         
         Task<Post[]> GetPosts();

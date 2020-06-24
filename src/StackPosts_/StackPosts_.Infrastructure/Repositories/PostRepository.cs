@@ -4,16 +4,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using PostsAPI.Data.Entities;
+using StackPosts_.Core.Entities;
+using StackPosts_.Core.Interfaces;
 
-namespace PostsAPI.Data
+namespace StackPosts_.Infrastructure.Repositories
 {
     public class PostRepository : IPostRepository
     {
-        private readonly PostsDbContext _dbContext;
+        private readonly StoreContext _dbContext;
         private readonly ILogger<PostRepository> _logger;
 
-        public PostRepository(PostsDbContext dbContext, ILogger<PostRepository> logger)
+        public PostRepository(StoreContext dbContext, ILogger<PostRepository> logger)
         {
             _logger = logger;
             _dbContext = dbContext;

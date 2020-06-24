@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using PostsAPI.Data.Entities;
+using StackPosts_.Core.Entities;
 
-namespace PostsAPI.Data
+namespace StackPosts_.Infrastructure
 {
     public class Seed
     {
-        public static void SeedData(PostsDbContext dbContext)
+        public static void SeedData(StoreContext dbContext)
         {
             if(!dbContext.Posts.Any())
             {
