@@ -1,6 +1,6 @@
 using System;
 
-namespace PostsAPI.Data.Entities
+namespace StackPosts_.Api.Data.Entities
 {
     public class Reply
     {

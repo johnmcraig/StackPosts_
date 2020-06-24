@@ -1,8 +1,8 @@
-using PostsAPI.Data.Entities;
+using StackPosts_.Api.Data.Entities;
 using System;
 using System.Threading.Tasks;
 
-namespace PostsAPI.Hubs
+namespace StackPosts_.Api.Hubs
 {
     public interface IPostHub
     {

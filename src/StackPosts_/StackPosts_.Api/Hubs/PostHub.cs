@@ -3,7 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Threading.Tasks;
 
-namespace PostsAPI.Hubs
+namespace StackPosts_.Api.Hubs
 {
     public class PostHub : Hub<IPostHub>
     {

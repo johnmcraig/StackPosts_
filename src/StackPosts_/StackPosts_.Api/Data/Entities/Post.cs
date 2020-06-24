@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace PostsAPI.Data.Entities
+namespace StackPosts_.Api.Data.Entities
 {
     public class Post
     {   

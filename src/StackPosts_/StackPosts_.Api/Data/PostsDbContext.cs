@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using PostsAPI.Data.Entities;
+using StackPosts_.Api.Data.Entities;
 
-namespace PostsAPI.Data
+namespace StackPosts_.Api.Data
 {
     public class PostsDbContext : DbContext
     {
