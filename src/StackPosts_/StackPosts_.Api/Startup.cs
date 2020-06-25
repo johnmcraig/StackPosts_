@@ -1,24 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ApiExplorer;
 using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.AspNetCore.Mvc.Versioning.Conventions;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Hosting;
 using StackPosts_.Api.Data;
 using StackPosts_.Api.Hubs;
-using Swashbuckle.AspNetCore.Swagger;
+using StackPosts_.Core.Interfaces;
+using StackPosts_.Infrastructure;
+using StackPosts_.Infrastructure.Repositories;
 
-namespace StackPosts_.API
+namespace StackPosts_.Api
 {
     public class Startup
     {
@@ -29,10 +23,10 @@ namespace StackPosts_.API
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PostsDbContext>();
+            services.AddInfrastructure();
 
             services.AddScoped<IPostRepository, PostRepository>();
             
@@ -51,36 +45,31 @@ namespace StackPosts_.API
                     options.ApiVersionReader = new HeaderApiVersionReader("api-version");
                 });
 
-            services.AddSwaggerGen(options => {
+            services.AddSwaggerGen();
+            //services.AddSwaggerDocumentation();
+            // services.AddSwaggerGen(options => {
                 
-                var provider = services.BuildServiceProvider()
-                    .GetRequiredService<IApiVersionDescriptionProvider>();
+            //     var provider = services.BuildServiceProvider()
+            //         .GetRequiredService<IApiVersionDescriptionProvider>();
 
-                    foreach (var description in provider.ApiVersionDescriptions)
-                    {
-                        options.SwaggerDoc(description.GroupName, new Info
-                        { 
-                            Title = $"Posts API {description.ApiVersion}", 
-                            Version = description.ApiVersion.ToString() 
-                        });
-                    }
-            });
+            //         foreach (var description in provider.ApiVersionDescriptions)
+            //         {
+            //             options.SwaggerDoc(description.GroupName, new Info
+            //             { 
+            //                 Title = $"Posts API {description.ApiVersion}", 
+            //                 Version = description.ApiVersion.ToString() 
+            //             });
+            //         }
+            // });
 
-            services.AddMvc().
-                SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-
-            services.AddTransient<Seed>();
+            services.AddControllers();
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env) 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseHsts();
             }
 
             app.UseCors(x => 
@@ -90,10 +79,10 @@ namespace StackPosts_.API
                 .WithOrigins("http://localhost:8080")
             );
 
-            app.UseSignalR(route =>
-            {
-                route.MapHub<PostHub>("/post-hub");
-            });
+            // app.UseSignalR(route =>
+            // {
+            //     route.MapHub<PostHub>("/post-hub");
+            // });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -103,7 +92,16 @@ namespace StackPosts_.API
             });
  
             app.UseHttpsRedirection();
-            app.UseMvc();
+
+            app.UseRouting();
+
+            //app.UseSwaggerDocumention();
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllers();
+                endpoints.MapHub<PostHub>("/post-hub");
+            });
         }
     }
 }
