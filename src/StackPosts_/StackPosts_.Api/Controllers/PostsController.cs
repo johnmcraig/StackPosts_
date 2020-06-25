@@ -6,9 +6,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
-using StackPosts_.Infrastructure;
-// using StackPosts_.Core.Entities;
-using StackPosts_.Api.Data;
 using StackPosts_.Api.Data.Entities;
 using StackPosts_.Api.Hubs;
 
@@ -41,13 +38,13 @@ namespace StackPosts_.Api.Controllers
         [HttpGet]
         public IEnumerable GetPosts()
         {
-            return posts.Where(t => !t.Deleted).Select(p => new { 
-                Id = p.Id,
-                    Title = p.Title,
-                    Body = p.Body,
-                    Score = p.Score,
-                    DatePosted = p.DatePosted,
-                    ReplyCount = p.Replies.Count
+            return posts.Where(t => !t.Deleted).Select(p => new {
+                p.Id,
+                p.Title,
+                p.Body,
+                p.Score,
+                p.DatePosted,
+                ReplyCount = p.Replies.Count
             });
         }
 
