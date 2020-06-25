@@ -11,7 +11,6 @@ namespace StackPosts_.Infrastructure
         public StoreContext(DbContextOptions<StoreContext> options, IConfiguration config) : base(options)
         {
             _config = config;
-            // Database.EnsureCreated();
         }
 
         public DbSet<Post> Posts { get; set; }
