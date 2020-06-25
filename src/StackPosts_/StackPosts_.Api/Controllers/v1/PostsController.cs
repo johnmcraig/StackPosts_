@@ -64,7 +64,7 @@ namespace StackPosts_.Api.Controllers.v1
         {
             if(!ModelState.IsValid) return NotFound();
 
-             _dbContext.Posts.Add(post);
+             await _dbContext.Posts.AddAsync(post);
             // post.Id = Guid.NewGuid();
             // post.Deleted = false;
             // post.Replies = new List<Reply>();
