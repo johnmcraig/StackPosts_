@@ -1,11 +1,8 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using StackPosts_.Api.Data;
-using StackPosts_.Api.Data.Entities;
 using StackPosts_.Core.Interfaces;
+using StackPosts_.Core.Entities;
 
 namespace StackPosts_.Api.Controllers.v2
 {
@@ -26,7 +23,7 @@ namespace StackPosts_.Api.Controllers.v2
         {
             try
             {
-                var posts = await _repo.GetPosts();
+                var posts = await _repo.GetPostsAsync();
                 return Ok(posts);
             }
             catch (Exception ex)
@@ -41,7 +38,7 @@ namespace StackPosts_.Api.Controllers.v2
         {
             try
             {
-                var post = await _repo.GetPost(id);
+                var post = await _repo.GetPostByIdAsync(id);
                 return new JsonResult(post);
             }
             catch (Exception ex)
