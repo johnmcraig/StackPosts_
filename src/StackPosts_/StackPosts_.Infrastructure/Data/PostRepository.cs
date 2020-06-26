@@ -7,9 +7,9 @@ using Microsoft.Extensions.Logging;
 using StackPosts_.Core.Entities;
 using StackPosts_.Core.Interfaces;
 
-namespace StackPosts_.Infrastructure.Repositories
+namespace StackPosts_.Infrastructure.Data
 {
-    public class PostRepository : IPostRepository
+    public class PostRepository : IPostRepository, IGenericRepository<Post>
     {
         private readonly StoreContext _dbContext;
         private readonly ILogger<PostRepository> _logger;
@@ -20,31 +20,37 @@ namespace StackPosts_.Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public void Add<T>(T entity) where T: class
+        public void Add(Post post)
         {
             _logger.LogInformation($"Inserting entity");
-            _dbContext.Add(entity);
+            _dbContext.Add(post);
         }
 
-        public void AddReply(Reply reply)
-        {
-            _dbContext.Add(reply);
-        }
-
-        public void Delete<T>(T entity) where T: class
+        public void Delete(Post post)
         {
             _logger.LogInformation($"Deleting entity");
-            _dbContext.Remove(entity);
+            _dbContext.Remove(post);
         }
 
-        public async Task<Post> GetPost(int id)
+        public async Task<Post> GetPostByIdAsync(int id)
         {
-            _logger.LogInformation($"Getting a single post");
-            var post = await _dbContext.Posts.SingleOrDefaultAsync(x => x.Id == id);
-            return post;
+            try
+            {
+                _logger.LogInformation($"Getting a single post");
+                
+                var post = await _dbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
+                
+                return post;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"There was an error trying to get a post: {ex}");
+                
+                return null;
+            }
         }
 
-        public async Task<Post[]> GetPosts()
+        public async Task<IReadOnlyList<Post>> GetPostsAsync()
         {
             _logger.LogInformation($"Getting all posts");
             var posts = await _dbContext.Posts.Where(t => !t.Deleted).ToArrayAsync();
@@ -82,5 +88,5 @@ namespace StackPosts_.Infrastructure.Repositories
         {
             return (await _dbContext.SaveChangesAsync()) > 0;
         }
-    }
+  }
 }

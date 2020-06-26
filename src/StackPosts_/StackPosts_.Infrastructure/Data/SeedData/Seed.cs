@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using StackPosts_.Core.Entities;
 
-namespace StackPosts_.Infrastructure
+namespace StackPosts_.Infrastructure.Data.SeedData
 {
     public class Seed
     {

@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using StackPosts_.Core.Entities;
 
-namespace StackPosts_.Infrastructure
+namespace StackPosts_.Infrastructure.Data
 {
     public class StoreContext : DbContext
     {
