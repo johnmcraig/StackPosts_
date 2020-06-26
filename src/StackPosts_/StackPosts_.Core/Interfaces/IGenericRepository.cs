@@ -1,11 +1,12 @@
+using StackPosts_.Core.Entities;
 using System.Threading.Tasks;
 
 namespace StackPosts_.Core.Interfaces
 {
-    public interface IGenericRepository
+    public interface IGenericRepository<T> where T : BaseEntity
     {
-        void Add<T>(T entity) where T: class;
-        void Delete<T>(T entity) where T: class;
+        void Add(T entity);
+        void Delete(T entity);
         Task<bool> SaveChangesAsync();
     }
 }
