@@ -1,9 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using StackPosts_.Core.Interfaces;
-using StackPosts_.Infrastructure.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Text;
+using StackPosts_.Infrastructure.Data;
 
 namespace StackPosts_.Infrastructure
 {
