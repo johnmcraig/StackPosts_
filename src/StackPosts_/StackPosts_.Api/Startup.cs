@@ -10,7 +10,7 @@ using StackPosts_.Api.Data;
 using StackPosts_.Api.Hubs;
 using StackPosts_.Core.Interfaces;
 using StackPosts_.Infrastructure;
-using StackPosts_.Infrastructure.Repositories;
+using StackPosts_.Infrastructure.Data;
 
 namespace StackPosts_.Api
 {
@@ -26,9 +26,8 @@ namespace StackPosts_.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<PostsDbContext>();
-            services.AddInfrastructure();
 
-            services.AddScoped<IPostRepository, PostRepository>();
+            services.AddInfrastructure();
             
             services.AddCors();
 
