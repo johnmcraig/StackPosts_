@@ -3,7 +3,7 @@
     <h1>
       Welcome to StackPosts_
       <button v-b-modal.addPostModal class="btn btn-primary mt-2 float-right">
-        <i class="fas fa-plus"/> Start a post
+        <i class="fas fa-plus" /> Start a post
       </button>
     </h1>
     <ul class="list-group post-previews mt-4">
@@ -11,42 +11,43 @@
         v-for="post in posts"
         :key="post.id"
         :post="post"
-        class="list-group-item list-group-item-action mb-3" />
+        class="list-group-item list-group-item-action mb-3"
+      />
     </ul>
-    <add-post-modal @post-added="onPostAdded"/>
+    <add-post-modal @post-added="onPostAdded" />
   </div>
 </template>
 
 <script>
-import PostPreview from '@/components/post-preview'
-import AddPostModal from '@/components/add-post-modal'
-import axios from 'axios'
+import PostPreview from "@/components/post-preview";
+import AddPostModal from "@/components/add-post-modal";
+import axios from "axios";
 
 export default {
   components: {
     PostPreview,
     AddPostModal
   },
-  data () {
+  data() {
     return {
       posts: []
-    }
+    };
   },
-  created () {
-    axios.get('/posts').then(res => {
-      this.posts = res.data
-    }) // this.$http
+  created() {
+    axios.get("/posts").then(res => {
+      this.posts = res.data;
+    }); // this.$http
   },
   methods: {
-    onPostAdded (post) {
-      this.posts = [post, ...this.posts]
+    onPostAdded(post) {
+      this.posts = [post, ...this.posts];
     }
   }
-}
+};
 </script>
 
 <style>
-.post-previews .list-group-item{
+.post-previews .list-group-item {
   cursor: pointer;
 }
 </style>
