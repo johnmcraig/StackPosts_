@@ -23,12 +23,13 @@ namespace StackPosts_.Tests
             {
                 mockPosts.Add(new Post
                 {
-                    Id = i,
+                    Id = 1,
                     Title = $"Test Post {i}",
                     Body = $"Test Content for Post {i}",
                     Score = 1,
                     Deleted = false,
                     DatePosted = DateTime.UtcNow,
+                    Replies = new List<Reply>()
                 });
             }
 
@@ -36,7 +37,7 @@ namespace StackPosts_.Tests
 
             mockDataRepository
                    .Setup(repo => repo.GetPostsAsync())
-                   .Returns(() => Task.FromResult(mockPosts.ToArray()));
+                   .Returns(() => Task.FromResult(mockPosts.AsEnumerable()));
 
             var mockConfigurationRoot = new Mock<IConfigurationRoot>();
 
@@ -46,7 +47,9 @@ namespace StackPosts_.Tests
 
             var result = await postsController.GetPosts();
 
-            Assert.Equal(10, result.GetHashCode());
+            Assert.Equal(10, result.Count());
+
+            mockDataRepository.Verify(mock => mock.GetPostsAsync(), Times.Once());
         }
     }
 }
