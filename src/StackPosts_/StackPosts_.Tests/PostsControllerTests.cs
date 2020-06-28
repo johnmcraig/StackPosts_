@@ -1,12 +1,10 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Moq;
-using StackPosts_.Api.Controllers;
 using StackPosts_.Core.Entities;
 using StackPosts_.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
