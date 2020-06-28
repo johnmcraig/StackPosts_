@@ -13,7 +13,7 @@ namespace StackPosts_.Api.Controllers.v2
     {
         private readonly IPostRepository _repo;
 
-        public PostsController( IPostRepository repo)
+        public PostsController(IPostRepository repo)
         {
             _repo = repo;
         }
