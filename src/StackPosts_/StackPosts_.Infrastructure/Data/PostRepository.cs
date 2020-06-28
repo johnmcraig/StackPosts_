@@ -9,7 +9,7 @@ using StackPosts_.Core.Interfaces;
 
 namespace StackPosts_.Infrastructure.Data
 {
-    public class PostRepository : IPostRepository, IGenericRepository<Post>
+    public class PostRepository : IPostRepository
     {
         private readonly StoreContext _dbContext;
         private readonly ILogger<PostRepository> _logger;
