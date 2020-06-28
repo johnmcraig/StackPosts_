@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using StackPosts_.Core.Interfaces;
 using StackPosts_.Core.Entities;
+using System.Collections.Generic;
 
 namespace StackPosts_.Api.Controllers.v2
 {
@@ -19,16 +20,17 @@ namespace StackPosts_.Api.Controllers.v2
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetPosts()
+        public async Task<IEnumerable<Post>> GetPosts()
         {
             try
             {
                 var posts = await _repo.GetPostsAsync();
-                return Ok(posts);
+                return posts;
             }
             catch (Exception ex)
             {
-                return StatusCode(500, $"There was a server error: {ex}");
+                //StatusCode(500, $"There was a server error: {ex}")
+                return (IEnumerable<Post>)BadRequest(ex.Message);
             }
 
         }
