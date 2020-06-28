@@ -34,26 +34,19 @@ namespace StackPosts_.Infrastructure.Data
 
         public async Task<Post> GetPostByIdAsync(int id)
         {
-            try
-            {
-                _logger.LogInformation($"Getting a single post");
+            _logger.LogInformation($"Getting a single post");
                 
-                var post = await _dbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
+            var post = await _dbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
                 
-                return post;
-            }
-            catch (Exception ex)
-            {
-                _logger.LogError($"There was an error trying to get a post: {ex}");
-                
-                return null;
-            }
+            return post;
         }
 
-        public async Task<IReadOnlyList<Post>> GetPostsAsync()
+        public async Task<IEnumerable<Post>> GetPostsAsync()
         {
             _logger.LogInformation($"Getting all posts");
-            var posts = await _dbContext.Posts.Where(t => !t.Deleted).ToArrayAsync();
+
+            var posts = await _dbContext.Posts.Where(t => !t.Deleted).ToListAsync();
+
             return posts;
         }
 
