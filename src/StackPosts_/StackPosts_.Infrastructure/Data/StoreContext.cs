@@ -8,9 +8,10 @@ namespace StackPosts_.Infrastructure.Data
     {
         private readonly IConfiguration _config;
         
-        public StoreContext(DbContextOptions<StoreContext> options, IConfiguration config) : base(options)
+        public StoreContext(DbContextOptions<StoreContext> options) : base(options)
         {
-            _config = config;
+            //, IConfiguration config
+            //_config = config;
         }
 
         public DbSet<Post> Posts { get; set; }
