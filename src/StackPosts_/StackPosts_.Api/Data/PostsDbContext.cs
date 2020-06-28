@@ -7,9 +7,10 @@ namespace StackPosts_.Api.Data
     public class PostsDbContext : DbContext
     {
         private readonly IConfiguration _config;
-        public PostsDbContext(DbContextOptions<PostsDbContext> options, IConfiguration config) : base(options)
+        public PostsDbContext(DbContextOptions<PostsDbContext> options) : base(options)
         {
-            _config = config;
+            //, IConfiguration config
+            //_config = config;
             // Database.EnsureCreated();
         }
 
