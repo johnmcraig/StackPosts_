@@ -6,7 +6,7 @@ namespace StackPosts_.Api.Data
 {
     public class PostsDbContext : DbContext
     {
-        private readonly IConfiguration _config;
+        //private readonly IConfiguration _config;
         public PostsDbContext(DbContextOptions<PostsDbContext> options) : base(options)
         {
             //, IConfiguration config
