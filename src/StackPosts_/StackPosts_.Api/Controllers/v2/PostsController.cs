@@ -30,7 +30,7 @@ namespace StackPosts_.Api.Controllers.v2
             catch (Exception ex)
             {
                 //StatusCode(500, $"There was a server error: {ex}")
-                return (IEnumerable<Post>)BadRequest(ex.Message);
+                return BadRequest(ex.Message) as IEnumerable<Post>;
             }
 
         }
