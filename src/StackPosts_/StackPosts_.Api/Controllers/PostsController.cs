@@ -22,7 +22,7 @@ namespace StackPosts_.Api.Controllers
             _hubContext = postHub;
         }
 
-        public static ConcurrentBag<Post> posts = new ConcurrentBag<Post>
+        private static readonly ConcurrentBag<Post> posts = new ConcurrentBag<Post>
         {
             new Post
             {
