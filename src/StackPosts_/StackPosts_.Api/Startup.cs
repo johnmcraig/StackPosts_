@@ -35,31 +35,7 @@ namespace StackPosts_.Api
 
             services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV" );
 
-            services.AddApiVersioning(
-                    options => {
-                    options.ReportApiVersions = true;
-                    options.AssumeDefaultVersionWhenUnspecified = true;
-                    options.Conventions.Add( new VersionByNamespaceConvention());
-                    options.DefaultApiVersion = new ApiVersion(1, 0);
-                    options.ApiVersionReader = new HeaderApiVersionReader("api-version");
-                });
-
             services.AddSwaggerGen();
-            //services.AddSwaggerDocumentation();
-            // services.AddSwaggerGen(options => {
-                
-            //     var provider = services.BuildServiceProvider()
-            //         .GetRequiredService<IApiVersionDescriptionProvider>();
-
-            //         foreach (var description in provider.ApiVersionDescriptions)
-            //         {
-            //             options.SwaggerDoc(description.GroupName, new Info
-            //             { 
-            //                 Title = $"Posts API {description.ApiVersion}", 
-            //                 Version = description.ApiVersion.ToString() 
-            //             });
-            //         }
-            // });
 
             services.AddControllers();
         }
@@ -77,11 +53,6 @@ namespace StackPosts_.Api
                 .AllowCredentials()
                 .WithOrigins("http://localhost:8080")
             );
-
-            // app.UseSignalR(route =>
-            // {
-            //     route.MapHub<PostHub>("/post-hub");
-            // });
 
             app.UseSwagger();
             app.UseSwaggerUI(c =>
