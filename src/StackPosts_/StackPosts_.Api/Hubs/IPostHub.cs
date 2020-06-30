@@ -1,4 +1,4 @@
-using StackPosts_.Api.Data.Entities;
+using StackPosts_.Core.Entities;
 using System;
 using System.Threading.Tasks;
 
