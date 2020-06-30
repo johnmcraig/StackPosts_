@@ -5,16 +5,15 @@ using StackPosts_.Core.Interfaces;
 using StackPosts_.Core.Entities;
 using System.Collections.Generic;
 
-namespace StackPosts_.Api.Controllers.v2
+namespace StackPosts_.Api.Controllers
 {
     [ApiController]
-    [ApiVersion("2.0")]
-    [Route("api/v{version:apiVersion}/[controller]")]
-    public class PostsController : ControllerBase
+    [Route("api/[controller]")]
+    public class PostsV2Controller : ControllerBase
     {
         private readonly IPostRepository _repo;
 
-        public PostsController(IPostRepository repo)
+        public PostsV2Controller(IPostRepository repo)
         {
             _repo = repo;
         }

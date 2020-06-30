@@ -1,19 +1,19 @@
-﻿using Microsoft.Extensions.Configuration;
-using Moq;
-using StackPosts_.Core.Entities;
-using StackPosts_.Core.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using Moq;
+using StackPosts_.Core.Entities;
+using StackPosts_.Core.Interfaces;
 using Xunit;
 
 namespace StackPosts_.Tests
 {
-    public class PostsControllerTests
+    public class PostControllerV1Test
     {
         [Fact]
-        public async void GetPosts_WhenNoParams_ReturnAllPosts()
+        public async void GetAllPosts_WithNoParams_ReturnAllPosts()
         {
             var mockPosts = new List<Post>();
 
@@ -41,7 +41,7 @@ namespace StackPosts_.Tests
 
             mockConfigurationRoot.SetupGet(config => config[It.IsAny<string>()]).Returns("some setting");
 
-            var postsController = new Api.Controllers.v2.PostsController(mockDataRepository.Object);
+            var postsController = new Api.Controllers.PostsV1Controller(null, mockDataRepository.Object);
 
             var result = await postsController.GetPosts();
 

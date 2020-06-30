@@ -7,52 +7,36 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SignalR;
 using Microsoft.EntityFrameworkCore;
-using StackPosts_.Api.Data;
-using StackPosts_.Api.Data.Entities;
 using StackPosts_.Api.Hubs;
+using StackPosts_.Core.Interfaces;
+using StackPosts_.Core.Entities;
 
-
-namespace StackPosts_.Api.Controllers.v1
+namespace StackPosts_.Api.Controllers
 {
-    [ApiVersion("1.0")]
-    [Route ("api/v{version:apiVersion}/[controller]")]
     [ApiController]
-    public class PostsController : ControllerBase 
+    [Route ("api/[controller]")]
+    public class PostsV1Controller : ControllerBase 
     {
         private readonly IHubContext<PostHub, IPostHub> _hubContext;
-        private readonly PostsDbContext _dbContext;
+        private readonly IPostRepository _postRepo;
 
-        public PostsController(IHubContext<PostHub, IPostHub> postHub, PostsDbContext dbContext)
+        public PostsV1Controller(IHubContext<PostHub, IPostHub> postHub, IPostRepository postRepo)
         {
             _hubContext = postHub;
-            _dbContext = dbContext;
+            _postRepo = postRepo;
         }
 
-        // public static ConcurrentBag<Post> posts = new ConcurrentBag<Post>
-        // {
-        //     new Post
-        //     {
-        //         Id = Guid.Parse("b00c58c0-df00-49ac-ae85-0a135f75e01b"),
-        //         Title = "Welcome to the example Post",
-        //         Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 2.2 and Vue.js 2.6",
-        //         Score = 4,
-        //         Deleted = false,
-        //         DatePosted = DateTime.Now.AddMonths(-2),
-        //         Replies = new List<Reply>{new Reply { Body =  "Super exciting reply example here!", Score = 1 }}
-        //     }
-        // };
-
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Post>>> GetPosts()
+        public async Task<IEnumerable<Post>> GetPosts()
         { 
-            var posts = await _dbContext.Posts.ToListAsync();
+            var posts = await _postRepo.GetPostsAsync();
             return posts;
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> GetPost(Guid id)
+        public async Task<ActionResult<Post>> GetPost(int id)
         {
-            var post = await _dbContext.Posts.FindAsync(id);
+            var post = await _postRepo.GetPostByIdAsync(id);
             
             if (post == null) return NotFound();
 
@@ -60,31 +44,36 @@ namespace StackPosts_.Api.Controllers.v1
         }
 
         [HttpPost]
-        public async Task<ActionResult<Post>> AddPost([FromBody]Post post)
+        public async Task<ActionResult<Post>> AddPost([FromBody] Post post)
         {
             if(!ModelState.IsValid) return NotFound();
 
-             await _dbContext.Posts.AddAsync(post);
+            _postRepo.Add(post);
+
             // post.Id = Guid.NewGuid();
             // post.Deleted = false;
             // post.Replies = new List<Reply>();
             // posts.Add(post);
-            await _dbContext.SaveChangesAsync();
+
+            await _postRepo.SaveChangesAsync();
+
             return CreatedAtRoute(nameof(GetPost), new { id = post.Id }, post);
         }
 
         [HttpPost("{id}/reply")]
-        public async Task<ActionResult> AddReplyAsync(int id, [FromBody]Reply reply)
+        public async Task<ActionResult> AddReplyAsync(int id, [FromBody] Core.Entities.Reply reply)
         {
-            var post = await _dbContext.Posts.SingleOrDefaultAsync(t => t.Id == id && !t.Deleted);
+            var post = await _postRepo.GetPostByIdAsync(id);
+
             if (post == null) return NotFound();
 
-            // reply.Id = Guid.NewGuid();
+            reply.Id = id;
             reply.PostId = id;
             reply.Deleted = false;
             post.Replies.Add(reply);
 
             await _hubContext.Clients.Group(id.ToString()).ReplyAdded(reply);
+            
             await _hubContext.Clients.All.ReplyCountChange(post.Id, post.Replies.Count);
 
             return new JsonResult(reply);
@@ -93,7 +82,8 @@ namespace StackPosts_.Api.Controllers.v1
         [HttpPatch("{id}/upvote")]
         public async Task<ActionResult> UpvotePostAsync(int id)
         {
-            var post = await _dbContext.Posts.SingleOrDefaultAsync(t => t.Id == id);
+            var post = await _postRepo.GetPostByIdAsync(id);
+
             if (post == null) return NotFound();
 
             // Warning, this is not thread-safe. Use interlocked methods.
@@ -107,7 +97,8 @@ namespace StackPosts_.Api.Controllers.v1
         [HttpPatch("{id}/downvote")]
         public async Task<ActionResult> DownvotePostAsync(int id)
         {
-            var post = await _dbContext.Posts.SingleOrDefaultAsync(t => t.Id == id);
+            var post = await _postRepo.GetPostByIdAsync(id);
+
             if (post == null) return NotFound();
 
             post.Score--;
