@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using StackPosts_.Api.Errors;
 using StackPosts_.Infrastructure.Data;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace StackPosts_.Api.Controllers
         {
             var thing = _dbContext.Posts.Find(42);
 
-            if (thing == null) return NotFound();
+            if (thing == null) return NotFound(new ApiResponse(404));
 
             return Ok();
         }
@@ -41,7 +42,7 @@ namespace StackPosts_.Api.Controllers
         [HttpGet("badrequest")]
         public ActionResult GetBadRequest()
         {
-            return BadRequest();
+            return BadRequest(new ApiResponse(400));
         }
 
         [HttpGet("badrequest/{id}")]
