@@ -7,9 +7,7 @@ using System.Collections.Generic;
 
 namespace StackPosts_.Api.Controllers
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class PostsV2Controller : ControllerBase
+    public class PostsV2Controller : BaseApiController
     {
         private readonly IPostRepository _repo;
 

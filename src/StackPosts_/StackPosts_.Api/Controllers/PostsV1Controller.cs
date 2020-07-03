@@ -13,9 +13,7 @@ using StackPosts_.Core.Entities;
 
 namespace StackPosts_.Api.Controllers
 {
-    [ApiController]
-    [Route ("api/[controller]")]
-    public class PostsV1Controller : ControllerBase 
+    public class PostsV1Controller : BaseApiController 
     {
         private readonly IHubContext<PostHub, IPostHub> _hubContext;
         private readonly IPostRepository _postRepo;
