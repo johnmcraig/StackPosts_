@@ -8,6 +8,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using StackPosts_.Api.Data;
 using StackPosts_.Api.Hubs;
+using StackPosts_.Api.Middleware;
 using StackPosts_.Core.Interfaces;
 using StackPosts_.Infrastructure;
 using StackPosts_.Infrastructure.Data;
@@ -42,10 +43,7 @@ namespace StackPosts_.Api
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseMiddleware<ExceptionMiddleware>();
 
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
