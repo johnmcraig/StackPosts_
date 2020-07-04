@@ -1,13 +1,19 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace StackPosts_.Core.Entities
 {
     public class Reply : BaseEntity
     {
-        public int PostId { get; set; } // call post id to associate reply to same post
-        public string Body { get; set; } //aka Body text of reply to post
+        public int PostId { get; set; }
+
+        [Required]
+        public string Body { get; set; }
+
         public int Score { get; set; }
+
         public DateTime DateReplied { get; set; }
+        
         public bool Deleted { get; set; }
     }
 }

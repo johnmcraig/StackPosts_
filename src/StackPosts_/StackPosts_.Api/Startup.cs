@@ -1,16 +1,14 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using System.Linq;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Versioning;
-using Microsoft.AspNetCore.Mvc.Versioning.Conventions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using StackPosts_.Api.Data;
 using StackPosts_.Api.Hubs;
-using StackPosts_.Core.Interfaces;
+using StackPosts_.Api.Middleware;
 using StackPosts_.Infrastructure;
-using StackPosts_.Infrastructure.Data;
+using StackPosts_.Api.Errors;
+
 
 namespace StackPosts_.Api
 {
@@ -25,8 +23,6 @@ namespace StackPosts_.Api
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<PostsDbContext>();
-
             services.AddInfrastructure();
             
             services.AddCors();
@@ -38,14 +34,28 @@ namespace StackPosts_.Api
             services.AddSwaggerGen();
 
             services.AddControllers();
+
+            services.Configure<ApiBehaviorOptions>(options => 
+            {
+                options.InvalidModelStateResponseFactory = actionContext => 
+                { 
+                    var errors =actionContext.ModelState
+                    .Where(e => e.Value.Errors.Count > 0)
+                    .SelectMany(x => x.Value.Errors)
+                    .Select(x => x.ErrorMessage).ToArray();
+
+                    var errorResponse = new ApiValidationErrorResponse { Errors = errors };
+
+                    return new BadRequestObjectResult(errorResponse);
+                };
+            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
+            app.UseMiddleware<ExceptionMiddleware>();
+
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
             app.UseCors(x => 
                 x.AllowAnyMethod()
@@ -64,6 +74,7 @@ namespace StackPosts_.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             //app.UseSwaggerDocumention();
 
