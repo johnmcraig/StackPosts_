@@ -47,6 +47,8 @@ namespace StackPosts_.Api
                 app.UseDeveloperExceptionPage();
             }
 
+            app.UseStatusCodePagesWithReExecute("/errors/{0}");
+
             app.UseCors(x => 
                 x.AllowAnyMethod()
                 .AllowAnyHeader()
@@ -64,6 +66,7 @@ namespace StackPosts_.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            app.UseStaticFiles();
 
             //app.UseSwaggerDocumention();
 
