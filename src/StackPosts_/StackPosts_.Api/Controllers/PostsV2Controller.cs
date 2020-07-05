@@ -9,11 +9,11 @@ namespace StackPosts_.Api.Controllers
 {
     public class PostsV2Controller : BaseApiController
     {
-        private readonly IPostRepository _repo;
+        private readonly IPostRepository _postRepo;
 
-        public PostsV2Controller(IPostRepository repo)
+        public PostsV2Controller(IPostRepository postRepo)
         {
-            _repo = repo;
+            _postRepo = postRepo;
         }
 
         [HttpGet]
@@ -21,7 +21,7 @@ namespace StackPosts_.Api.Controllers
         {
             try
             {
-                var posts = await _repo.GetPostsAsync();
+                var posts = await _postRepo.GetPostsAsync();
                 return posts;
             }
             catch (Exception ex)
@@ -29,7 +29,6 @@ namespace StackPosts_.Api.Controllers
                 //StatusCode(500, $"There was a server error: {ex}")
                 return BadRequest(ex.Message) as IEnumerable<Post>;
             }
-
         }
 
         [HttpGet("{id}")]
@@ -37,7 +36,7 @@ namespace StackPosts_.Api.Controllers
         {
             try
             {
-                var post = await _repo.GetPostByIdAsync(id);
+                var post = await _postRepo.GetPostByIdAsync(id);
                 return new JsonResult(post);
             }
             catch (Exception ex)
@@ -49,7 +48,7 @@ namespace StackPosts_.Api.Controllers
         [HttpPost]
         public Post AddPost([FromBody] Post post)
         {
-            _repo.Add(post);
+            _postRepo.Add(post);
 
             return post;
         }
