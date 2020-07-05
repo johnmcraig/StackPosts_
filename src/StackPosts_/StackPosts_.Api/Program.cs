@@ -6,7 +6,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using StackPosts_.Infrastructure.Data;
-using StackPosts_.Infrastructure.Data.SeedData;
 
 namespace StackPosts_.Api
 {
