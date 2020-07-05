@@ -10,7 +10,7 @@ using Xunit;
 
 namespace StackPosts_.Tests
 {
-    public class PostControllerV1Test
+    public class PostControllerTest
     {
         [Fact]
         public async void GetAllPosts_WithNoParams_ReturnAllPosts()
@@ -41,7 +41,7 @@ namespace StackPosts_.Tests
 
             mockConfigurationRoot.SetupGet(config => config[It.IsAny<string>()]).Returns("some setting");
 
-            var postsController = new Api.Controllers.PostsV1Controller(null, mockDataRepository.Object);
+            var postsController = new Api.Controllers.PostsController(null, mockDataRepository.Object);
 
             var result = await postsController.GetPosts();
 

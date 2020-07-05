@@ -81,5 +81,15 @@ namespace StackPosts_.Infrastructure.Data
         {
             return (await _dbContext.SaveChangesAsync()) > 0;
         }
-  }
+
+        public Task<Post> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<IReadOnlyList<Post>> ListAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+    }
 }

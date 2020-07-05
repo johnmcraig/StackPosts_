@@ -24,7 +24,7 @@ BEGIN
 END
 GO
 
-CREATE PROC dbo.Post_GetMany
+CREATE PROC dbo.Post_GetAll
 AS
 BEGIN
 	SET NOCOUNT ON
@@ -34,7 +34,7 @@ BEGIN
 END
 GO
 
-CREATE PROC dbo.Posts_GetMany_WithReplies
+CREATE PROC dbo.Posts_GetAll_WithReplies
 AS
 BEGIN
 	SET NOCOUNT ON
