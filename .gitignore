@@ -47,4 +47,5 @@ yarn-error.log*
 *.sln
 *.sw*
 
-src/StackPosts_/StackPosts_.sln.DotSettings.user
+*.db
+*.user
