@@ -12,10 +12,16 @@ Currently, there isn't any limit to how many times a posts can be up-voted/down-
 
 ## Tech Stack
 
-This application was build with:
+This application was built with:
 
 - ASP.Net Core 3.1
 - Vue.js 2.6.11
+
+### Additional Packages
+
+- EntityFrameworkCore.Design
+- AutoMapper
+- SqLite Database for Development
 - SignalR (NuGet package)
 
 ## Setup
@@ -40,12 +46,12 @@ After cloning or unzipping the files, navigate to the directory containing the s
 ~$ cd src/StackPosts_/
 ```
 
-In either order, navigate to the client or api/server side files and install their dependencies. Once again, you will need Node.js and `npm` installed along with the .Net Core 2.2 SDK.
+In either order, navigate to the client side or solution files and install their dependencies. Once again, you will need Node.js and `npm` installed along with the .Net Core 3.0 SDK.
 
 For client side dependencies:
 
 ```sh
-~$ cd PostsClient/
+~$ cd client-app/
 ~$ npm install
 ```
 
@@ -58,14 +64,16 @@ Make sure the `@vue/cli` is installed as well:
 For server side code, build and restore dependencies and NuGet packages:
 
 ```sh
-~$ cd PostsAPI/
+~$ cd src/StackPosts_/
 ~$ dotnet restore
 ```
+
+And the projects should download NuGet packages, build, and restore files.
 
 ## Running the Environment
 
 To run a local environment on the client side:
-Use `npm` script commands in a terminal/command box while in the `../client` directory:
+Use `npm` script commands in a terminal/command box while in the `../client-app` directory:
 
 ```sh
 ~$ npm run serve

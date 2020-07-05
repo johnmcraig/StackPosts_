@@ -1,4 +1,4 @@
 // vue config file
 module.exports = {
-  outputDir: '../StackPosts_.API/wwwroot/client/'
+  outputDir: '../StackPosts_.Api/wwwroot/client/'
 }

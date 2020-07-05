@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StackPosts_.Core.Entities;
 
-namespace StackPosts_.Infrastructure.Data.SeedData
+namespace StackPosts_.Infrastructure.Data
 {
     public class StoreContextSeed
     {
@@ -34,7 +34,7 @@ namespace StackPosts_.Infrastructure.Data.SeedData
                     new Post
                     {
                         Title = "Welcome to yet another example post",
-                        Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 3.1 and Vue.js",
+                        Body = "Welcome to this demonstration of making posts using ASP.Net Core 3.1 and Vue.js",
                         Score = -10,
                         Deleted = false,
                         DatePosted = DateTime.UtcNow.AddMonths(-1)
