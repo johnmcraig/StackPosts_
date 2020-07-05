@@ -10,15 +10,16 @@ using Microsoft.EntityFrameworkCore;
 using StackPosts_.Api.Hubs;
 using StackPosts_.Core.Interfaces;
 using StackPosts_.Core.Entities;
+using StackPosts_.Api.Errors;
 
 namespace StackPosts_.Api.Controllers
 {
-    public class PostsV1Controller : BaseApiController 
+    public class PostsController : BaseApiController 
     {
         private readonly IHubContext<PostHub, IPostHub> _hubContext;
         private readonly IPostRepository _postRepo;
 
-        public PostsV1Controller(IHubContext<PostHub, IPostHub> postHub, IPostRepository postRepo)
+        public PostsController(IHubContext<PostHub, IPostHub> postHub, IPostRepository postRepo)
         {
             _hubContext = postHub;
             _postRepo = postRepo;
@@ -36,7 +37,7 @@ namespace StackPosts_.Api.Controllers
         {
             var post = await _postRepo.GetPostByIdAsync(id);
             
-            if (post == null) return NotFound();
+            if (post == null) return NotFound(new ApiResponse(404));
 
             return Ok(post);
         }
@@ -44,11 +45,11 @@ namespace StackPosts_.Api.Controllers
         [HttpPost]
         public async Task<ActionResult<Post>> AddPost([FromBody] Post post)
         {
-            if(!ModelState.IsValid) return NotFound();
+            if(!ModelState.IsValid) return NotFound(new ApiResponse(404));
 
             _postRepo.Add(post);
 
-            // post.Id = Guid.NewGuid();
+            // post.Id = id;
             // post.Deleted = false;
             // post.Replies = new List<Reply>();
             // posts.Add(post);
@@ -59,7 +60,7 @@ namespace StackPosts_.Api.Controllers
         }
 
         [HttpPost("{id}/reply")]
-        public async Task<ActionResult> AddReplyAsync(int id, [FromBody] Core.Entities.Reply reply)
+        public async Task<ActionResult> AddReplyAsync(int id, [FromBody] Reply reply)
         {
             var post = await _postRepo.GetPostByIdAsync(id);
 
