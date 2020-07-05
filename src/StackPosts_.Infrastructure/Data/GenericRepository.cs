@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 using StackPosts_.Core.Entities;
 using StackPosts_.Core.Interfaces;
+using StackPosts_.Core.Specifications;
 
 namespace StackPosts_.Infrastructure.Data
 {
@@ -30,14 +31,24 @@ namespace StackPosts_.Infrastructure.Data
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public async Task<IReadOnlyList<T>> ListAllAsync()
-        {
-            return await _dbContext.Set<T>().ToListAsync();
-        }
+    public Task<T> GetEntityWithSpec(ISpecification<T> spec)
+    {
+        throw new System.NotImplementedException();
+    }
 
-        public async Task<bool> SaveChangesAsync()
-        {
-            return (await _dbContext.SaveChangesAsync()) > 0;
-        }
+    public async Task<IReadOnlyList<T>> ListAllAsync()
+    {
+        return await _dbContext.Set<T>().ToListAsync();
+    }
+
+    public Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public async Task<bool> SaveChangesAsync()
+    {
+        return (await _dbContext.SaveChangesAsync()) > 0;
+    }
   }
 }
