@@ -1,14 +1,11 @@
-﻿using System.Linq;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using StackPosts_.Api.Hubs;
 using StackPosts_.Api.Middleware;
 using StackPosts_.Infrastructure;
-using StackPosts_.Api.Errors;
-
+using StackPosts_.Api.Extensions;
 
 namespace StackPosts_.Api
 {
@@ -24,31 +21,16 @@ namespace StackPosts_.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddInfrastructure();
+
+            services.AddApplicationServices();
+
+            services.AddSwaggerDocumentation();
             
             services.AddCors();
 
             services.AddSignalR();
 
-            services.AddVersionedApiExplorer(options => options.GroupNameFormat = "'v'VVV" );
-
-            services.AddSwaggerGen();
-
             services.AddControllers();
-
-            services.Configure<ApiBehaviorOptions>(options => 
-            {
-                options.InvalidModelStateResponseFactory = actionContext => 
-                { 
-                    var errors =actionContext.ModelState
-                    .Where(e => e.Value.Errors.Count > 0)
-                    .SelectMany(x => x.Value.Errors)
-                    .Select(x => x.ErrorMessage).ToArray();
-
-                    var errorResponse = new ApiValidationErrorResponse { Errors = errors };
-
-                    return new BadRequestObjectResult(errorResponse);
-                };
-            });
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
@@ -64,19 +46,12 @@ namespace StackPosts_.Api
                 .WithOrigins("http://localhost:8080")
             );
 
-            app.UseSwagger();
-            app.UseSwaggerUI(c =>
-            {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "StackPosts API V1");
-                c.SwaggerEndpoint("/swagger/v2/swagger.json", "StackPosts API V2");
-            });
- 
             app.UseHttpsRedirection();
 
             app.UseRouting();
             app.UseStaticFiles();
 
-            //app.UseSwaggerDocumention();
+            app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {
