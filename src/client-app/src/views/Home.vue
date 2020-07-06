@@ -36,7 +36,7 @@ export default {
   created() {
     axios.get("/posts").then(res => {
       this.posts = res.data;
-    }); // this.$http
+    });
   },
   methods: {
     onPostAdded(post) {

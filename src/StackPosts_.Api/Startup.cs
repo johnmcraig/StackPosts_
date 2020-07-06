@@ -49,6 +49,8 @@ namespace StackPosts_.Api
             app.UseHttpsRedirection();
 
             app.UseRouting();
+            
+            app.UseDefaultFiles();
             app.UseStaticFiles();
 
             app.UseSwaggerDocumentation();
@@ -56,6 +58,7 @@ namespace StackPosts_.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                endpoints.MapFallbackToController("Index", "Fallback");
                 endpoints.MapHub<PostHub>("/post-hub");
             });
         }
