@@ -15,6 +15,7 @@ namespace StackPosts_.Infrastructure.Data
         public StoreContext(DbContextOptions<StoreContext> options, IConfiguration config) : base(options)
         {
             _config = config;
+            Database.EnsureCreated();
         }
 
         public DbSet<Post> Posts { get; set; }
@@ -53,6 +54,7 @@ namespace StackPosts_.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            // optionsBuilder.UseNpgsql(_config.GetConnectionString("NpgsqlConString"))
             // optionsBuilder.UseSqlServer(_config.GetConnectionString("sqlConString"));
             // optionsBuilder.UseInMemoryDatabase(databaseName: "StackPosts");
             optionsBuilder.UseSqlite(_config.GetConnectionString("DefaultConnection"));
