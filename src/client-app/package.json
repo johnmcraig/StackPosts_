@@ -9,11 +9,13 @@
   },
   "dependencies": {
     "core-js": "^3.6.5",
-    "vue": "^2.6.11"
+    "vue": "^2.6.11",
+    "vuelidate": "^0.7.5",
+    "vuex": "^3.5.1"
   },
   "devDependencies": {
-    "@microsoft/signalr": "3.1.5",
     "@fortawesome/fontawesome-free": "^5.13.1",
+    "@microsoft/signalr": "3.1.5",
     "@vue/cli-plugin-babel": "~4.4.6",
     "@vue/cli-plugin-eslint": "~4.4.6",
     "@vue/cli-service": "~4.4.6",
