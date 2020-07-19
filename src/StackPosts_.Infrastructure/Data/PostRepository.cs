@@ -36,18 +36,18 @@ namespace StackPosts_.Infrastructure.Data
         {
             _logger.LogInformation($"Getting a single post");
                 
-            var post = await _dbContext.Posts.FirstOrDefaultAsync(x => x.Id == id);
-                
-            return post;
+            return await _dbContext.Posts
+                .FirstOrDefaultAsync(p => p.Id == id);
+
         }
 
         public async Task<IEnumerable<Post>> GetPostsAsync()
         {
             _logger.LogInformation($"Getting all posts");
 
-            var posts = await _dbContext.Posts.Where(t => !t.Deleted).ToListAsync();
-
-            return posts;
+            return await _dbContext.Posts
+                .Where(t => !t.Deleted)
+                .ToListAsync();
         }
 
         public async Task<Post[]> GetPostByTitle(string title, bool includeReplies = false)
@@ -80,16 +80,6 @@ namespace StackPosts_.Infrastructure.Data
         public async Task<bool> SaveChangesAsync()
         {
             return (await _dbContext.SaveChangesAsync()) > 0;
-        }
-
-        public Task<Post> GetByIdAsync(int id)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<IReadOnlyList<Post>> ListAllAsync()
-        {
-            throw new NotImplementedException();
         }
     }
 }
