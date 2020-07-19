@@ -16,13 +16,15 @@ namespace StackPosts_.Api.Controllers
 {
     public class PostsController : BaseApiController 
     {
-        private readonly IHubContext<PostHub, IPostHub> _hubContext;
+        // private readonly IHubContext<PostHub, IPostHub> _hubContext;
         private readonly IPostRepository _postRepo;
+        //private readonly IReplyRepository _replyRepo;
 
-        public PostsController(IHubContext<PostHub, IPostHub> postHub, IPostRepository postRepo)
+        public PostsController( IPostRepository postRepo)
         {
-            _hubContext = postHub;
+            // IHubContext<PostHub, IPostHub> postHub, _hubContext = postHub;
             _postRepo = postRepo;
+            // IReplyRepository replyRepo _replyRepo = replyRepo;
         }
 
         [HttpGet]
@@ -30,6 +32,17 @@ namespace StackPosts_.Api.Controllers
         { 
             var posts = await _postRepo.GetPostsAsync();
             return posts;
+
+            // try
+            // {
+            //     var posts = await _postRepo.GetPostsAsync();
+            //     return posts;
+            // }
+            // catch (Exception ex)
+            // {
+            //     //StatusCode(500, $"There was a server error: {ex}")
+            //     return BadRequest(ex.Message) as IEnumerable<Post>;
+            // }
         }
 
         [HttpGet("{id}")]
@@ -56,7 +69,17 @@ namespace StackPosts_.Api.Controllers
 
             await _postRepo.SaveChangesAsync();
 
-            return CreatedAtRoute(nameof(GetPost), new { id = post.Id }, post);
+            return Ok(post);
+
+            // try
+            // {
+            //     var post = await _postRepo.GetPostByIdAsync(id);
+            //     return new JsonResult(post);
+            // }
+            // catch (Exception ex)
+            // {
+            //     return StatusCode(500, $"Eternal server error: {ex}");
+            // }
         }
 
         [HttpPost("{id}/reply")]
@@ -67,15 +90,16 @@ namespace StackPosts_.Api.Controllers
             if (post == null) return NotFound();
 
             reply.Id = id;
-            reply.PostId = id;
-            reply.Deleted = false;
-            post.Replies.Add(reply);
+            // reply.PostId = id;
+             reply.Deleted = false;
 
-            await _hubContext.Clients.Group(id.ToString()).ReplyAdded(reply);
+            _postRepo.Add(post);
+
+            // await _hubContext.Clients.Group(id.ToString()).ReplyAdded(reply);
             
-            await _hubContext.Clients.All.ReplyCountChange(post.Id, post.Replies.Count);
+            // await _hubContext.Clients.All.ReplyCountChange(post.Id, post.Replies.Count);
 
-            return new JsonResult(reply);
+            return Ok(reply);
         }
 
         [HttpPatch("{id}/upvote")]
@@ -88,9 +112,9 @@ namespace StackPosts_.Api.Controllers
             // Warning, this is not thread-safe. Use interlocked methods.
             post.Score++;
 
-            await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
+            // await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
 
-            return new JsonResult(post);
+            return Ok(post);
         }
 
         [HttpPatch("{id}/downvote")]
@@ -102,9 +126,9 @@ namespace StackPosts_.Api.Controllers
 
             post.Score--;
 
-            await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
+            // await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
 
-            return new JsonResult(post);
+            return Ok(post);
         }
     }
 }
