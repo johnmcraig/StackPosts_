@@ -1,28 +1,28 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import HomePage from '@/views/Home.vue'
-import PostPage from '@/views/Post.vue'
-import Login from '@/views/Login.vue'
+import Vue from 'vue';
+import VueRouter from 'vue-router';
+import HomePage from '@/views/Home.vue';
+import PostPage from '@/views/Post.vue';
+import Login from '@/views/Login.vue';
 
-Vue.use(Router)
+Vue.use(VueRouter);
 
-export default new Router({
+export default new VueRouter({
   mode: 'history',
   routes: [
     {
       path: '/',
       name: 'Home',
-      component: HomePage
+      component: HomePage,
     },
     {
       path: '/post/:id',
       name: 'Post',
-      component: PostPage
+      component: PostPage,
     },
     {
       path: '/login',
       name: 'Login',
-      component: Login
-    }
-  ]
-})
+      component: Login,
+    },
+  ],
+});
