@@ -30,12 +30,12 @@ export default {
   methods: {
     onUpvote () {
       axios.patch(`/posts/${this.post.id}/upvote`).then(res => {
-        Object.assign(this.post, res.data) // this.$http
+        Object.assign(this.post, res.data)
       })
     },
     onDownvote () {
       axios.patch(`/posts/${this.post.id}/downvote`).then(res => {
-        Object.assign(this.post, res.data) // this.$http
+        Object.assign(this.post, res.data)
       })
     },
     onScoreChanged ({ postId, score }) {
