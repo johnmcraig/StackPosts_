@@ -7,14 +7,15 @@ namespace StackPosts_.Infrastructure.Data
 {
   public class ReplyRepository : IReplyRepository
   {
-       private readonly StoreContext _dbContext;
-        private readonly ILogger<ReplyRepository> _logger;
+    private readonly StoreContext _dbContext;
+    private readonly ILogger<ReplyRepository> _logger;
 
-        public ReplyRepository(StoreContext dbContext, ILogger<ReplyRepository> logger)
-        {
-            _logger = logger;
-            _dbContext = dbContext;
-        }
+    public ReplyRepository(StoreContext dbContext, ILogger<ReplyRepository> logger)
+    {
+        _logger = logger;
+        _dbContext = dbContext;
+    }
+
     public void Add(Reply entity)
     {
         _logger.LogInformation($"Inserting entity");
@@ -23,12 +24,13 @@ namespace StackPosts_.Infrastructure.Data
 
     public void Delete(Reply entity)
     {
-      throw new System.NotImplementedException();
+        _logger.LogInformation($"Deleting entity");
+        _dbContext.Remove(entity);
     }
 
-    public Task<bool> SaveChangesAsync()
+    public async Task<bool> SaveChangesAsync()
     {
-      throw new System.NotImplementedException();
+        return (await _dbContext.SaveChangesAsync()) > 0;
     }
   }
 }
