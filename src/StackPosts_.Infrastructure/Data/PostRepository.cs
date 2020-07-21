@@ -37,6 +37,7 @@ namespace StackPosts_.Infrastructure.Data
             _logger.LogInformation($"Getting a single post");
                 
             return await _dbContext.Posts
+                .Include(p => p.Replies)
                 .FirstOrDefaultAsync(p => p.Id == id);
 
         }
@@ -47,6 +48,7 @@ namespace StackPosts_.Infrastructure.Data
 
             return await _dbContext.Posts
                 .Where(t => !t.Deleted)
+                .Include(p => p.Replies)
                 .ToListAsync();
         }
 
