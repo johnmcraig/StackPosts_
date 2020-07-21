@@ -18,13 +18,13 @@ namespace StackPosts_.Api.Controllers
     {
         // private readonly IHubContext<PostHub, IPostHub> _hubContext;
         private readonly IPostRepository _postRepo;
-        //private readonly IReplyRepository _replyRepo;
+        private readonly IReplyRepository _replyRepo;
 
-        public PostsController( IPostRepository postRepo)
+        public PostsController( IPostRepository postRepo, IReplyRepository replyRepo)
         {
             // IHubContext<PostHub, IPostHub> postHub, _hubContext = postHub;
             _postRepo = postRepo;
-            // IReplyRepository replyRepo _replyRepo = replyRepo;
+            _replyRepo = replyRepo;
         }
 
         [HttpGet]
@@ -32,17 +32,6 @@ namespace StackPosts_.Api.Controllers
         { 
             var posts = await _postRepo.GetPostsAsync();
             return posts;
-
-            // try
-            // {
-            //     var posts = await _postRepo.GetPostsAsync();
-            //     return posts;
-            // }
-            // catch (Exception ex)
-            // {
-            //     //StatusCode(500, $"There was a server error: {ex}")
-            //     return BadRequest(ex.Message) as IEnumerable<Post>;
-            // }
         }
 
         [HttpGet("{id}")]
@@ -62,24 +51,11 @@ namespace StackPosts_.Api.Controllers
 
             _postRepo.Add(post);
 
-            // post.Id = id;
-            // post.Deleted = false;
-            // post.Replies = new List<Reply>();
-            // posts.Add(post);
-
             await _postRepo.SaveChangesAsync();
 
             return Ok(post);
 
-            // try
-            // {
-            //     var post = await _postRepo.GetPostByIdAsync(id);
-            //     return new JsonResult(post);
-            // }
-            // catch (Exception ex)
-            // {
-            //     return StatusCode(500, $"Eternal server error: {ex}");
-            // }
+            
         }
 
         [HttpPost("{id}/reply")]
@@ -89,11 +65,14 @@ namespace StackPosts_.Api.Controllers
 
             if (post == null) return NotFound();
 
-            reply.Id = id;
-            // reply.PostId = id;
-             reply.Deleted = false;
+            //reply.Id = id;
+            reply.PostId = post.Id;
+            reply.Deleted = false;
+            reply.DateReplied = DateTime.UtcNow;
 
-            _postRepo.Add(post);
+            _replyRepo.Add(reply);
+
+            await _replyRepo.SaveChangesAsync();
 
             // await _hubContext.Clients.Group(id.ToString()).ReplyAdded(reply);
             
