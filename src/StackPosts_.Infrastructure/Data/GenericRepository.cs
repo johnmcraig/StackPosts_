@@ -31,24 +31,24 @@ namespace StackPosts_.Infrastructure.Data
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-    public Task<T> GetEntityWithSpec(ISpecification<T> spec)
-    {
-        throw new System.NotImplementedException();
-    }
+        public Task<T> GetEntityWithSpec(ISpecification<T> spec)
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public async Task<IReadOnlyList<T>> ListAllAsync()
-    {
-        return await _dbContext.Set<T>().ToListAsync();
-    }
+        public async Task<IReadOnlyList<T>> ListAllAsync()
+        {
+            return await _dbContext.Set<T>().ToListAsync();
+        }
 
-    public Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
-    {
-        throw new System.NotImplementedException();
-    }
+        public Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
+        {
+            throw new System.NotImplementedException();
+        }
 
-    public async Task<bool> SaveChangesAsync()
-    {
-        return (await _dbContext.SaveChangesAsync()) > 0;
-    }
+        public async Task<bool> SaveChangesAsync()
+        {
+            return (await _dbContext.SaveChangesAsync()) > 0;
+        }
   }
 }
