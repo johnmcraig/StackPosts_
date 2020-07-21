@@ -20,6 +20,6 @@ namespace StackPosts_.Api.Dtos
 
         public DateTime DatePosted { get; set; }
 
-        public List<Reply> Replies;
+        public IEnumerable<Reply> Replies { get; set; }
     }
 }
