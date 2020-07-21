@@ -26,7 +26,15 @@ namespace StackPosts_.Api
 
             services.AddSwaggerDocumentation();
             
-            services.AddCors();
+            services.AddCors(opt =>
+            {
+                opt.AddPolicy("corspolicy", policy =>
+                {
+                    policy.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithOrigins("http://localhost:3000", "http://localhost:8080", "http://localhost:4200");
+                });
+            });
 
             services.AddSignalR();
 
@@ -39,12 +47,7 @@ namespace StackPosts_.Api
 
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-            app.UseCors(x => 
-                x.AllowAnyMethod()
-                .AllowAnyHeader()
-                .AllowCredentials()
-                .WithOrigins("http://localhost:8080")
-            );
+            app.UseCors("corspolicy");
 
             app.UseHttpsRedirection();
 
