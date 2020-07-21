@@ -2,7 +2,7 @@ import Vue from 'vue';
 import Vuex from 'vuex';
 import Axios from 'axios';
 
-Vue.use(vuex);
+Vue.use(Vuex);
 
 const baseUrl = 'api';
 
