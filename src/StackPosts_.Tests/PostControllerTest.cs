@@ -41,7 +41,7 @@ namespace StackPosts_.Tests
 
             mockConfigurationRoot.SetupGet(config => config[It.IsAny<string>()]).Returns("some setting");
 
-            var postsController = new Api.Controllers.PostsController(mockDataRepository.Object);
+            var postsController = new Api.Controllers.PostsController(mockDataRepository.Object, null);
 
             var result = await postsController.GetPosts();
 
