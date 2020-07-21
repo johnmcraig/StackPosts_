@@ -51,3 +51,5 @@ yarn-error.log*
 *.user
 
 wwwroot/
+src/StackPosts_.Api/StackPosts.db-wal
+src/StackPosts_.Api/StackPosts.db-shm
