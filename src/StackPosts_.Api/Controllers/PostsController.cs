@@ -89,7 +89,8 @@ namespace StackPosts_.Api.Controllers
             if (post == null) return NotFound();
 
             // Warning, this is not thread-safe. Use interlocked methods.
-            post.Score++;
+            // post.Score++;
+            await _postRepo.UpVote(id);
 
             // await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
 
@@ -103,7 +104,8 @@ namespace StackPosts_.Api.Controllers
 
             if (post == null) return NotFound();
 
-            post.Score--;
+            // post.Score--;
+            await _postRepo.DownVote(id);
 
             // await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
 
