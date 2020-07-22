@@ -11,5 +11,7 @@ namespace StackPosts_.Core.Interfaces
         Task<Post> GetPostByIdAsync(int id);
         Task<Post[]> GetPostByTitle(string title, bool includeReplies = false);
         Task<Post[]> GetByDatePosted(DateTime date);
+        Task<Post> DownVote(int id);
+        Task<Post> UpVote(int id);
     }
 }
