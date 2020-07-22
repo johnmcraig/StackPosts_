@@ -22,23 +22,22 @@ namespace StackPosts_.Api
         {
             services.AddInfrastructure();
 
+            services.AddControllers();
+
             services.AddApplicationServices();
 
             services.AddSwaggerDocumentation();
             
             services.AddCors(opt =>
             {
-                opt.AddPolicy("corspolicy", policy =>
+                opt.AddPolicy("CorsPolicy", opt =>
                 {
-                    policy.AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .WithOrigins("http://localhost:3000", "http://localhost:8080", "http://localhost:4200");
+                    opt.AllowAnyHeader().AllowAnyMethod()
+                    .WithOrigins( "http://localhost:8080", "http://localhost:4200");
                 });
             });
 
-            services.AddSignalR();
-
-            services.AddControllers();
+            //services.AddSignalR();
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
@@ -47,22 +46,22 @@ namespace StackPosts_.Api
 
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
-            app.UseCors("corspolicy");
-
             app.UseHttpsRedirection();
 
             app.UseRouting();
             
-            app.UseDefaultFiles();
+            //app.UseDefaultFiles();
             app.UseStaticFiles();
+
+            app.UseCors("CorsPolicy");
 
             app.UseSwaggerDocumentation();
 
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                endpoints.MapFallbackToController("Index", "Fallback");
-                endpoints.MapHub<PostHub>("/post-hub");
+                //endpoints.MapFallbackToController("Index", "Fallback");
+                //endpoints.MapHub<PostHub>("/post-hub");
             });
         }
     }
