@@ -53,19 +53,33 @@ namespace StackPosts_.Infrastructure.Data
                     {
                         PostId = 1,
                         Body = "Super exciting reply example here!", 
-                        Score = 1 
+                        Score = 1,
+                        Deleted = false,
+                        DateReplied = DateTime.UtcNow
                     },
                     new Reply
                     {
                         PostId = 1,
                         Body = "Another exciting reply example here!",
-                        Score = 5
+                        Score = 5,
+                        Deleted = false,
+                        DateReplied = DateTime.UtcNow
                     },
                     new Reply
                     {
                         PostId = 2,
                         Body = "Glad to see all is working well!",
-                        Score = -3
+                        Score = -3,
+                        Deleted = false,
+                        DateReplied = DateTime.UtcNow
+                    },
+                    new Reply
+                    {
+                        PostId = 3,
+                        Body = "Hey! This is basically as repeat...",
+                        Score = 0,
+                        Deleted = false,
+                        DateReplied = DateTime.UtcNow
                     }
                 };
 
