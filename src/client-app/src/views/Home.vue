@@ -21,7 +21,8 @@
 <script>
 import PostPreview from "@/components/post-preview";
 import AddPostModal from "@/components/add-post-modal";
-import axios from "axios";
+//import axios from "axios";
+import PostsDataService from "../services/PostsDataService";
 
 export default {
   components: {
@@ -34,11 +35,28 @@ export default {
     };
   },
   created() {
-    axios.get("/posts").then(res => {
-      this.posts = res.data;
-    });
+    this.fetchPosts();
+    // axios
+    //   .get("/api/posts")
+    //   .then(res => {
+    //     this.posts = res.data;
+    //     console.log(this.data);
+    //   })
+    //   .catch(error => {
+    //       console.log(error);
+    //     });
   },
   methods: {
+    fetchPosts() {
+      PostsDataService.getAll()
+        .then(res => {
+          this.posts = res.data;
+          console.log(res.data);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    },
     onPostAdded(post) {
       this.posts = [post, ...this.posts];
     }
