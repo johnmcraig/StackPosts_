@@ -32,10 +32,10 @@ export default {
     }
   },
   created () {
-    this.$postHub.$on('reply-count-changed', this.onReplyCountChanged)
+    // this.$postHub.$on('reply-count-changed', this.onReplyCountChanged)
   },
   beforeDestroy () {
-    this.$postHub.$off('reply-count-changed', this.onReplyCountChanged)
+   // this.$postHub.$off('reply-count-changed', this.onReplyCountChanged)
   },
   methods: {
     onOpenPost () {

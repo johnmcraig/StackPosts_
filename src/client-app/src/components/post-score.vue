@@ -22,10 +22,10 @@ export default {
   },
   created () {
     // Listen to score changes coming from SignalR events
-    this.$postHub.$on('score-changed', this.onScoreChanged)
+    // this.$postHub.$on('score-changed', this.onScoreChanged)
   },
   beforeDestroy () {
-    this.$postHub.$off('score-changed', this.onScoreChanged)
+   // this.$postHub.$off('score-changed', this.onScoreChanged)
   },
   methods: {
     onUpvote () {

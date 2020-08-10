@@ -83,5 +83,19 @@ namespace StackPosts_.Infrastructure.Data
         {
             return (await _dbContext.SaveChangesAsync()) > 0;
         }
+
+        public async Task<Post> UpVote(int id)
+        {
+            var post = await _dbContext.Posts.FindAsync(id);
+            post.Score += 1;
+            return post;
+        }
+
+        public async Task<Post> DownVote(int id)
+        {
+            var post = await _dbContext.Posts.FindAsync(id);
+            post.Score -= 1;
+            return post;
+        }
     }
 }

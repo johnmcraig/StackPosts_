@@ -19,7 +19,7 @@
       </button>
       <button class="btn btn-link float-right" @click="onReturnHome">Back to list</button>
     </footer>
-    <add-reply-modal :post-id="this.postId" @reply-added="onReplyAdded" />
+    <add-reply-modal :post-id="this.post.id" @reply-added="onReplyAdded" />
   </article>
 </template>
 
@@ -27,7 +27,7 @@
 import VueMarkdown from "vue-markdown";
 import PostScore from "@/components/post-score";
 import AddReplyModal from "@/components/add-reply-modal";
-import axios from "axios";
+import PostsDataService from '../services/PostsDataService';
 
 export default {
   components: {
@@ -38,28 +38,34 @@ export default {
   data() {
     return {
       post: null,
-      replies: [],
-      postId: this.$route.params.id
+      replies: []
     };
   },
   computed: {
-    // hasReplies () {
-    //   return this.post.replies.length >= 0
-    // }
+    hasReplies () {
+      return this.post.replies.length >= 0
+    }
   },
   created() {
-    axios.get(`/posts/${this.postId}`).then(res => {
-      this.post = res.data;
-      return this.$postHub.postOpened(this.postId);
-    });
-    this.$postHub.$on("reply-added", this.onReplyAdded);
-    this.$postHub.$on("score-changed", this.onScoreChanged);
+    this.getPost()
+    //this.$postHub.$on("reply-added", this.onReplyAdded);
+    //this.$postHub.$on("score-changed", this.onScoreChanged);
   },
-  beforeDestroy() {
-    this.$postHub.postClosed(this.postId);
-    this.$postHub.$off("reply-added", this.onReplyAdded);
-  },
+  // beforeDestroy() {
+  //   this.$postHub.postClosed(this.postId);
+  //   this.$postHub.$off("reply-added", this.onReplyAdded);
+  // },
   methods: {
+    getPost(id) {
+      PostsDataService.get(id)
+        .then(res => {
+          this.post = res.data;
+          console.log(res.data);
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    },
     onReturnHome() {
       this.$router.push({ name: "Home" });
     },
@@ -69,6 +75,9 @@ export default {
         this.post.replies.push(reply);
       }
     }
+  },
+  mounted() {
+    this.getPost(this.$route.params.id)
   }
 };
 </script>

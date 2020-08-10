@@ -29,7 +29,7 @@ import axios from 'axios'
 export default {
   props: {
     postId: {
-      type: String,
+      type: Number,
       required: true
     }
   },
