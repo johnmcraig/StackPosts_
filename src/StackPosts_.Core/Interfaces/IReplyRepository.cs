@@ -4,6 +4,6 @@ namespace StackPosts_.Core.Interfaces
 {
     public interface IReplyRepository : IGenericRepository<Reply>
     {
-        /* A empty bridge */
+        /* An empty bridge */
     }
 }
