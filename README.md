@@ -2,6 +2,11 @@
 
 > An imitation of Stack Overflow using ASP.Net Core, Vue.js, and SignalR.
 
+![visitors](https://vistr.dev/badge?repo=johnmcraig.StackPosts_)
+![stars](https://img.shields.io/github/stars/johnmcraig/StackPosts_?style=flat-square&cacheSeconds=604800)
+![last commit](https://img.shields.io/github/last-commit/johnmcraig/StackPosts_?style=flat-square&cacheSeconds=86400)
+![pull requests](https://img.shields.io/github/issues-pr/johnmcraig/StackPosts_?color=0088ff)
+
 ## Scope
 
 This is a project based on building a forum application as a proof-of-concept using Asp.Net Core and Vue.js, where users can create posts for questions and/or reply to those posts. There also exists the ability to up-vote and down-vote posts at a users discretion*.
