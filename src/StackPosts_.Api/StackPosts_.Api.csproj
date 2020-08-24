@@ -5,6 +5,8 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="3.2.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.5">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -14,8 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\StackPosts_.Client\StackPosts.Client.csproj" />
     <ProjectReference Include="..\StackPosts_.Infrastructure\StackPosts_.Infrastructure.csproj" />
-    <ProjectReference Include="..\StackPosts_.Core\StackPosts_.Core.csproj" />
   </ItemGroup>
 
 </Project>
