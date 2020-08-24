@@ -50,6 +50,6 @@ yarn-error.log*
 *.db
 *.user
 
-wwwroot/
+wwwroot/**
 src/StackPosts_.Api/StackPosts.db-wal
 src/StackPosts_.Api/StackPosts.db-shm
