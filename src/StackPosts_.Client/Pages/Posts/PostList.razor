@@ -1,6 +1,25 @@
 @page "/posts"
 
+@inject IPostService _postService
+
+@if (_postModel == null)
+{
+    <p>Loading data...</p>
+}
+else
+{
+    @foreach(var post in _postModel)
+    {
+        <h4>@post.Title</h4>
+        <p>@post.Body</p>   
+    }
+}
 
 @code {
-    private List<PostModel> _postModel;
+    private IList<PostModel> _postModel;
+
+    protected override async Task OnInitializedAsync()
+    {
+        _postModel = await _postService.GetAll(Endpoints.PostsEndpoint);
+    }
 }
