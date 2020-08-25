@@ -14,7 +14,7 @@ namespace StackPosts_.Client.Services
         private readonly HttpClient _client;
         private readonly ILogger<RepositoryService<PostModel>> _logger;
 
-        protected PostService(HttpClient client, ILogger<RepositoryService<PostModel>> logger) : base(client, logger)
+        public PostService(HttpClient client, ILogger<RepositoryService<PostModel>> logger) : base(client, logger)
         {
             _client = client;
             _logger = logger;
