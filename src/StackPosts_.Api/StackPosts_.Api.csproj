@@ -16,7 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\StackPosts_.Client\StackPosts.Client.csproj" />
+    <ProjectReference Include="..\StackPosts_.Client\StackPosts_.Client.csproj" />
     <ProjectReference Include="..\StackPosts_.Infrastructure\StackPosts_.Infrastructure.csproj" />
   </ItemGroup>
 

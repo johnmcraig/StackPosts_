@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackPosts_.Core", "StackPo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackPosts_.Tests", "StackPosts_.Tests\StackPosts_.Tests.csproj", "{7CF01865-DDF7-4DEE-A49B-C072C3489995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackPosts.Client", "StackPosts_.Client\StackPosts.Client.csproj", "{E4CE228F-358A-4B16-AF8B-95E469CDEB63}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackPosts_.Client", "StackPosts_.Client\StackPosts_.Client.csproj", "{E4CE228F-358A-4B16-AF8B-95E469CDEB63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
