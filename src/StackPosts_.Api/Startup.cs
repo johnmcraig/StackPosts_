@@ -22,20 +22,26 @@ namespace StackPosts_.Api
         {
             services.AddInfrastructure();
 
-            services.AddControllers();
-
             services.AddApplicationServices();
 
             services.AddSwaggerDocumentation();
             
             services.AddCors(opt =>
             {
-                opt.AddPolicy("CorsPolicy", opt =>
+                opt.AddPolicy("CorsPolicy", builder =>
                 {
-                    opt.AllowAnyHeader().AllowAnyMethod()
-                    .WithOrigins( "http://localhost:8080", "http://localhost:4200");
+                    builder.AllowAnyHeader()
+                    .AllowAnyMethod()
+                    .WithOrigins( "http://localhost:8080", 
+                                  "http://localhost:4200");
                 });
             });
+
+            services.AddControllers().AddNewtonsoftJson(opt => {
+                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            });
+
+            services.AddRazorPages();
 
             //services.AddSignalR();
         }
@@ -50,17 +56,21 @@ namespace StackPosts_.Api
 
             app.UseRouting();
             
-            //app.UseDefaultFiles();
-            app.UseStaticFiles();
-
             app.UseCors("CorsPolicy");
 
             app.UseSwaggerDocumentation();
 
+            app.UseBlazorFrameworkFiles();
+
+            app.UseDefaultFiles();
+
+            app.UseStaticFiles();
+
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                //endpoints.MapFallbackToController("Index", "Fallback");
+                endpoints.MapFallbackToFile("index.html");
                 //endpoints.MapHub<PostHub>("/post-hub");
             });
         }
