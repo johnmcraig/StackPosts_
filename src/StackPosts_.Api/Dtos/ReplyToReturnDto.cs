@@ -7,8 +7,6 @@ namespace StackPosts_.Api.Dtos
 {
     public class ReplyToReturnDto
     {
-        public int Id { get; set; }
-
         public int PostId { get; set; }
 
         public string Body { get; set; }
