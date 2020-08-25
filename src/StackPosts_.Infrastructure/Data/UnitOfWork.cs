@@ -8,10 +8,10 @@ namespace StackPosts_.Infrastructure.Data
 {
   public class UnitOfWork : IUnitOfWork
   {
-    private readonly StoreContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
     private Hashtable _repositories;
 
-    public UnitOfWork(StoreContext dbContext)
+    public UnitOfWork(ApplicationDbContext dbContext)
     {
         _dbContext = dbContext;
     }

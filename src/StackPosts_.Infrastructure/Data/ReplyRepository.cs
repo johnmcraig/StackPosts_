@@ -7,10 +7,10 @@ namespace StackPosts_.Infrastructure.Data
 {
   public class ReplyRepository : IReplyRepository
   {
-    private readonly StoreContext _dbContext;
+    private readonly ApplicationDbContext _dbContext;
     private readonly ILogger<ReplyRepository> _logger;
 
-    public ReplyRepository(StoreContext dbContext, ILogger<ReplyRepository> logger)
+    public ReplyRepository(ApplicationDbContext dbContext, ILogger<ReplyRepository> logger)
     {
         _logger = logger;
         _dbContext = dbContext;

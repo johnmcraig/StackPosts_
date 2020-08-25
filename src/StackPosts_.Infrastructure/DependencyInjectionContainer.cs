@@ -14,7 +14,7 @@ namespace StackPosts_.Infrastructure
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
-            services.AddDbContext<StoreContext>();
+            services.AddDbContext<ApplicationDbContext>();
 
             return services;
         }

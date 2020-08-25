@@ -8,8 +8,6 @@ namespace StackPosts_.Api.Dtos
 {
     public class PostToReturnDto
     {
-        public int Id { get; set; }
-
         public string Title { get; set; }
 
         public string Body { get; set; }

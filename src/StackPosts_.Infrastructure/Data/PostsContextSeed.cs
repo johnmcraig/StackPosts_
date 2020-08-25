@@ -7,9 +7,9 @@ using StackPosts_.Core.Entities;
 
 namespace StackPosts_.Infrastructure.Data
 {
-    public class StoreContextSeed
+    public class PostsContextSeed
     {
-        public static async Task SeedAsync(StoreContext dbContext, ILoggerFactory loggerFactory)
+        public static async Task SeedAsync(ApplicationDbContext dbContext, ILoggerFactory loggerFactory)
         {
             if(!dbContext.Posts.Any())
             {

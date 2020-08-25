@@ -22,9 +22,9 @@ namespace StackPosts_.Api
 
                 try
                 {
-                    var dbContext = services.GetRequiredService<StoreContext>();
+                    var dbContext = services.GetRequiredService<ApplicationDbContext>();
                     await dbContext.Database.MigrateAsync();
-                    await StoreContextSeed.SeedAsync(dbContext, loggerFactory);
+                    await PostsContextSeed.SeedAsync(dbContext, loggerFactory);
                 }
                 catch (Exception ex)
                 {

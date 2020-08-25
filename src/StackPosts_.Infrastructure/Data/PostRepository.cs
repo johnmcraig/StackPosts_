@@ -11,10 +11,10 @@ namespace StackPosts_.Infrastructure.Data
 {
     public class PostRepository : IPostRepository
     {
-        private readonly StoreContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
         private readonly ILogger<PostRepository> _logger;
 
-        public PostRepository(StoreContext dbContext, ILogger<PostRepository> logger)
+        public PostRepository(ApplicationDbContext dbContext, ILogger<PostRepository> logger)
         {
             _logger = logger;
             _dbContext = dbContext;

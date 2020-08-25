@@ -28,14 +28,14 @@ namespace StackPosts_.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<IEnumerable<Post>> GetPosts()
+        public async Task<IActionResult> GetPosts()
         { 
             var posts = await _postRepo.GetPostsAsync();
-            return posts;
+            return Ok(posts);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Post>> GetPost(int id)
+        public async Task<IActionResult> GetPost(int id)
         {
             var post = await _postRepo.GetPostByIdAsync(id);
             
@@ -45,7 +45,7 @@ namespace StackPosts_.Api.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Post>> AddPost([FromBody] Post post)
+        public async Task<IActionResult> AddPost([FromBody] Post post)
         {
             if(!ModelState.IsValid) return NotFound(new ApiResponse(404));
 
@@ -53,13 +53,13 @@ namespace StackPosts_.Api.Controllers
 
             await _postRepo.SaveChangesAsync();
 
-            return Ok(post);
+            return Created("AddPost", new { post });
 
             
         }
 
         [HttpPost("{id}/reply")]
-        public async Task<ActionResult> AddReplyAsync(int id, [FromBody] Reply reply)
+        public async Task<IActionResult> AddReplyAsync(int id, [FromBody] Reply reply)
         {
             var post = await _postRepo.GetPostByIdAsync(id);
 
@@ -82,7 +82,7 @@ namespace StackPosts_.Api.Controllers
         }
 
         [HttpPatch("{id}/upvote")]
-        public async Task<ActionResult> UpvotePostAsync(int id)
+        public async Task<IActionResult> UpvotePostAsync(int id)
         {
             var post = await _postRepo.GetPostByIdAsync(id);
 
@@ -98,7 +98,7 @@ namespace StackPosts_.Api.Controllers
         }
 
         [HttpPatch("{id}/downvote")]
-        public async Task<ActionResult> DownvotePostAsync(int id)
+        public async Task<IActionResult> DownvotePostAsync(int id)
         {
             var post = await _postRepo.GetPostByIdAsync(id);
 
