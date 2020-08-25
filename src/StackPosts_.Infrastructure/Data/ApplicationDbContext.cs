@@ -8,11 +8,11 @@ using System.Reflection;
 
 namespace StackPosts_.Infrastructure.Data
 {
-    public class StoreContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         private readonly IConfiguration _config;
         
-        public StoreContext(DbContextOptions<StoreContext> options, IConfiguration config) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration config) : base(options)
         {
             _config = config;
             Database.EnsureCreated();

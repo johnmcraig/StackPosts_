@@ -10,9 +10,9 @@ namespace StackPosts_.Api.Controllers
 {
     public class BuggyController : BaseApiController
     {
-        private readonly StoreContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
-        public BuggyController(StoreContext dbContext)
+        public BuggyController(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }

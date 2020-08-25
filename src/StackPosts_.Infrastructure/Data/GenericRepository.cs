@@ -9,9 +9,9 @@ namespace StackPosts_.Infrastructure.Data
 {
   public class GenericRepository<T> : IGenericRepository<T> where T : BaseEntity
   {
-        private readonly StoreContext _dbContext;
+        private readonly ApplicationDbContext _dbContext;
 
-        public GenericRepository(StoreContext dbContext)
+        public GenericRepository(ApplicationDbContext dbContext)
         {
             _dbContext = dbContext;
         }
