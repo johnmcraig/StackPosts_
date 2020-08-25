@@ -2,6 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Moq;
 using StackPosts_.Core.Entities;
@@ -44,8 +46,11 @@ namespace StackPosts_.Tests
             var postsController = new Api.Controllers.PostsController(mockDataRepository.Object, null);
 
             var result = await postsController.GetPosts();
+            var okResult = result as OkObjectResult;
 
-            Assert.Equal(10, result.Count());
+            Assert.NotNull(okResult);
+            Assert.IsType<List<Post>>(okResult.Value);
+            Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
 
             mockDataRepository.Verify(mock => mock.GetPostsAsync(), Times.Once());
         }
