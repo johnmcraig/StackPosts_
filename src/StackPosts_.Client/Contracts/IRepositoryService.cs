@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace StackPosts.Client.Contracts
+namespace StackPosts_.Client.Contracts
 {
     public interface IRepositoryService<T> where T : class
     {

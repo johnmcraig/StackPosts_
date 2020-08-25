@@ -4,9 +4,9 @@ using System.Net.Http;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using StackPosts.Client.Contracts;
+using StackPosts_.Client.Contracts;
 
-namespace StackPosts.Client.Services
+namespace StackPosts_.Client.Services
 {
     public class RepositoryService<T> : IRepositoryService<T> where T : class
     {

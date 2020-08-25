@@ -1,7 +1,7 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace StackPosts.Client.Models
+namespace StackPosts_.Client.Models
 {
     public class ReplyModel
     {
