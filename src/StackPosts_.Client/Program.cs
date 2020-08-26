@@ -23,6 +23,7 @@ namespace StackPosts_.Client
 
             builder.Services.AddTransient(typeof(IRepositoryService<>), typeof(RepositoryService<>));
             builder.Services.AddTransient<IPostService, PostService>();
+            builder.Services.AddTransient<IReplyService, ReplyService>();
             builder.Services.AddOptions();
 
             await builder.Build().RunAsync();

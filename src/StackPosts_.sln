@@ -9,9 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackPosts_.Infrastructure"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackPosts_.Core", "StackPosts_.Core\StackPosts_.Core.csproj", "{D0938290-9BB4-4DE8-8A4D-E29F63F220C2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackPosts_.Tests", "StackPosts_.Tests\StackPosts_.Tests.csproj", "{7CF01865-DDF7-4DEE-A49B-C072C3489995}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackPosts_.Tests", "StackPosts_.Tests\StackPosts_.Tests.csproj", "{7CF01865-DDF7-4DEE-A49B-C072C3489995}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackPosts_.Client", "StackPosts_.Client\StackPosts_.Client.csproj", "{E4CE228F-358A-4B16-AF8B-95E469CDEB63}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackPosts_.Client", "StackPosts_.Client\StackPosts_.Client.csproj", "{E4CE228F-358A-4B16-AF8B-95E469CDEB63}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

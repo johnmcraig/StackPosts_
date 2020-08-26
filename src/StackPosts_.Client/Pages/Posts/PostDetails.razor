@@ -1,0 +1,18 @@
+﻿@page "/posts/details/{Id:int}"
+
+@inject IPostService _postService
+
+<h5>@_postModel.Title</h5>
+
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private PostModel _postModel = new PostModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        _postModel = await _postService.GetSingle(Endpoints.PostsEndpoint, Id);
+    }
+}

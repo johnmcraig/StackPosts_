@@ -8,10 +8,21 @@
 }
 else
 {
-    @foreach(var post in _postModel)
+    @foreach (var post in _postModel)
     {
-        <h4>@post.Title</h4>
-        <p>@post.Body</p>   
+        <li class="card container">
+            <div class="card-body row">
+                
+                <div class="col-11">
+                    <h5 class="card-title">@post.Title</h5>
+                    <p>@post.Body</p>
+                    <a href="/posts/details/@post.Id" class="card-link">
+                        View post
+                        <span class="badge badge-success">replies: @post.Replies.Count()</span>
+                    </a>
+                </div>
+            </div>
+        </li>
     }
 }
 

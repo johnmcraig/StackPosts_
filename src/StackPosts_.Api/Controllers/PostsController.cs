@@ -20,7 +20,7 @@ namespace StackPosts_.Api.Controllers
         private readonly IPostRepository _postRepo;
         private readonly IReplyRepository _replyRepo;
 
-        public PostsController( IPostRepository postRepo, IReplyRepository replyRepo)
+        public PostsController(IPostRepository postRepo, IReplyRepository replyRepo)
         {
             // IHubContext<PostHub, IPostHub> postHub, _hubContext = postHub;
             _postRepo = postRepo;
