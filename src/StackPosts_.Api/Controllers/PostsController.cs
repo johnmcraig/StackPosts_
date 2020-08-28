@@ -30,14 +30,14 @@ namespace StackPosts_.Api.Controllers
         [HttpGet]
         public async Task<IActionResult> GetPosts()
         { 
-            var posts = await _postRepo.GetPostsAsync();
+            var posts = await _postRepo.ListAllAsync();
             return Ok(posts);
         }
 
         [HttpGet("{id}")]
         public async Task<IActionResult> GetPost(int id)
         {
-            var post = await _postRepo.GetPostByIdAsync(id);
+            var post = await _postRepo.GetByIdAsync(id);
             
             if (post == null) return NotFound(new ApiResponse(404));
 
@@ -51,7 +51,7 @@ namespace StackPosts_.Api.Controllers
 
             _postRepo.Add(post);
 
-            await _postRepo.SaveChangesAsync();
+            await _postRepo.Save();
 
             return Created("AddPost", new { post });
 
@@ -61,7 +61,7 @@ namespace StackPosts_.Api.Controllers
         [HttpPost("{id}/reply")]
         public async Task<IActionResult> AddReplyAsync(int id, [FromBody] Reply reply)
         {
-            var post = await _postRepo.GetPostByIdAsync(id);
+            var post = await _postRepo.GetByIdAsync(id);
 
             if (post == null) return NotFound();
 
@@ -72,7 +72,7 @@ namespace StackPosts_.Api.Controllers
 
             _replyRepo.Add(reply);
 
-            await _replyRepo.SaveChangesAsync();
+            await _replyRepo.Save();
 
             // await _hubContext.Clients.Group(id.ToString()).ReplyAdded(reply);
             
@@ -84,13 +84,13 @@ namespace StackPosts_.Api.Controllers
         [HttpPatch("{id}/upvote")]
         public async Task<IActionResult> UpvotePostAsync(int id)
         {
-            var post = await _postRepo.GetPostByIdAsync(id);
+            var post = await _postRepo.GetByIdAsync(id);
 
             if (post == null) return NotFound();
 
             // Warning, this is not thread-safe. Use interlocked methods.
-            // post.Score++;
-            await _postRepo.UpVote(id);
+             post.Score++;
+            //await _postRepo.UpVote(id);
 
             // await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
 
@@ -100,12 +100,12 @@ namespace StackPosts_.Api.Controllers
         [HttpPatch("{id}/downvote")]
         public async Task<IActionResult> DownvotePostAsync(int id)
         {
-            var post = await _postRepo.GetPostByIdAsync(id);
+            var post = await _postRepo.GetByIdAsync(id);
 
             if (post == null) return NotFound();
 
-            // post.Score--;
-            await _postRepo.DownVote(id);
+             post.Score--;
+            //await _postRepo.DownVote(id);
 
             // await _hubContext.Clients.All.PostScoreChange(post.Id, post.Score);
 
