@@ -1,8 +1,15 @@
 ﻿@page "/posts/details/{Id:int}"
 
-@inject IPostService _postService
+@inject IPostService PostService
+@inject IReplyService ReplyService
 
 <h5>@_postModel.Title</h5>
+<p>@_postModel.Body</p>
+
+@* @foreach (var replies in _postModel.Replies) *@
+@* { *@
+@*     <p>@replies.Body</p> *@
+@* } *@
 
 
 @code {
@@ -10,9 +17,11 @@
     public int Id { get; set; }
 
     private PostModel _postModel = new PostModel();
+    private ReplyModel _replies = new ReplyModel();
 
     protected override async Task OnInitializedAsync()
     {
-        _postModel = await _postService.GetSingle(Endpoints.PostsEndpoint, Id);
+        _postModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
+        _replies = await ReplyService.GetSingle(Endpoints.PostsEndpoint, Id);
     }
 }
