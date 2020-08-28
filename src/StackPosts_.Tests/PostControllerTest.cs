@@ -36,7 +36,7 @@ namespace StackPosts_.Tests
             var mockDataRepository = new Mock<IPostRepository>();
 
             mockDataRepository
-                   .Setup(repo => repo.GetPostsAsync())
+                   .Setup(repo => repo.ListAllAsync())
                    .Returns(() => Task.FromResult(mockPosts.AsEnumerable()));
 
             var mockConfigurationRoot = new Mock<IConfigurationRoot>();
@@ -52,7 +52,7 @@ namespace StackPosts_.Tests
             Assert.IsType<List<Post>>(okResult.Value);
             Assert.Equal(StatusCodes.Status200OK, okResult.StatusCode);
 
-            mockDataRepository.Verify(mock => mock.GetPostsAsync(), Times.Once());
+            mockDataRepository.Verify(mock => mock.ListAllAsync(), Times.Once());
         }
     }
 }
