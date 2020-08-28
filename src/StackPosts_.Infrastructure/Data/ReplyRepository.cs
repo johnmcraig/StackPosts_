@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
 using StackPosts_.Core.Entities;
@@ -16,19 +17,31 @@ namespace StackPosts_.Infrastructure.Data
         _dbContext = dbContext;
     }
 
+    public Task<Reply> GetByIdAsync(int id)
+    {
+        throw new System.NotImplementedException();
+    }
+
+    public Task<IEnumerable<Reply>> ListAllAsync()
+    {
+        throw new System.NotImplementedException();
+    }
+
     public void Add(Reply entity)
     {
         _logger.LogInformation($"Inserting entity");
         _dbContext.Add(entity);
+        _dbContext.SaveChangesAsync();
     }
 
     public void Delete(Reply entity)
     {
         _logger.LogInformation($"Deleting entity");
         _dbContext.Remove(entity);
+        _dbContext.SaveChangesAsync();
     }
 
-    public async Task<bool> SaveChangesAsync()
+    public async Task<bool> Save()
     {
         return (await _dbContext.SaveChangesAsync()) > 0;
     }

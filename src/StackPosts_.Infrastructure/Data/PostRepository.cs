@@ -32,7 +32,7 @@ namespace StackPosts_.Infrastructure.Data
             _dbContext.Remove(post);
         }
 
-        public async Task<Post> GetPostByIdAsync(int id)
+        public async Task<Post> GetByIdAsync(int id)
         {
             _logger.LogInformation($"Getting a single post");
                 
@@ -42,7 +42,7 @@ namespace StackPosts_.Infrastructure.Data
 
         }
 
-        public async Task<IEnumerable<Post>> GetPostsAsync()
+        public async Task<IEnumerable<Post>> ListAllAsync()
         {
             _logger.LogInformation($"Getting all posts");
 
@@ -79,7 +79,7 @@ namespace StackPosts_.Infrastructure.Data
             return await query.ToArrayAsync();
         }
 
-        public async Task<bool> SaveChangesAsync()
+        public async Task<bool> Save()
         {
             return (await _dbContext.SaveChangesAsync()) > 0;
         }

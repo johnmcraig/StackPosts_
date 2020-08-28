@@ -7,9 +7,9 @@ namespace StackPosts_.Core.Interfaces
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
-        // Task<T> GetByIdAsync(int id);
+        Task<T> GetByIdAsync(int id);
 
-        // Task<IReadOnlyList<T>> ListAllAsync();
+        Task<IEnumerable<T>> ListAllAsync();
 
         // Task<T> GetEntityWithSpec(ISpecification<T> spec);
         
@@ -19,6 +19,6 @@ namespace StackPosts_.Core.Interfaces
         
         void Delete(T entity);
         
-        Task<bool> SaveChangesAsync();
+        Task<bool> Save();
     }
 }

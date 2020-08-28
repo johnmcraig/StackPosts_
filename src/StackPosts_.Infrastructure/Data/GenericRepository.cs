@@ -36,7 +36,7 @@ namespace StackPosts_.Infrastructure.Data
             throw new System.NotImplementedException();
         }
 
-        public async Task<IReadOnlyList<T>> ListAllAsync()
+        public async Task<IEnumerable<T>> ListAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
         }
@@ -46,7 +46,7 @@ namespace StackPosts_.Infrastructure.Data
             throw new System.NotImplementedException();
         }
 
-        public async Task<bool> SaveChangesAsync()
+        public async Task<bool> Save()
         {
             return (await _dbContext.SaveChangesAsync()) > 0;
         }
