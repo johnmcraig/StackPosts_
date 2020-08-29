@@ -1,27 +1,37 @@
 ﻿@page "/posts/details/{Id:int}"
 
 @inject IPostService PostService
-@inject IReplyService ReplyService
 
-<h5>@_postModel.Title</h5>
-<p>@_postModel.Body</p>
+@if (_postModel == null)
+{
+    <p>Loading data...</p>
+}
+else
+{
+    <h5>@_postModel.Title</h5>
+    <p>@_postModel.Body</p>
+    @if (_postModel.Replies == null || !_postModel.Replies.Any())
+    {
+        <p>No comments yet for this post...</p>
+    }
+    else
+    {
+        @foreach (var replies in _postModel.Replies)
+        {
+            <p>@replies.Body</p>
+        }  
+    }
 
-@* @foreach (var replies in _postModel.Replies) *@
-@* { *@
-@*     <p>@replies.Body</p> *@
-@* } *@
-
+}
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
     private PostModel _postModel = new PostModel();
-    private ReplyModel _replies = new ReplyModel();
 
     protected override async Task OnInitializedAsync()
     {
         _postModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
-        _replies = await ReplyService.GetSingle(Endpoints.PostsEndpoint, Id);
     }
 }
