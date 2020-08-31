@@ -1,11 +1,11 @@
 ﻿@inject IPostService PostService
 
 <h3 class="text-center scoring">
-    <button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="Upvote">
+    <button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="UpVote">
       <i class="oi oi-chevron-top"></i>
     </button>
-    <span class="d-block mx-auto"> @*@_postModel.Score*@ 0 </span>
-    <button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="Downvote">
+    <span class="d-block mx-auto"> @Score </span> 
+    <button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="DownVote">
       <i class="oi oi-chevron-bottom"></i>
     </button>
   </h3>
@@ -13,7 +13,9 @@
 @code {
     [Parameter]
     public int Id { get; set; }
-  
+
+    public int Score = 0;
+
     private PostModel _postModel = new PostModel();
 
     protected override async Task OnInitializedAsync()
@@ -21,13 +23,13 @@
       _postModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
     }
 
-    private void Upvote()
+    private void UpVote()
     {
-      _postModel.Score++;
+      _postModel.Score += 1;
     }
 
-    private void Downvote()
+    private void DownVote()
     {
-      _postModel.Score--;
+      _postModel.Score -= 1;
     }
 }
