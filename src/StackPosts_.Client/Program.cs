@@ -21,9 +21,9 @@ namespace StackPosts_.Client
 
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
-            builder.Services.AddTransient(typeof(IRepositoryService<>), typeof(RepositoryService<>));
-            builder.Services.AddTransient<IPostService, PostService>();
-            builder.Services.AddTransient<IReplyService, ReplyService>();
+            builder.Services.AddScoped(typeof(IRepositoryService<>), typeof(RepositoryService<>));
+            builder.Services.AddScoped<IPostService, PostService>();
+            builder.Services.AddScoped<IReplyService, ReplyService>();
             builder.Services.AddOptions();
 
             await builder.Build().RunAsync();
