@@ -1,6 +1,6 @@
 @page "/posts"
 
-@inject IPostService _postService
+@inject IPostService PostService
 
 @if (_postModel == null)
 {
@@ -13,7 +13,7 @@ else
         <li class="card container p-2 m-2">
             <div class="card-body row">
                 <PostScore />
-                <div class="col-11">
+                    <div class="col-11">
                     <h5 class="card-title">@post.Title</h5>
                     <p>@post.Body</p>
                     <a href="/posts/details/@post.Id" class="card-link">
@@ -31,6 +31,6 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-        _postModel = await _postService.GetAll(Endpoints.PostsEndpoint);
+        _postModel = await PostService.GetAll(Endpoints.PostsEndpoint);
     }
 }
