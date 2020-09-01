@@ -1,0 +1,49 @@
+﻿@inherits PostBase
+@page "/posts/create"
+
+@inject IPostService PostService
+
+<h3>Create Post</h3>
+
+<br />
+
+<EditForm Model="Model" OnValidSubmit="CreatePost">
+    
+    <DataAnnotationsValidator/>
+    
+    <ValidationSummary/>
+    
+    <div class="form-group">
+        <label for="Title">Title</label>
+        <InputText @bind-Value="@Model.Title" class="form-control" id="Title" placeholder="Give it a title..."/>
+    </div>
+    
+    <div class="form-group">
+        <label for="Body">What Do You wish to ask?</label>
+        <InputTextArea @bind-Value="@Model.Body" class="form-control" id="Body"
+                        placeholder="Ask your question here..."/>
+    </div>
+
+    <button class="btn btn-primary" type="submit">
+        <span class="oi oi-pencil"></span>
+        Submit Query
+    </button>
+
+    <button @onclick="BackToList" class="btn btn-warning">
+        <span class="oi oi-media-skip-backward"></span>
+        Back to List
+    </button>
+</EditForm>
+
+@code {
+    private PostModel Model = new PostModel();
+
+    private async Task CreatePost()
+    {
+        var response = await PostService.Create(Endpoints.PostsEndpoint, Model);
+        if (response != null)
+        {
+            BackToList();
+        }
+    }
+}
