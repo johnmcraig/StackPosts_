@@ -1,19 +1,31 @@
+@inherits PostBase
 @page "/posts"
 
-@inject IPostService PostService
-
-@if (_postModel == null)
+<a href="/posts/create/" class="btn btn-primary p-2 m-2">
+    <span class="oi oi-pencil"></span> 
+    Add A Post
+</a>
+@if (PostModelList == null)
 {
     <p>Loading data...</p>
 }
 else
 {
-    @foreach (var post in _postModel)
+    @foreach (var post in PostModelList)
     {
         <li class="card container p-2 m-2">
             <div class="card-body row">
-                <PostScore />
-                    <div class="col-11">
+                @if (PostModel != null)
+                {
+                    <PostScore />
+                }
+                else
+                {
+                    <h3>
+                      <span>0</span>  
+                    </h3>
+                }
+                <div class="col-11">
                     <h5 class="card-title">@post.Title</h5>
                     <p>@post.Body</p>
                     <a href="/posts/details/@post.Id" class="card-link">
@@ -23,14 +35,5 @@ else
                 </div>
             </div>
         </li>
-    }
-}
-
-@code {
-    private IList<PostModel> _postModel;
-
-    protected override async Task OnInitializedAsync()
-    {
-        _postModel = await PostService.GetAll(Endpoints.PostsEndpoint);
     }
 }
