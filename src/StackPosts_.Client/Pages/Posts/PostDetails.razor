@@ -1,37 +1,23 @@
-﻿@page "/posts/details/{Id:int}"
+﻿@inherits PostBase
+@page "/posts/details/{Id:int}"
 
-@inject IPostService PostService
-
-@if (_postModel == null)
+@if (PostModel == null)
 {
     <p>Loading data...</p>
 }
 else
 {
-    <h5>@_postModel.Title</h5>
-    <p>@_postModel.Body</p>
-    @if (_postModel.Replies == null || !_postModel.Replies.Any())
+    <h5>@PostModel.Title</h5>
+    <p>@PostModel.Body</p>
+    @if (PostModel.Replies == null || !PostModel.Replies.Any())
     {
         <p>No comments yet for this post...</p>
     }
     else
     {
-        @foreach (var replies in _postModel.Replies)
+        @foreach (var replies in PostModel.Replies)
         {
             <p>@replies.Body</p>
         }  
-    }
-
-}
-
-@code {
-    [Parameter]
-    public int Id { get; set; }
-
-    private PostModel _postModel = new PostModel();
-
-    protected override async Task OnInitializedAsync()
-    {
-        _postModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
     }
 }
