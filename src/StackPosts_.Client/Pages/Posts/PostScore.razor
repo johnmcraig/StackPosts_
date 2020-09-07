@@ -1,11 +1,39 @@
 ﻿@inherits PostBase
 
+@inject IPostService PostService
+
 <h3 class="text-center scoring">
-    <button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="UpVote">
-      <i class="oi oi-chevron-top"></i>
-    </button>
-    <span class="d-block mx-auto"> @PostModel.Score </span> 
-    <button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="DownVote">
-      <i class="oi oi-chevron-bottom"></i>
-    </button>
-  </h3>
+  <button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="UpVote">
+    <i class="oi oi-chevron-top"></i>
+  </button>
+  <span class="d-block mx-auto"> @PostModel.Score </span> 
+  <button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="DownVote">
+    <i class="oi oi-chevron-bottom"></i>
+  </button>
+</h3>
+
+@code {
+
+  [Parameter]
+  public int Id { get; set; }
+
+  private int Score = 0;
+
+  public PostModel PostModel { get; set; } = new PostModel();
+
+  protected override async Task OnInitializedAsync()
+  {
+    PostModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
+  }
+
+  private void UpVote()
+  {
+    PostModel.Score++;
+  }
+
+  private void DownVote()
+  {
+    PostModel.Score--;
+  }
+
+}
