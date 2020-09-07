@@ -1,6 +1,8 @@
 ﻿@inherits PostBase
 @page "/posts/details/{Id:int}"
 
+@inject IPostService PostService
+
 @if (PostModel == null)
 {
     <p>Loading data...</p>
@@ -20,4 +22,22 @@ else
             <p>@replies.Body</p>
         }  
     }
+    
+    <a class="btn btn-primary" href="/replies/create">
+         <span class="oi oi-pencil"></span> Add A Reply
+    </a>
+}
+
+@code {
+
+    [Parameter]
+    public int Id { get; set; }
+    
+    private PostModel PostModel = new PostModel();
+
+    protected override async Task OnInitializedAsync()
+    {
+        PostModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
+    }
+
 }
