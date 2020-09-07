@@ -14,14 +14,14 @@
     <ValidationSummary/>
     
     <div class="form-group">
-        <label for="Title">Title</label>
-        <InputText @bind-Value="@Model.Title" class="form-control" id="Title" placeholder="Give it a title..."/>
+        <label for="Title">Your Query Title</label>
+        <InputText @bind-Value="@Model.Title" class="form-control" id="Title" placeholder="A brief question..."/>
     </div>
     
     <div class="form-group">
-        <label for="Body">What Do You wish to ask?</label>
+        <label for="Body">What are the details of this query?</label>
         <InputTextArea @bind-Value="@Model.Body" class="form-control" id="Body"
-                        placeholder="Ask your question here..."/>
+                        placeholder="Place your question details here..."/>
     </div>
 
     <button class="btn btn-primary" type="submit">
