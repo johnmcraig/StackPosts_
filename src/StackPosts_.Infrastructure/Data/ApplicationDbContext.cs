@@ -27,9 +27,8 @@ namespace StackPosts_.Infrastructure.Data
 
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            ///<summary>
-            /// Converts decimal to double since it is not supported in SqLite 
-            /// </summary>
+            
+            // Converts decimal to double since it is not supported in SqLite 
             if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
             {
                 foreach (var entityType in builder.Model.GetEntityTypes())
