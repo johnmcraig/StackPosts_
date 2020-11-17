@@ -70,7 +70,8 @@ namespace StackPosts_.Api
             {
                 endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                endpoints.MapFallbackToFile("index.html");
+                //endpoints.MapFallbackToFile("index.html");
+                endpoints.MapFallbackToController("Index", "Fallback");
                 //endpoints.MapHub<PostHub>("/post-hub");
             });
         }
