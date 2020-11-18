@@ -28,16 +28,3 @@ else
     </a>
 }
 
-@code {
-
-    [Parameter]
-    public int Id { get; set; }
-    
-    private PostModel PostModel = new PostModel();
-
-    protected override async Task OnInitializedAsync()
-    {
-        PostModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
-    }
-
-}
