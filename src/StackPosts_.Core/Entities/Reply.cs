@@ -1,5 +1,4 @@
 using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace StackPosts_.Core.Entities
 {
@@ -7,7 +6,6 @@ namespace StackPosts_.Core.Entities
     {
         public int PostId { get; set; }
 
-        [Required]
         public string Body { get; set; }
 
         public int Score { get; set; }

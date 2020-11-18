@@ -6,10 +6,8 @@ namespace StackPosts_.Core.Entities
 {
     public class Post : BaseEntity
     {   
-        [Required]
         public string Title { get; set; }
 
-        [Required]
         public string Body { get; set; }
 
         public int Score { get; set; }
