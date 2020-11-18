@@ -11,18 +11,18 @@ namespace StackPosts_.Client.Pages.Posts
     { 
         [Inject] private IPostService PostService { get; set; }
         [Inject] private NavigationManager NavManager { get; set; }
-        
-        // [Parameter] 
-        // public int Id { get; set; }
-        
-        // protected PostModel PostModel = new PostModel();
+
+        [Parameter]
+        public int Id { get; set; }
+
+        protected PostModel PostModel = new PostModel();
 
         protected IList<PostModel> PostModelList { get; set; }
         
         protected override async Task OnInitializedAsync()
         {
              PostModelList = await PostService.GetAll(Endpoints.PostsEndpoint);
-             // PostModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
+             PostModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
         }
 
         protected void BackToList()
@@ -30,14 +30,14 @@ namespace StackPosts_.Client.Pages.Posts
             NavManager.NavigateTo("/posts/");
         }
 
-        // protected void UpVote()
-        // {
-        //     PostModel.Score++;
-        // }
-        //
-        // protected void DownVote()
-        // {
-        //     PostModel.Score--;
-        // }
+        protected void UpVote()
+        {
+            PostModel.Score++;
+        }
+
+        protected void DownVote()
+        {
+            PostModel.Score--;
+        }
     }
 }
