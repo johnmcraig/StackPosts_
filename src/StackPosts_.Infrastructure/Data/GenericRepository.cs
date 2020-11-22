@@ -31,19 +31,9 @@ namespace StackPosts_.Infrastructure.Data
             return await _dbContext.Set<T>().FindAsync(id);
         }
 
-        public Task<T> GetEntityWithSpec(ISpecification<T> spec)
-        {
-            throw new System.NotImplementedException();
-        }
-
         public async Task<IEnumerable<T>> ListAllAsync()
         {
             return await _dbContext.Set<T>().ToListAsync();
-        }
-
-        public Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec)
-        {
-            throw new System.NotImplementedException();
         }
 
         public async Task<bool> Save()
