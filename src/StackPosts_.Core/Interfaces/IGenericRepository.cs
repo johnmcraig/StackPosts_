@@ -10,15 +10,9 @@ namespace StackPosts_.Core.Interfaces
         Task<T> GetByIdAsync(int id);
 
         Task<IEnumerable<T>> ListAllAsync();
-
-        // Task<T> GetEntityWithSpec(ISpecification<T> spec);
-        
-        // Task<IReadOnlyList<T>> ListAsync(ISpecification<T> spec);
         
         void Add(T entity);
         
         void Delete(T entity);
-        
-        Task<bool> Save();
     }
 }
