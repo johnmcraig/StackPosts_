@@ -9,7 +9,7 @@ using StackPosts_.Core.Interfaces;
 
 namespace StackPosts_.Infrastructure.Data
 {
-    public class PostRepository : IPostRepository
+    public class PostRepository : IPostRepository, IEfCoreFeatures
     {
         private readonly ApplicationDbContext _dbContext;
         private readonly ILogger<PostRepository> _logger;
@@ -26,6 +26,11 @@ namespace StackPosts_.Infrastructure.Data
             _dbContext.Add(post);
         }
 
+        public void AddReply(Reply entity)
+        {
+            _dbContext.Replies.Add(entity);
+        }
+
         public void Delete(Post post)
         {
             _logger.LogInformation($"Deleting entity");
@@ -39,7 +44,6 @@ namespace StackPosts_.Infrastructure.Data
             return await _dbContext.Posts
                 .Include(p => p.Replies)
                 .FirstOrDefaultAsync(p => p.Id == id);
-
         }
 
         public async Task<IEnumerable<Post>> ListAllAsync()
@@ -82,6 +86,18 @@ namespace StackPosts_.Infrastructure.Data
         public async Task<bool> Save()
         {
             return (await _dbContext.SaveChangesAsync()) > 0;
+        }
+
+        public async Task<bool> PostExists(int id)
+        {
+            var post = await _dbContext.Posts.FindAsync(id);
+
+            if (post == null)
+            {
+                return false;
+            }
+
+            return true;
         }
 
         public async Task<Post> UpVote(int id)
