@@ -11,8 +11,10 @@ namespace StackPosts_.Core.Interfaces
 
         Task<IEnumerable<T>> ListAllAsync();
         
-        void Add(T entity);
+        Task Add(T entity);
+
+        Task Update(T entity);
         
-        void Delete(T entity);
+        Task Delete(int id);
     }
 }
