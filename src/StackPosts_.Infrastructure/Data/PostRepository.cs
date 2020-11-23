@@ -20,20 +20,22 @@ namespace StackPosts_.Infrastructure.Data
             _dbContext = dbContext;
         }
 
-        public void Add(Post post)
+        public async Task Add(Post entity)
         {
             _logger.LogInformation($"Inserting entity");
-            _dbContext.Add(post);
+            await _dbContext.Posts.AddAsync(entity);
         }
 
-        public void AddReply(Reply entity)
+        public async Task<Reply> AddReply(Reply entity)
         {
-            _dbContext.Replies.Add(entity);
+            await _dbContext.Replies.AddAsync(entity);
+            return entity;
         }
 
-        public void Delete(Post post)
+        public async Task Delete(int id)
         {
             _logger.LogInformation($"Deleting entity");
+            var post = await _dbContext.Posts.FindAsync(id);
             _dbContext.Remove(post);
         }
 
@@ -98,6 +100,12 @@ namespace StackPosts_.Infrastructure.Data
             }
 
             return true;
+        }
+
+        public async Task Update(Post entity)
+        {
+             _dbContext.Entry(entity).State = EntityState.Modified;
+            await _dbContext.SaveChangesAsync();
         }
 
         public async Task<Post> UpVote(int id)
