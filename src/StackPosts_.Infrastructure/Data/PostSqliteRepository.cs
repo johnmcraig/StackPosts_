@@ -27,23 +27,21 @@ namespace StackPosts_.Infrastructure.Data
             _config = config;
         }
 
-        public void Add(Post entity)
+        public async Task Add(Post entity)
         {
-            string sql = "INSERT INTO Posts (Body, Title, DateCreated, Score) VALUES @Body, @Title, @DateCreated, @Score";
+            string sql = "INSERT INTO Posts (Body, Title, DatePosted, Score) VALUES (@Body, @Title, @DatePosted, @Score)";
 
             try
             {
                 var post = new
                 {
-                    entity.Id,
                     entity.Title,
                     entity.Body,
                     entity.DatePosted,
-                    entity.Score,
-                    entity.Deleted
+                    entity.Score
                 };
 
-                _sqliteDataAccess.SaveData(sql, post, ConnectionString);
+                await _sqliteDataAccess.SaveData(sql, post, ConnectionString);
 
             }
             catch (Exception ex)
@@ -53,9 +51,9 @@ namespace StackPosts_.Infrastructure.Data
             }
         }
 
-        public void AddReply(Reply entity)
+        public async Task<Reply> AddReply(Reply entity)
         {
-            string sql = "INSERT INTO Replies (PostId, Body, DateReplied, Score)" +
+            string sql = "INSERT INTO Replies (PostId, Body, DateReplied, Score) VALUES (@PostId, @Body, @DateReplied, @Score);" +
                          " SELECT @PostId, @Body, @DateReplied, @Score";
 
             try
@@ -68,7 +66,9 @@ namespace StackPosts_.Infrastructure.Data
                     entity.Score
                 };
 
-                _sqliteDataAccess.SaveData(sql, reply, ConnectionString);
+                await _sqliteDataAccess.SaveData(sql, reply, ConnectionString);
+
+                return entity;
             }
             catch (Exception ex)
             {
@@ -77,18 +77,13 @@ namespace StackPosts_.Infrastructure.Data
             }
         }
 
-        public void Delete(Post entity)
+        public async Task Delete(int id)
         {
-            string sql = "DELETE FROM Posts WHERE @Id = Id";
+            string sql = "DELETE FROM Posts WHERE Id = @Id";
 
             try
             {
-                var post = new
-                {
-                    entity.Id
-                };
-
-                _sqliteDataAccess.SaveData(sql, post, ConnectionString);
+                await _sqliteDataAccess.SaveData(sql, new { @Id = id }, ConnectionString);
             }
             catch (Exception ex)
             {
@@ -99,13 +94,31 @@ namespace StackPosts_.Infrastructure.Data
 
         public async Task<Post> GetByIdAsync(int id)
         {
-            string sql = "SELECT Id, Title, Body, DateCreated FROM Posts WHERE @id = Id";
+            string sql = "SELECT p.* FROM Posts AS p WHERE Id = @Id; " +
+                         "SELECT r.* FROM Replies AS r WHERE PostId = @Id";
 
             try
             {
-                var post = await _sqliteDataAccess.LoadData<Post, dynamic>(sql, new { @Id = id }, ConnectionString);
+                using (var connection = new SqliteConnection(_config
+                    .GetConnectionString(ConnectionString)))
+                {
+                    using (var multi = await connection.QueryMultipleAsync(sql,
+                        new
+                        {
+                            @Id = id
+                        }))
+                    {
+                        var post = multi.Read<Post>().SingleOrDefault();
+                        var replies = multi.Read<Reply>().ToList();
 
-                return post.SingleOrDefault();
+                        if (post != null)
+                        {
+                            post.Replies = replies;
+                        }
+
+                        return post;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -116,13 +129,26 @@ namespace StackPosts_.Infrastructure.Data
 
         public async Task<IEnumerable<Post>> ListAllAsync()
         {
-            string sql = "SELECT * FROM Posts";
+            string sql = "SELECT * FROM Posts; SELECT * FROM Replies;";
 
             try
             {
-                var posts = await _sqliteDataAccess.LoadData<Post, dynamic>(sql, new { }, ConnectionString);
+                using (var connection = new SqliteConnection(_config
+                    .GetConnectionString(ConnectionString)))
+                {
+                    using (var multi = await connection.QueryMultipleAsync(sql))
+                    {
+                        var posts = multi.Read<Post>().ToList();
+                        var replies = multi.Read<Reply>().ToList();
 
-                return posts.ToList();
+                        foreach (var post in posts)
+                        {
+                            post.Replies = replies;
+                        }
+
+                        return posts;
+                    }
+                }
             }
             catch (Exception ex)
             {
@@ -155,6 +181,12 @@ namespace StackPosts_.Infrastructure.Data
                 _logger.LogError($"An error occured while retriving a record. See the following: {ex.Message}");
                 throw;
             }
+        }
+
+        public async Task Update(Post entity)
+        {
+            string sql = "UPDATE Posts SET Title = @Title, Body = @Body WHERE Id= @Id";
+            await _sqliteDataAccess.SaveData(sql, entity, ConnectionString);
         }
 
         public Task<bool> Save()
