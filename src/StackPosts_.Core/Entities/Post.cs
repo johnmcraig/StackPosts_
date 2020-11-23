@@ -16,6 +16,6 @@ namespace StackPosts_.Core.Entities
 
         public DateTime DatePosted { get; set; }
 
-        public IEnumerable<Reply> Replies { get; set; }
+        public IList<Reply> Replies { get; set; }
     }
 }
