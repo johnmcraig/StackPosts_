@@ -8,9 +8,9 @@ namespace StackPosts_.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            services.AddScoped<IPostRepository, PostRepository>();
-            services.AddScoped<IReplyRepository, ReplyRepository>();
+            services.AddScoped<IPostRepository, PostSqliteRepository>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
+            services.AddScoped<ISqlDataAccess, SqliteDataAccess>();
 
             services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepository<>));
 
