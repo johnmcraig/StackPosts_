@@ -42,29 +42,29 @@ namespace StackPosts_.Api.Controllers
         [HttpPost]
         public async Task<IActionResult> AddPost([FromBody] Post post)
         {
+            if (post == null) return BadRequest(ModelState);
+
             if(!ModelState.IsValid) return NotFound(new ApiResponse(404));
 
-            _postRepo.Add(post);
-
-            await _postRepo.Save();
+            await _postRepo.Add(post);
 
             return Created("AddPost", new { post });
    
         }
 
         [HttpPost("reply")]
-        public async Task<IActionResult> AddReplyAsync(Reply replyToPost)
+        public async Task<IActionResult> AddReplyAsync([FromBody] Reply addNewReply)
         {
-            var postExists = await _postRepo.PostExists(replyToPost.PostId);
+            var postExists = await _postRepo.PostExists(addNewReply.PostId);
 
             if(!postExists)
             {
                 return NotFound();
             }
 
-            _postRepo.AddReply(replyToPost);
+            var savedReply = await _postRepo.AddReply(addNewReply);
 
-            return CreatedAtRoute("GetPost", new { replyToPost });
+            return Created("AddReplyAsync", new { savedReply });
         }
 
         [HttpPatch("{id}/upvote")]
