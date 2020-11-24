@@ -129,30 +129,36 @@ namespace StackPosts_.Infrastructure.Data
 
         public async Task<IEnumerable<Post>> ListAllAsync()
         {
-            string sql = "SELECT * FROM Posts; SELECT * FROM Replies;";
+            string sql = "SELECT p.*, r.* FROM Posts AS p INNER JOIN Replies AS r ON p.Id = r.PostId";
 
             try
             {
                 using (var connection = new SqliteConnection(_config
                     .GetConnectionString(ConnectionString)))
                 {
-                    using (var multi = await connection.QueryMultipleAsync(sql))
-                    {
-                        var posts = multi.Read<Post>().ToList();
-                        var replies = multi.Read<Reply>().ToList();
+                    connection.Open();
 
-                        foreach (var post in posts)
+                    var postDictionary = new Dictionary<int, Post>();
+
+                    return await connection.QueryAsync<Post, Reply, Post>(sql, map: (p, r) =>
+                    {
+                        if (!postDictionary.TryGetValue(p.Id, out Post post))
                         {
-                            post.Replies = replies;
+                            post = p;
+                            post.Replies = new List<Reply>();
+                            postDictionary.Add(post.Id, post);
+
                         }
 
-                        return posts;
-                    }
+                        post.Replies.Add(r);
+                        return post;
+
+                    }, splitOn: "Id");                   
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occured while retriving records. See the following: {ex.Message}");
+                _logger.LogError($"An error occurred while retriving records. See the following: {ex.Message}");
                 throw;
             }
         }
