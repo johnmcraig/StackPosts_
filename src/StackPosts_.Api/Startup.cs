@@ -28,20 +28,19 @@ namespace StackPosts_.Api
             
             services.AddCors(opt =>
             {
-                opt.AddPolicy("CorsPolicy", builder =>
-                {
-                    builder.AllowAnyHeader()
-                    .AllowAnyMethod()
-                    .WithOrigins( "http://localhost:8080", 
-                                  "http://localhost:4200");
-                });
+               opt.AddPolicy("CorsPolicy", builder =>
+               {
+                   builder.AllowAnyHeader()
+                   .AllowAnyMethod()
+                   .WithOrigins( "http://localhost:8080", 
+                                 "http://localhost:4200");
+               });
             });
 
             services.AddControllers().AddNewtonsoftJson(opt => {
-                opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+               opt.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
             });
-
-            services.AddRazorPages();
+            
 
             //services.AddSignalR();
         }
@@ -60,7 +59,7 @@ namespace StackPosts_.Api
 
             app.UseSwaggerDocumentation();
 
-            app.UseBlazorFrameworkFiles();
+            // app.UseBlazorFrameworkFiles();
 
             app.UseDefaultFiles();
 
@@ -68,11 +67,10 @@ namespace StackPosts_.Api
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapRazorPages();
                 endpoints.MapControllers();
-                //endpoints.MapFallbackToFile("index.html");
-                endpoints.MapFallbackToController("Index", "Fallback");
-                //endpoints.MapHub<PostHub>("/post-hub");
+                // endpoints.MapFallbackToFile("index.html");
+                // endpoints.MapFallbackToController("Index", "Fallback");
+                // endpoints.MapHub<PostHub>("/post-hub");
             });
         }
     }
