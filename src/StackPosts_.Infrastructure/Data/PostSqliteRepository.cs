@@ -147,13 +147,12 @@ namespace StackPosts_.Infrastructure.Data
                             post = p;
                             post.Replies = new List<Reply>();
                             postDictionary.Add(post.Id, post);
-
                         }
 
                         post.Replies.Add(r);
                         return post;
 
-                    }, splitOn: "Id");                   
+                    }, splitOn: "Id");
                 }
             }
             catch (Exception ex)
