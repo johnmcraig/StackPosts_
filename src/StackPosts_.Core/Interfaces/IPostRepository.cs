@@ -5,7 +5,7 @@ using StackPosts_.Core.Entities;
 
 namespace StackPosts_.Core.Interfaces
 {
-    public interface IPostRepository : IGenericRepository<Post>, IEfCoreFeatures
+    public interface IPostRepository : IGenericRepository<Post>
     {
         Task<Reply> AddReply(Reply entity);
         Task<bool> PostExists(int id);
