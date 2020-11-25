@@ -26,7 +26,7 @@ namespace StackPosts_.Infrastructure.Data
                     new Post
                     {
                         Title = "Welcome to another example post",
-                        Body = "Welcome to this demonstration of making a Stack Overflow clone using ASP.Net Core 3.1 and Vue.js",
+                        Body = "This is another mock demonstration of making a Stack Overflow clone using ASP.Net Core 3.1 and Vue.js",
                         Score = 10,
                         Deleted = false,
                         DatePosted = DateTime.UtcNow.AddMonths(-6)
@@ -34,7 +34,7 @@ namespace StackPosts_.Infrastructure.Data
                     new Post
                     {
                         Title = "Welcome to yet another example post",
-                        Body = "Welcome to this demonstration of making posts using ASP.Net Core 3.1 and Vue.js",
+                        Body = "Yet another mock demonstration of making posts using ASP.Net Core 3.1 and Vue.js",
                         Score = -10,
                         Deleted = false,
                         DatePosted = DateTime.UtcNow.AddMonths(-1)
@@ -76,7 +76,7 @@ namespace StackPosts_.Infrastructure.Data
                     new Reply
                     {
                         PostId = 3,
-                        Body = "Hey! This is basically as repeat...",
+                        Body = "Hey! This is basically a repeat post!",
                         Score = 0,
                         Deleted = false,
                         DateReplied = DateTime.UtcNow
