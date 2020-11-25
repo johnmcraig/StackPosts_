@@ -27,7 +27,6 @@ namespace StackPosts_.Infrastructure.Data
 
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
-            
             // Converts decimal to double since it is not supported in SqLite 
             if (Database.ProviderName == "Microsoft.EntityFrameworkCore.Sqlite")
             {
@@ -53,9 +52,6 @@ namespace StackPosts_.Infrastructure.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            // optionsBuilder.UseNpgsql(_config.GetConnectionString("NpgsqlConString"))
-            // optionsBuilder.UseSqlServer(_config.GetConnectionString("sqlConString"));
-            // optionsBuilder.UseInMemoryDatabase(databaseName: "StackPosts");
             optionsBuilder.UseSqlite(_config.GetConnectionString("DefaultConnection"));
         }
     }
