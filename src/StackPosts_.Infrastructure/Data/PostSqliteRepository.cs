@@ -46,8 +46,8 @@ namespace StackPosts_.Infrastructure.Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"Error inserting entity! See the following: {ex.Message}");
-                throw;
+                _logger.LogError($"Error inserting an entity. See the following: {ex.Message}");
+                throw new Exception("An error occurred while inserting a record", ex);
             }
         }
 
@@ -73,7 +73,7 @@ namespace StackPosts_.Infrastructure.Data
             catch (Exception ex)
             {
                 _logger.LogError($"Error inserting entity! See the following: {ex.Message}");
-                throw;
+                throw new Exception("An error occurred while inserting a record", ex);
             }
         }
 
@@ -88,7 +88,7 @@ namespace StackPosts_.Infrastructure.Data
             catch (Exception ex)
             {
                 _logger.LogError($"Error deleting an entity. See the following: {ex.Message}");
-                throw;
+                throw new Exception("An error occurred while deleting a record", ex);
             }
         }
 
@@ -122,14 +122,14 @@ namespace StackPosts_.Infrastructure.Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occured while retriving the record. See the following: {ex.Message}");
-                throw;
+                _logger.LogError($"An error occurred while retrieving the record. See the following: {ex.Message}");
+                throw new Exception("An error occurred while retrieving a record", ex);
             }
         }
 
         public async Task<IEnumerable<Post>> ListAllAsync()
         {
-            string sql = "SELECT p.*, r.* FROM Posts AS p INNER JOIN Replies AS r ON p.Id = r.PostId";
+            string sql = "SELECT p.*, r.* FROM Posts AS p LEFT JOIN Replies AS r ON p.Id = r.PostId ORDER BY p.DatePosted";
 
             try
             {
@@ -140,7 +140,7 @@ namespace StackPosts_.Infrastructure.Data
 
                     var postDictionary = new Dictionary<int, Post>();
 
-                    return await connection.QueryAsync<Post, Reply, Post>(sql, map: (p, r) =>
+                    var results = await connection.QueryAsync<Post, Reply, Post>(sql, map: (p, r) =>
                     {
                         if (!postDictionary.TryGetValue(p.Id, out Post post))
                         {
@@ -153,12 +153,14 @@ namespace StackPosts_.Infrastructure.Data
                         return post;
 
                     }, splitOn: "Id");
+
+                    return results.Distinct().ToList();
                 }
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occurred while retriving records. See the following: {ex.Message}");
-                throw;
+                _logger.LogError($"An error occurred while retrieving records. See the following: {ex.Message}");
+                throw new Exception("An error occurred while retrieving records", ex);
             }
         }
 
@@ -183,8 +185,8 @@ namespace StackPosts_.Infrastructure.Data
             }
             catch (Exception ex)
             {
-                _logger.LogError($"An error occured while retriving a record. See the following: {ex.Message}");
-                throw;
+                _logger.LogError($"An error occurred while retriving a record. See the following: {ex.Message}");
+                throw new Exception("An error occurred while checking the status of a record", ex);
             }
         }
 
@@ -192,11 +194,6 @@ namespace StackPosts_.Infrastructure.Data
         {
             string sql = "UPDATE Posts SET Title = @Title, Body = @Body WHERE Id= @Id";
             await _sqliteDataAccess.SaveData(sql, entity, ConnectionString);
-        }
-
-        public Task<bool> Save()
-        {
-            throw new NotImplementedException();
         }
     }
 }
