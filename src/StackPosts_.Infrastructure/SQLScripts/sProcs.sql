@@ -155,7 +155,8 @@ AS
 BEGIN
 	SELECT QuestionId, Title, Content, UserId, UserName, Created
 	FROM
-		(				SELECT QuestionId, Title, Content, UserId, UserName, Created
+		(	
+			SELECT QuestionId, Title, Content, UserId, UserName, Created
 			FROM dbo.Question
 			WHERE Title LIKE '%' + @Search + '%'
 
@@ -163,7 +164,8 @@ BEGIN
 
 			SELECT QuestionId, Title, Content, UserId, UserName, Created
 			FROM dbo.Question
-			WHERE Content LIKE '%' + @Search + '%') Sub
+			WHERE Content LIKE '%' + @Search + '%'
+		) Sub
 	ORDER BY QuestionId
 	OFFSET @PageSize * (@PageNumber - 1) ROWS
     FETCH NEXT @PageSize ROWS ONLY
