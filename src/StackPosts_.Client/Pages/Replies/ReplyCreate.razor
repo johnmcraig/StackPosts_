@@ -2,8 +2,9 @@
 
 @inject IPostService PostService
 @inject HttpClient Http
+@inject NavigationManager NavManager
 
-<EditForm Model="ReplyModel">
+<EditForm Model="ReplyModel" OnValidSubmit="CreateReply">
   <DataAnnotationsValidator />
 
   <ValidationSummary />
@@ -33,6 +34,15 @@
     private async Task CreateReply()
     {
         var response = await Http.PostAsJsonAsync("api/posts/reply", ReplyModel);
+        if(response != null)
+        {
+            BackToList();
+        }
+    }
+
+    protected void BackToList()
+    {
+        NavManager.NavigateTo("/posts/");
     }
 
 }
