@@ -52,15 +52,24 @@ namespace StackPosts_.Api.Controllers
    
         }
 
-        [HttpPost("reply")]
-        public async Task<IActionResult> AddReplyAsync([FromBody] Reply addNewReply)
+        [HttpPost("{id}/reply")]
+        public async Task<IActionResult> AddReplyAsync(int id, [FromBody] Reply addNewReply)
         {
+            var post = await _postRepo.GetByIdAsync(id);
+
+            if(post == null)
+            {
+                return NotFound();
+            }
+
             var postExists = await _postRepo.PostExists(addNewReply.PostId);
 
             if(!postExists)
             {
                 return NotFound();
             }
+
+            addNewReply.PostId = id;
 
             var savedReply = await _postRepo.AddReply(addNewReply);
 
@@ -74,7 +83,6 @@ namespace StackPosts_.Api.Controllers
 
             if (post == null) return NotFound();
 
-            // Warning, this is not thread-safe. Use interlocked methods.
              post.Score++;
 
             return Ok(post);
