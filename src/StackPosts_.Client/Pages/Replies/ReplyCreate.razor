@@ -15,7 +15,7 @@
     </div>
 
     <button class="btn btn-primary" type="submit">Submit</button>
-    <button class="btn btn-secondary" type="reset">Cancel</button>
+    <button class="btn btn-secondary" type="reset" @onclick="BackToList">Cancel</button>
 </EditForm>
 
 @code {
@@ -33,7 +33,15 @@
 
     private async Task CreateReply()
     {
-        var response = await Http.PostAsJsonAsync("api/posts/reply", ReplyModel);
+        var reply = new ReplyModel
+        {
+            Id = ReplyModel.Id,
+            PostId = PostModel.Id,
+            Body = ReplyModel.Body,
+            DateReplied = DateTime.UtcNow
+        };
+
+        var response = await Http.PostAsJsonAsync($"api/posts/{@PostModel.Id}/reply", reply);
         if(response != null)
         {
             BackToList();
