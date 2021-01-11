@@ -59,7 +59,7 @@ namespace StackPosts_.Api
 
             app.UseSwaggerDocumentation();
 
-            // app.UseBlazorFrameworkFiles();
+            app.UseBlazorFrameworkFiles();
 
             app.UseDefaultFiles();
 
@@ -68,7 +68,7 @@ namespace StackPosts_.Api
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
-                // endpoints.MapFallbackToFile("index.html");
+                endpoints.MapFallbackToFile("index.html");
                 // endpoints.MapFallbackToController("Index", "Fallback");
                 // endpoints.MapHub<PostHub>("/post-hub");
             });
