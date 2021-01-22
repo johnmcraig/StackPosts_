@@ -52,24 +52,15 @@ namespace StackPosts_.Api.Controllers
    
         }
 
-        [HttpPost("{id}/reply")]
-        public async Task<IActionResult> AddReplyAsync(int id, [FromBody] Reply addNewReply)
+        [HttpPost("/reply")]
+        public async Task<IActionResult> AddReplyAsync(Reply addNewReply)
         {
-            var post = await _postRepo.GetByIdAsync(id);
-
-            if(post == null)
-            {
-                return NotFound();
-            }
-
             var postExists = await _postRepo.PostExists(addNewReply.PostId);
 
             if(!postExists)
             {
                 return NotFound();
             }
-
-            addNewReply.PostId = id;
 
             var savedReply = await _postRepo.AddReply(addNewReply);
 
