@@ -12,10 +12,10 @@ namespace StackPosts_.Core.Entities
 
         public int Score { get; set; }
 
-        public bool Deleted { get; set; }
+        public bool Deleted { get; set; } = false;
 
         public DateTime DatePosted { get; set; }
 
-        public IList<Reply> Replies { get; set; }
+        public IList<Reply> Replies { get; set; } = new List<Reply>();
     }
 }
