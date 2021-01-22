@@ -12,10 +12,10 @@ namespace StackPosts_.Client.Models
         [Required]
         public string Body { get; set; }
 
-        public int Score { get; set; }
+        public int Score { get; set; } = 0;
 
         public DateTime DateReplied { get; set; }
         
-        public bool Deleted { get; set; }
+        public bool Deleted { get; set; } = false;
     }
 }
