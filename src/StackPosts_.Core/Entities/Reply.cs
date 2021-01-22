@@ -11,7 +11,7 @@ namespace StackPosts_.Core.Entities
         public int Score { get; set; }
 
         public DateTime DateReplied { get; set; }
-        
-        public bool Deleted { get; set; }
+
+        public bool Deleted { get; set; } = false;
     }
 }
