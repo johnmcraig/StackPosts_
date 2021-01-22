@@ -16,10 +16,10 @@ namespace StackPosts_.Client.Models
 
         public int Score { get; set; }
 
-        public bool Deleted { get; set; }
+        public bool Deleted { get; set; } = false;
 
         public DateTime DatePosted { get; set; }
 
-        public IEnumerable<ReplyModel> Replies { get; set; }
+        public IList<ReplyModel> Replies { get; set; } = new List<ReplyModel>();
     }
 }
