@@ -22,6 +22,8 @@
 
     [Parameter]
     public int Id { get; set; }
+    [Parameter]
+    public int PostId { get; set; }
 
     private ReplyModel ReplyModel = new ReplyModel();
     private PostModel PostModel = new PostModel();
@@ -38,10 +40,11 @@
             Id = ReplyModel.Id,
             PostId = PostModel.Id,
             Body = ReplyModel.Body,
-            DateReplied = DateTime.UtcNow
+            DateReplied = DateTime.UtcNow,
+            Deleted = false
         };
 
-        var response = await Http.PostAsJsonAsync($"api/posts/{@PostModel.Id}/reply", reply);
+        var response = await Http.PostAsJsonAsync($"api/posts/reply", reply);
         if(response != null)
         {
             BackToList();
