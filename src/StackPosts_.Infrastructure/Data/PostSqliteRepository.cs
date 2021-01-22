@@ -53,8 +53,9 @@ namespace StackPosts_.Infrastructure.Data
 
         public async Task<Reply> AddReply(Reply entity)
         {
-            string sql = "INSERT INTO Replies (PostId, Body, DateReplied, Score) VALUES (@PostId, @Body, @DateReplied, @Score);" +
-                         " SELECT @PostId, @Body, @DateReplied, @Score";
+            string sql = "INSERT INTO Replies (PostId, Body, DateReplied, Score, Deleted) " +
+                         "VALUES (@PostId, @Body, @DateReplied, @Score, @Deleted);" +
+                         " SELECT @PostId, @Body, @DateReplied, @Score, @Deleted";
 
             try
             {
@@ -63,7 +64,8 @@ namespace StackPosts_.Infrastructure.Data
                     entity.Body,
                     entity.DateReplied,
                     entity.PostId,
-                    entity.Score
+                    entity.Score,
+                    entity.Deleted
                 };
 
                 await _sqliteDataAccess.SaveData(sql, reply, ConnectionString);
