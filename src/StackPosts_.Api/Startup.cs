@@ -33,7 +33,7 @@ namespace StackPosts_.Api
                    builder.AllowAnyHeader()
                    .AllowAnyMethod()
                    .WithOrigins( "http://localhost:8080", 
-                                 "http://localhost:4200");
+                                 "http://localhost:4200", "https://localhost:5002", "http://localhost:5003");
                });
             });
 
