@@ -21,8 +21,7 @@ namespace StackPosts_.Client.Pages.Posts
         
         protected override async Task OnInitializedAsync()
         {
-             PostModelList = await PostService.GetAll(Endpoints.PostsEndpoint);
-             PostModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
+            PostModelList = await PostService.GetAll(Endpoints.PostsEndpoint);
         }
 
         protected void BackToList()
