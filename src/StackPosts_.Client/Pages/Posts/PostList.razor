@@ -15,24 +15,8 @@ else
     {
         <li class="card container p-2 m-2">
             <div class="card-body row">
-                @*                 @if (PostModelList != null) *@
-                @*                 { *@
-                @*                     <PostScore PostModel="PostModel"/> *@
-                @*                 } *@
-                @*                 else *@
-                @*                 { *@
-                @*                     <h3> *@
-                @*                       <span>0</span>   *@
-                @*                     </h3> *@
-                @*                 } *@
                 <h3 class="text-center">
-                    @*<button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="UpVote">
-                        <i class="oi oi-chevron-top"></i>
-                    </button>*@
                     <span class="d-block mx-auto"> @post.Score </span>
-                    @*<button class="btn btn-link btn-lg p-0 d-block mx-auto" @onclick="DownVote">
-                        <i class="oi oi-chevron-bottom"></i>
-                    </button>*@
                 </h3>
 
                 <div class="col-11">
