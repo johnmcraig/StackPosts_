@@ -13,7 +13,7 @@ else
     <p>@PostModel.Body</p>
     @if (PostModel.Replies == null || !PostModel.Replies.Any())
     {
-        <p>No comments yet for this post...</p>
+        <p>No replies yet for this post...</p>
     }
     else
     {
@@ -26,5 +26,13 @@ else
     <a class="btn btn-primary" href="/replies/create">
          <span class="oi oi-pencil"></span> Add A Reply
     </a>
+}
+
+@code {
+
+    protected override async Task OnInitializedAsync()
+    {
+        PostModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
+    }
 }
 
