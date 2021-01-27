@@ -72,7 +72,8 @@ namespace StackPosts_.Api.Controllers
         {
             var post = await _postRepo.GetByIdAsync(id);
 
-            if (post == null) return NotFound();
+            if (post == null) 
+                return NotFound();
 
              post.Score++;
 
@@ -84,7 +85,8 @@ namespace StackPosts_.Api.Controllers
         {
             var post = await _postRepo.GetByIdAsync(id);
 
-            if (post == null) return NotFound();
+            if (post == null) 
+                return NotFound();
 
              post.Score--;
 
