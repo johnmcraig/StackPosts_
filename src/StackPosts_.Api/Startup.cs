@@ -28,13 +28,17 @@ namespace StackPosts_.Api
             
             services.AddCors(opt =>
             {
-               opt.AddPolicy("CorsPolicy", builder =>
-               {
-                   builder.AllowAnyHeader()
-                   .AllowAnyMethod()
-                   .WithOrigins( "http://localhost:8080", 
-                                 "http://localhost:4200", "https://localhost:5002", "http://localhost:5003");
-               });
+               opt.AddPolicy("CorsPolicy", 
+                   builder =>
+                   {
+                       builder
+                       .AllowAnyHeader()
+                       .AllowAnyMethod()
+                       .WithOrigins("http://localhost:8080",
+                           "http://localhost:4200", 
+                           "https://localhost:5002", 
+                           "http://localhost:5003", "*");
+                   });
             });
 
             services.AddControllers().AddNewtonsoftJson(opt => {
@@ -51,12 +55,12 @@ namespace StackPosts_.Api
 
             app.UseStatusCodePagesWithReExecute("/errors/{0}");
 
+            app.UseCors("CorsPolicy");
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
             
-            app.UseCors("CorsPolicy");
-
             app.UseSwaggerDocumentation();
 
             app.UseBlazorFrameworkFiles();
