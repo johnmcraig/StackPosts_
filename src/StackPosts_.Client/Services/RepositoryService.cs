@@ -30,7 +30,8 @@ namespace StackPosts_.Client.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                Console.WriteLine($"{ex}");
+                return default;
             } 
         }
 
@@ -45,18 +46,28 @@ namespace StackPosts_.Client.Services
             catch (Exception ex)
             {
                 _logger.LogError(ex.Message);
-                return null;
+                Console.WriteLine($"{ex}");
+                return default;
             } 
         }
 
         public async Task<T> Create(string url, T entity)
         {
-            var response = await _client.PostAsJsonAsync<T>(url, entity);
+            try
+            {
+                var response = await _client.PostAsJsonAsync<T>(url, entity);
             
-            if (response.StatusCode == System.Net.HttpStatusCode.Created) 
-                return entity;
+                if (response.StatusCode == System.Net.HttpStatusCode.Created) 
+                    return entity;
 
-            return null; 
+                return null;
+            }
+            catch(Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                Console.WriteLine($"{ex}");
+                return default; 
+            }
         }
 
         public async Task<T> Update(string url, T entity, int id)
