@@ -7,7 +7,7 @@ using StackPosts_.Client.Static;
 
 namespace StackPosts_.Client.Pages.Posts
 {
-    public class PostBase : ComponentBase
+    public partial class PostBase : ComponentBase
     { 
         [Inject] private IPostService PostService { get; set; }
         [Inject] private NavigationManager NavManager { get; set; }
