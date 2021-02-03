@@ -1,0 +1,36 @@
+﻿@inject IRepositoryService<ReplyModel> Repo
+
+<EditForm Model="@reply" OnValidSubmit="HandleValidSubmit">
+    <DataAnnotationsValidator />
+
+    <ValidationSummary />
+
+    <div class="form-group">
+        <label>Your Reply:</label>
+        <InputTextArea @bind-Value="reply.Body" class="form-control" placeholder="Enter your reply here..." />
+    </div>
+
+    <button class="btn btn-primary" type="submit">Submit</button>
+    <button class="btn btn-secondary" type="reset">Cancel</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    [Parameter]
+    public EventCallback<ReplyModel> OnAddReply { get; set; }
+
+    private ReplyModel reply = new ReplyModel();
+
+    private async Task HandleValidSubmit()
+    {
+        await Repo.Create("api/posts/reply", reply);
+        await OnAddReply.InvokeAsync(reply);
+    }
+
+    protected override async Task OnParametersSetAsync()
+    {
+        var post = await Repo.GetSingle(Endpoints.PostsEndpoint, Id);
+    }
+}
