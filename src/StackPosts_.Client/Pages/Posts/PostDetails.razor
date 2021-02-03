@@ -23,16 +23,35 @@ else
         }  
     }
     
-    <a class="btn btn-primary" href="/replies/create">
+    <button class="btn btn-primary" @onclick="(() => AddReply(PostModel.Id))">
          <span class="oi oi-pencil"></span> Add A Reply
-    </a>
+    </button>
+
+    <div class="col-md-4">
+        @if (showReplyBody)
+        {
+            <AddReply Id="@PostModel.Id" OnAddReply="HandleOnAddReply"></AddReply>
+        }
+    </div>
 }
 
 @code {
+    private bool showReplyBody = false;
 
     protected override async Task OnInitializedAsync()
     {
         PostModel = await PostService.GetSingle(Endpoints.PostsEndpoint, Id);
+    }
+
+    private void AddReply(int id)
+    {
+        id = PostModel.Id;
+        showReplyBody = true;
+    }
+
+    private void HandleOnAddReply()
+    {
+        showReplyBody = false;
     }
 }
 
