@@ -66,31 +66,5 @@ namespace StackPosts_.Api.Controllers
 
             return Created("AddReplyAsync", new { savedReply });
         }
-
-        [HttpPatch("{id}/upvote")]
-        public async Task<IActionResult> UpvotePostAsync(int id)
-        {
-            var post = await _postRepo.GetByIdAsync(id);
-
-            if (post == null) 
-                return NotFound();
-
-             post.Score++;
-
-            return Ok(post);
-        }
-
-        [HttpPatch("{id}/downvote")]
-        public async Task<IActionResult> DownvotePostAsync(int id)
-        {
-            var post = await _postRepo.GetByIdAsync(id);
-
-            if (post == null) 
-                return NotFound();
-
-             post.Score--;
-
-            return Ok(post);
-        }
     }
 }
