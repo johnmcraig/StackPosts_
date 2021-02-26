@@ -12,10 +12,10 @@ namespace StackPosts_.Infrastructure.Data
     {
         private readonly IConfiguration _config;
         
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, IConfiguration config) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, 
+            IConfiguration config) : base(options)
         {
             _config = config;
-            Database.EnsureCreated();
         }
 
         public DbSet<Post> Posts { get; set; }
