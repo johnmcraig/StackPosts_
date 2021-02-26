@@ -13,7 +13,7 @@ namespace StackPosts_.Client.Services
         private readonly HttpClient _client;
         private readonly ILogger<RepositoryService<T>> _logger;
 
-        protected RepositoryService(HttpClient client, ILogger<RepositoryService<T>> logger)
+        public RepositoryService(HttpClient client, ILogger<RepositoryService<T>> logger)
         {
             _client = client;
             _logger = logger;
