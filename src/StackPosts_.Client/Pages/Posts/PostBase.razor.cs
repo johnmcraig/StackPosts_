@@ -28,15 +28,5 @@ namespace StackPosts_.Client.Pages.Posts
         {
             NavManager.NavigateTo("/posts/");
         }
-
-        protected void UpVote()
-        {
-            PostModel.Score++;
-        }
-
-        protected void DownVote()
-        {
-            PostModel.Score--;
-        }
     }
 }
